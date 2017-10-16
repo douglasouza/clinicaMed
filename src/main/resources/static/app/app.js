@@ -1,5 +1,9 @@
 (function (angular) {
-    angular.module("myApp.controllers", []);
-    angular.module("myApp.services", []);
-    angular.module("myApp", ["ngResource", "myApp.controllers", "myApp.services"]);
+
+    var myApp = angular.module("myApp", ["ngResource", 'ui.router']);
+
+    myApp.config(function ($urlRouterProvider) {
+        $urlRouterProvider.otherwise('home');
+    });
+
 }(angular));

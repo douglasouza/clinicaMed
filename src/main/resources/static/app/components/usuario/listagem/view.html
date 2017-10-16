@@ -1,0 +1,47 @@
+<div class="container">
+
+    <h1>Pesquisar Usuários</h1>
+    <hr>
+
+    <a class="link-new-entity" ui-sref="usuario.novo">
+        <span class="glyphicon glyphicon-plus-sign"></span> Novo Usuário
+    </a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Tipo Usuário</th>
+            <th>Nome</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="usuario in usuarios track by usuario.id">
+            <td>{{usuario.tipoUsuario}}</td>
+            <td>{{usuario.nome}}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-warning"
+                        ui-sref="usuario.edicao({id: usuario.id})">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<div class="form-group">-->
+    <!--<label for="nomeRecepcionista">Nome:</label>-->
+    <!--<input id="nomeRecepcionista" class="form-control" type="text" ng-model="recepcionista.nome">-->
+    <!--</div>-->
+
+    <!--<div class="form-group">-->
+    <!--<label for="cpfRecepcionista">CPF:</label>-->
+    <!--<input id="cpfRecepcionista" class="form-control" type="text" ng-model="recepcionista.cpf">-->
+    <!--</div>-->
+
+    <!--<button class="btn btn-default" ng-click="salvar()">Salvar</button>-->
+
+</div>
