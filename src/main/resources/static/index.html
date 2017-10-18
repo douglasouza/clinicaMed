@@ -1,46 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <link rel="stylesheet" href="./bower_components/bootstrap-css-only/css/bootstrap.min.css"/>
+    <title>Clínica Médica</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./css.css"/>
 </head>
-<body ng-app="myApp">
-<div class="container" ng-controller="AppController">
-    <div class="page-header">
-        <h1>A checklist</h1>
+
+<body ng-app="clinicaMed">
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="home">Clínica Médica</a>
     </div>
-    <div class="alert alert-info" role="alert" ng-hide="items && items.length > 0">
-        There are no items yet.
-    </div>
-    <form class="form-horizontal" role="form" ng-submit="addItem(newItem)">
-        <div class="form-group" ng-repeat="item in items">
-            <div class="checkbox col-xs-9">
-                <label>
-                    <input type="checkbox" ng-model="item.checked" ng-change="updateItem(item)"/> {{item.description}}
-                </label>
-            </div>
-            <div class="col-xs-3">
-                <button class="pull-right btn btn-danger" type="button" title="Delete"
-                        ng-click="deleteItem(item)">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </button>
-            </div>
-        </div>
-        <hr/>
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model="newItem" placeholder="Enter the description..."/>
-            <span class="input-group-btn">
-            <button class="btn btn-default" type="submit" ng-disabled="!newItem" title="Add">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
-        </div>
-    </form>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="usuario.listagem">Usuário</a></li>
+    </ul>
+</nav>
+
+<div class="container" ng-cloak>
+    <div ui-view></div>
 </div>
+
 <script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
 <script type="text/javascript" src="./bower_components/angular-resource/angular-resource.min.js"></script>
-<script type="text/javascript" src="./bower_components/lodash/dist/lodash.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./app/app.js"></script>
-<script type="text/javascript" src="./app/controllers.js"></script>
-<script type="text/javascript" src="./app/services.js"></script>
+<script type="text/javascript" src="./app/components/home/controller.js"></script>
+<script type="text/javascript" src="./app/components/home/router.js"></script>
+<script type="text/javascript" src="./app/components/usuario/edicao/controller.js"></script>
+<script type="text/javascript" src="./app/components/usuario/edicao/router.js"></script>
+<script type="text/javascript" src="./app/components/usuario/edicao/service.js"></script>
+<script type="text/javascript" src="./app/components/usuario/listagem/controller.js"></script>
+<script type="text/javascript" src="./app/components/usuario/listagem/router.js"></script>
+<script type="text/javascript" src="./app/components/usuario/listagem/service.js"></script>
+<script type="text/javascript" src="./app/components/usuario/root/router.js"></script>
+
 </body>
 </html>

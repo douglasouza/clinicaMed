@@ -1,0 +1,49 @@
+<h1>Pesquisar Usuários</h1>
+<hr>
+
+<div ng-if="mostrarAlertaSucesso" class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    Operação realizada com sucesso!
+</div>
+
+<div ng-if="mostrarAlertaErro" class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Erro!</strong> Ocorreu um erro ao efetuar a operação. Tente novamente.
+</div>
+
+<div class="col-md-12">
+    <a class="link-novo-cadastro" ui-sref="usuario.novo">
+        <span class="glyphicon glyphicon-plus-sign"></span> Novo Usuário
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Tipo Usuário</th>
+        <th>Nome</th>
+        <th>Login</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="usuario in usuarios track by usuario.id">
+        <td>{{usuario.tipoUsuario === 'MEDICO' ? 'Médico' : 'Recepcionista'}}</td>
+        <td>{{usuario.nome}}</td>
+        <td>{{usuario.login}}</td>
+        <td>
+            <button type="button" class="btn btn-sm btn-warning"
+                    ui-sref="usuario.edicao({id: usuario.id})">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="excluirUsuario(usuario.id)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
