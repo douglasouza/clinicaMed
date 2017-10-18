@@ -1,8 +1,10 @@
 (function (angular) {
 
-    var myApp = angular.module("myApp", ["ngResource", 'ui.router']);
+    var clinicaMed = angular.module("clinicaMed", ["ngResource", 'ui.router']);
 
-    myApp.config(function ($urlRouterProvider) {
+    clinicaMed.config(function ($urlRouterProvider) {
+        $urlRouterProvider.when('/usuario', '/usuario/listagem');
+        $urlRouterProvider.when('/usuario/', '/usuario/listagem');
         $urlRouterProvider.otherwise('home');
     });
 

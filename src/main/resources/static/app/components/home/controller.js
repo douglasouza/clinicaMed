@@ -1,4 +1,3 @@
-var myApp = angular.module('myApp');
+var clinicaMed = angular.module('clinicaMed');
 
-myApp.controller('homeController', function ($scope) {
-});
+clinicaMed.controller('homeController', function ($scope) { });

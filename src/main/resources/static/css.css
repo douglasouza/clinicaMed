@@ -13,8 +13,18 @@ a:hover {
     text-decoration: none;
 }
 
-.link-new-entity {
+.link-novo-cadastro {
     color: darkgreen;
     font-weight: bold;
     float: right;
+}
+
+label::after {
+    content: ' *';
+    color: red;
+}
+
+.mensagem-erro {
+    color: red;
+    padding-top: 5px;
 }

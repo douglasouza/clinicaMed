@@ -3,13 +3,17 @@ package br.com.clinic.service;
 import br.com.clinic.entity.Usuario;
 import br.com.clinic.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioService {
 
     @Autowired
     private UsuarioRepository repo;
@@ -31,13 +35,13 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Usuario updateItem(@RequestBody Usuario updatedUsuario, @PathVariable Long id) {
+    public Usuario update(@RequestBody Usuario updatedUsuario, @PathVariable Long id) {
         updatedUsuario.setId(id);
         return repo.saveAndFlush(updatedUsuario);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteRecepcionista(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         repo.delete(id);
     }
 }

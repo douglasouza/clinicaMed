@@ -1,6 +1,6 @@
-var myApp = angular.module('myApp');
+var clinicaMed = angular.module('clinicaMed');
 
-myApp.config(function ($stateProvider) {
+clinicaMed.config(function ($stateProvider) {
 
     $stateProvider.state('home', {
         url: '/home',

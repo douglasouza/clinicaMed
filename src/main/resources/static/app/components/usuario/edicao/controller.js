@@ -1,36 +1,7 @@
-var myApp = angular.module('myApp');
+var clinicaMed = angular.module('clinicaMed');
 
-myApp.controller('usuarioEdicaoController',
+clinicaMed.controller('usuarioEdicaoController',
     ['$scope', '$state', '$stateParams', 'usuarioEdicaoService', function ($scope, $state, $stateParams, usuarioEdicaoService) {
-
-        function operacaoSucesso() {
-            $scope.showAlertSuccess = true;
-            $scope.showAlertError = false;
-        }
-
-        function operacaoErro() {
-            $scope.showAlertSuccess = false;
-            $scope.showAlertError = true;
-        }
-
-        function initialize() {
-            $scope.showAlertSuccess = false;
-            $scope.showAlertError = false;
-            $scope.acao = $state.current.name === 'usuario.novo' ? 'NOVO' : 'EDICAO';
-
-            if ($scope.acao === 'NOVO') {
-                $scope.usuario = {tipoUsuario: 'MEDICO'};
-            } else {
-                usuarioEdicaoService.getUsuario($stateParams.id).$promise.then(
-                    function (data) {
-                        $scope.usuario = data;
-                    }
-                );
-            }
-        }
-
-        initialize();
-
         $scope.salvar = function () {
             if ($scope.acao === 'NOVO') {
                 usuarioEdicaoService.saveUsuario($scope.usuario);
@@ -39,9 +10,8 @@ myApp.controller('usuarioEdicaoController',
             }
         };
 
-        $scope.$on('USUARIO_SAVE_SUCCESS', function (data) {
+        $scope.$on('USUARIO_SAVE_SUCCESS', function () {
             operacaoSucesso();
-            $state.go('usuario.editar', {id: data.id});
         });
 
         $scope.$on('USUARIO_SAVE_ERROR', function () {
@@ -56,5 +26,33 @@ myApp.controller('usuarioEdicaoController',
             operacaoErro();
         });
 
+        function operacaoSucesso() {
+            $scope.mostrarAlertaSucesso = true;
+            $scope.mostrarAlertaErro = false;
+            $scope.acaoFinalizada = true;
+        }
+
+        function operacaoErro() {
+            $scope.mostrarAlertaSucesso = false;
+            $scope.mostrarAlertaErro = true;
+        }
+
+        function inicializar() {
+            $scope.mostrarAlertaSucesso = false;
+            $scope.mostrarAlertaErro = false;
+            $scope.acao = $state.current.name === 'usuario.novo' ? 'NOVO' : 'EDICAO';
+
+            if ($scope.acao === 'NOVO') {
+                $scope.usuario = {tipoUsuario: 'MEDICO'};
+            } else {
+                usuarioEdicaoService.getUsuario($stateParams.id).$promise.then(
+                    function (data) {
+                        $scope.usuario = data;
+                    }
+                );
+            }
+        }
+
+        inicializar();
     }]
 );
