@@ -1,4 +1,4 @@
-<h1>Pesquisar Usuários</h1>
+<h1>Pesquisar Médicos</h1>
 <hr>
 
 <div ng-if="mostrarAlertaSucesso" class="alert alert-success" role="alert">
@@ -16,31 +16,33 @@
 </div>
 
 <div class="col-md-12">
-    <a class="link-novo-cadastro" ui-sref="usuario.novo">
-        <span class="glyphicon glyphicon-plus-sign"></span> Novo Usuário
+    <a class="link-novo-cadastro" ui-sref="medico.novo">
+        <span class="glyphicon glyphicon-plus-sign"></span> Cadastrar Médico
     </a>
 </div>
 
 <table class="table">
     <thead>
     <tr>
-        <th>Tipo Usuário</th>
         <th>Nome</th>
+        <th>Especialidade</th>
+        <th>CRM</th>
         <th>Login</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="usuario in usuarios track by usuario.id">
-        <td>{{usuario.tipoUsuario === 'MEDICO' ? 'Médico' : 'Recepcionista'}}</td>
-        <td>{{usuario.nome}}</td>
-        <td>{{usuario.login}}</td>
+    <tr ng-repeat="medico in medicos track by medico.id">
+        <td>{{medico.nome}}</td>
+        <td>{{medico.especialidade}}</td>
+        <td>{{medico.crm}}</td>
+        <td>{{medico.login}}</td>
         <td>
             <button type="button" class="btn btn-sm btn-warning"
-                    ui-sref="usuario.edicao({id: usuario.id})">
+                    ui-sref="medico.edicao({id: medico.id})">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
-            <button type="button" class="btn btn-sm btn-danger" ng-click="excluirUsuario(usuario.id)">
+            <button type="button" class="btn btn-sm btn-danger" ng-click="excluirMedico(medico.id)">
                 <span class="glyphicon glyphicon-trash"></span>
             </button>
         </td>

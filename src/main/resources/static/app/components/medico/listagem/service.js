@@ -1,9 +1,9 @@
 var clinicaMed = angular.module('clinicaMed');
 
-clinicaMed.service('usuarioListagemService', function ($rootScope, $resource) {
+clinicaMed.service('medicoListagemService', function ($rootScope, $resource) {
 
     function resource() {
-        return $resource('/usuario/:id', {}, {
+        return $resource('/medico/:id', {}, {
             'query': {method: 'GET', isArray: true},
             'delete': {method: 'DELETE'}
         });
@@ -12,21 +12,21 @@ clinicaMed.service('usuarioListagemService', function ($rootScope, $resource) {
     this.fetchAll = function () {
         resource().query().$promise.then(
             function (data) {
-                $rootScope.$broadcast('USUARIOS_FETCHED_SUCCESS', data);
+                $rootScope.$broadcast('MEDICOS_FETCHED_SUCCESS', data);
             },
             function () {
-                $rootScope.$broadcast('USUARIOS_FETCHED_ERROR');
+                $rootScope.$broadcast('MEDICOS_FETCHED_ERROR');
             }
         );
     };
 
-    this.deleteUsuario = function (id) {
+    this.deleteMedico = function (id) {
         return resource().delete({id: id}).$promise.then(
             function () {
-                $rootScope.$broadcast('USUARIO_DELETE_SUCCESS');
+                $rootScope.$broadcast('MEDICO_DELETE_SUCCESS');
             },
             function () {
-                $rootScope.$broadcast('USUARIO_DELETE_ERROR');
+                $rootScope.$broadcast('MEDICO_DELETE_ERROR');
             }
         );
     };

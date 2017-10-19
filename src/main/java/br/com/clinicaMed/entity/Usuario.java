@@ -1,12 +1,15 @@
-package br.com.clinic.entity;
+package br.com.clinicaMed.entity;
 
-import br.com.clinic.enumeration.ETipoUsuario;
+import br.com.clinicaMed.enumeration.ETipoUsuario;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class Usuario extends Pessoa {
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String login;
@@ -16,6 +19,14 @@ public class Usuario extends Pessoa {
 
     @Column
     private ETipoUsuario tipoUsuario;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;
