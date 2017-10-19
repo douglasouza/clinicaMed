@@ -1,6 +1,6 @@
 package br.com.clinicaMed.enumeration;
 
-public enum ETipoUsuario {
+public enum TipoUsuario {
     MEDICO,
     RECEPCIONISTA
 }

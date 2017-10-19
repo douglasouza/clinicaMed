@@ -15,37 +15,95 @@
     <strong>Erro!</strong> Ocorreu um erro ao efetuar a operação. Tente novamente.
 </div>
 
-<div class="col-md-12">
-    <a class="link-novo-cadastro" ui-sref="medico.novo">
-        <span class="glyphicon glyphicon-plus-sign"></span> Cadastrar Médico
-    </a>
+<div class="col-md-6 form-group">
+    <input id="nomeCrmLoginFiltro" name="nomeCrmLoginFiltro" class="form-control" type="text"
+           placeholder="Pesquisar por Nome, CRM ou Login" ng-model="filtro.nomeCrmLogin">
+</div>
+
+<div class="col-md-3 form-group">
+    <select id="especialidadeFiltro" name="especialidadeFiltro" class="form-control"
+            ng-model="filtro.especialidade">
+        <option value="">Filtre por Especialidade</option>
+        <option value="ALERGIA_E_IMUNOLOGIA">Alergia e Imunologia</option>
+        <option value="CARDIOLOGIA">Cardiologia</option>
+        <option value="CLINICO_GERAL">Clínico Geral</option>
+        <option value="DERMATOLOGIA">Dermatologia</option>
+        <option value="GERIATRIA">Geriatria</option>
+        <option value="GINECOLOGIA">Ginecologia</option>
+        <option value="NEUROLOGIA">Neurologia</option>
+        <option value="OBSTETRICIA">Obstetricia</option>
+        <option value="OFTALMOLOGIA">Oftalmologia</option>
+        <option value="ORTOPEDIA">Ortopedia</option>
+        <option value="OTORRINOLARINGOLOGIA">Otorrinolaringologia</option>
+        <option value="PEDIATRIA">Pediatria</option>
+        <option value="PSIQUIATRIA">Psiquiatria</option>
+        <option value="REUMATOLOGIA">Reumatologia</option>
+        <option value="UROLOGIA">Urologia</option>
+    </select>
+</div>
+
+<div ng-show="!pesquisaRealizada" class="col-md-2 form-group">
+    <button type="button" class="btn btn-block btn-primary" ng-click="pesquisar()">
+        <span class="glyphicon glyphicon-search"></span> Pesquisar
+    </button>
+</div>
+
+<div ng-show="pesquisaRealizada" class="col-md-2 form-group">
+    <button type="button" class="btn btn-block btn-danger" ng-click="limparPesquisa()">
+        <span class="glyphicon glyphicon-search"></span> Limpar Pesquisa
+    </button>
+</div>
+
+<div class="col-md-1">
+    <button type="button" class="btn btn-block btn-success" ui-sref="medico.novo">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+    </button>
 </div>
 
 <table class="table">
     <thead>
     <tr>
-        <th>Nome</th>
-        <th>Especialidade</th>
-        <th>CRM</th>
-        <th>Login</th>
-        <th></th>
+        <th class="col-md-5">Nome</th>
+        <th class="col-md-2">Especialidade</th>
+        <th class="col-md-1">CRM</th>
+        <th class="col-md-2">Login</th>
+        <th class="col-md-2"></th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="medico in medicos track by medico.id">
-        <td>{{medico.nome}}</td>
-        <td>{{medico.especialidade}}</td>
-        <td>{{medico.crm}}</td>
-        <td>{{medico.login}}</td>
-        <td>
-            <button type="button" class="btn btn-sm btn-warning"
-                    ui-sref="medico.edicao({id: medico.id})">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-            <button type="button" class="btn btn-sm btn-danger" ng-click="excluirMedico(medico.id)">
-                <span class="glyphicon glyphicon-trash"></span>
-            </button>
+        <td class="col-md-5">{{medico.nome}}</td>
+        <td class="col-md-2">{{medico.especialidade}}</td>
+        <td class="col-md-1">{{medico.crm}}</td>
+        <td class="col-md-2">{{medico.login}}</td>
+        <td class="col-md-2">
+            <a ui-sref="medico.edicao({id: medico.id})">
+                <span class="glyphicon glyphicon-pencil"></span> Editar
+            </a>
+            <a data-toggle="modal" data-target="#modalExclusao" ng-click="excluirMedico(medico.id)">
+                <span class="glyphicon glyphicon-trash"></span> Excluir
+            </a>
         </td>
     </tr>
     </tbody>
 </table>
+
+<div id="modalExclusao" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Deseja realmente excluir este cadastro?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmarExcluirMedico()">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

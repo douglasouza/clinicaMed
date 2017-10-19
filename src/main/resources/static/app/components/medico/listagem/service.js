@@ -9,8 +9,8 @@ clinicaMed.service('medicoListagemService', function ($rootScope, $resource) {
         });
     }
 
-    this.fetchAll = function () {
-        resource().query().$promise.then(
+    this.fetchAll = function (medico) {
+        resource().query(medico).$promise.then(
             function (data) {
                 $rootScope.$broadcast('MEDICOS_FETCHED_SUCCESS', data);
             },

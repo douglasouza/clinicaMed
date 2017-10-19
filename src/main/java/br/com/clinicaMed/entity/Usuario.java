@@ -1,6 +1,6 @@
 package br.com.clinicaMed.entity;
 
-import br.com.clinicaMed.enumeration.ETipoUsuario;
+import br.com.clinicaMed.enumeration.TipoUsuario;
 
 import javax.persistence.*;
 
@@ -18,7 +18,7 @@ public class Usuario {
     private String senha;
 
     @Column
-    private ETipoUsuario tipoUsuario;
+    private TipoUsuario tipoUsuario;
 
     public Long getId() {
         return id;
@@ -44,11 +44,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public ETipoUsuario getTipoUsuario() {
+    public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(ETipoUsuario tipoUsuario) {
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 }

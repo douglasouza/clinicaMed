@@ -3,8 +3,25 @@ var clinicaMed = angular.module('clinicaMed');
 clinicaMed.controller('medicoListagemController',
     ['$scope', 'medicoListagemService', function ($scope, medicoListagemService) {
 
+        $scope.pesquisar = function () {
+            if ($scope.filtro.nomeCrmLogin || $scope.filtro.especialidade) {
+                medicoListagemService.fetchAll($scope.filtro);
+                $scope.pesquisaRealizada = true;
+            }
+        };
+
+        $scope.limparPesquisa = function () {
+            $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
+            medicoListagemService.fetchAll($scope.filtro);
+            $scope.pesquisaRealizada = false;
+        };
+
         $scope.excluirMedico = function (idMedico) {
-            medicoListagemService.deleteMedico(idMedico);
+            $scope.idMedico = idMedico;
+        };
+
+        $scope.confirmarExcluirMedico = function () {
+            medicoListagemService.deleteMedico($scope.idMedico);
         };
 
         $scope.$on('MEDICOS_FETCHED_SUCCESS', function (e, data) {
@@ -35,7 +52,8 @@ clinicaMed.controller('medicoListagemController',
         }
 
         function initizialize() {
-            medicoListagemService.fetchAll();
+            $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
+            medicoListagemService.fetchAll($scope.filtro);
         }
 
         initizialize();

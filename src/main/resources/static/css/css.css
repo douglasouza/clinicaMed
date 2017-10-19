@@ -4,24 +4,24 @@ body {
 
 a:link, a:visited, a:focus {
     text-decoration: none;
-    color: darkgreen;
 }
 
-a:hover {
-    color: green;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.link-novo-cadastro {
-    color: darkgreen;
-    font-weight: bold;
-    float: right;
+button.acoes-item-listagem {
+    margin-bottom: 4px;
 }
 
 label::after {
     content: ' *';
     color: red;
+}
+
+nav {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+nav a {
+    color: white !important;
 }
 
 .mensagem-erro {

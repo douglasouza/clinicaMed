@@ -19,7 +19,6 @@
 <form name="medicoForm" novalidate>
     <div class="col-md-12">
         <h3>Dados do Médico</h3>
-        <hr>
     </div>
 
     <div class="col-md-6 form-group">
@@ -32,7 +31,8 @@
 
     <div class="col-md-6 form-group">
         <label for="crmMedico">CRM</label>
-        <input id="crmMedico" name="crmMedico" class="form-control" type="number" ng-model="medico.crm"
+        <input id="crmMedico" name="crmMedico" class="form-control" type="text" ng-model="medico.crm"
+               onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                ng-minlength="4" ng-disabled="acaoFinalizada" required>
         <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.required"
            class="mensagem-erro">CRM é um campo obrigatório</p>
@@ -44,6 +44,7 @@
         <label for="especialidadeMedico">Especialidade</label>
         <select id="especialidadeMedico" name="especialidadeMedico" class="form-control" ng-model="medico.especialidade"
                 ng-disabled="acaoFinalizada" required>
+            <option value="">Selecione</option>
             <option value="ALERGIA_E_IMUNOLOGIA">Alergia e Imunologia</option>
             <option value="CARDIOLOGIA">Cardiologia</option>
             <option value="CLINICO_GERAL">Clínico Geral</option>
@@ -66,7 +67,6 @@
 
     <div class="col-md-12">
         <h3>Dados de Acesso ao Sistema</h3>
-        <hr>
     </div>
 
     <div class="col-md-6 form-group">

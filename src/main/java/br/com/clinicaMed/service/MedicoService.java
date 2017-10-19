@@ -1,11 +1,15 @@
 package br.com.clinicaMed.service;
 
+import br.com.clinicaMed.business.MedicoBO;
 import br.com.clinicaMed.entity.Medico;
+import br.com.clinicaMed.enumeration.EspecialidadeMedica;
 import br.com.clinicaMed.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/medico")
@@ -14,9 +18,12 @@ public class MedicoService {
     @Autowired
     private MedicoRepository repo;
 
+    @Autowired
+    private MedicoBO bo;
+
     @RequestMapping(method = RequestMethod.GET)
-    public List findAll() {
-        return repo.findAll();
+    public Object findAll(String nomeCrmLogin, EspecialidadeMedica especialidade) {
+        return bo.pesquisarMedico(nomeCrmLogin, especialidade);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
