@@ -4,6 +4,8 @@ import br.com.clinicaMed.entity.Medico;
 import br.com.clinicaMed.entity.QMedico;
 import br.com.clinicaMed.entity.Usuario;
 import br.com.clinicaMed.enumeration.EspecialidadeMedica;
+import br.com.clinicaMed.exception.CrmNaoUnicoException;
+import br.com.clinicaMed.exception.LoginNaoUnicoException;
 import br.com.clinicaMed.repository.MedicoRepository;
 import br.com.clinicaMed.repository.UsuarioRepository;
 import com.mysema.query.types.expr.BooleanExpression;
@@ -28,6 +30,12 @@ public class MedicoBO {
     }
 
     public Medico inserirMedico(Medico medico) {
+        if (existeUsuarioCadastradoComMesmoLogin(medico))
+            throw new LoginNaoUnicoException();
+
+        if (existeMedicoCadastradoComMesmoCrm(medico))
+            throw new CrmNaoUnicoException();
+
         Usuario usuario = usuarioRepo.save(medico.getUsuario());
         medico.setId(null);
         medico.setUsuario(usuario);
@@ -35,6 +43,12 @@ public class MedicoBO {
     }
 
     public Medico atualizarMedico(Medico updatedMedico, Long id) {
+        if (existeUsuarioCadastradoComMesmoLogin(updatedMedico))
+            throw new LoginNaoUnicoException();
+
+        if (existeMedicoCadastradoComMesmoCrm(updatedMedico))
+            throw new CrmNaoUnicoException();
+
         Usuario usuario = usuarioRepo.save(updatedMedico.getUsuario());
         updatedMedico.setId(id);
         updatedMedico.setUsuario(usuario);
@@ -45,7 +59,7 @@ public class MedicoBO {
         BooleanExpression booleanExpression = null;
         if (!StringUtils.isEmpty(nomeCrmLogin))
             booleanExpression = QMedico.medico.nome.containsIgnoreCase(nomeCrmLogin)
-                    .or(QMedico.medico.crm.like("%" + nomeCrmLogin + "%"))
+                    .or(QMedico.medico.crm.containsIgnoreCase(nomeCrmLogin))
                     .or(QMedico.medico.usuario.login.containsIgnoreCase(nomeCrmLogin));
 
         if (!StringUtils.isEmpty(especialidade)) {
@@ -56,5 +70,15 @@ public class MedicoBO {
         }
 
         return booleanExpression;
+    }
+
+    private Boolean existeMedicoCadastradoComMesmoCrm(Medico medico) {
+        Medico medicoComMesmoCrm = repo.findByCrm(medico.getCrm());
+        return medicoComMesmoCrm != null && (medicoComMesmoCrm.getId() != medico.getUsuario().getId());
+    }
+
+    private Boolean existeUsuarioCadastradoComMesmoLogin(Medico medico) {
+        Usuario usuarioComMesmoLogin = usuarioRepo.findByLogin(medico.getUsuario().getLogin());
+        return usuarioComMesmoLogin != null && (usuarioComMesmoLogin.getId() != medico.getUsuario().getId());
     }
 }

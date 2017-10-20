@@ -18,9 +18,6 @@ clinicaMed.service('medicoEdicaoService', function ($rootScope, $resource) {
         return resource().save(medico).$promise.then(
             function () {
                 $rootScope.$broadcast('MEDICO_SAVE_SUCCESS');
-            },
-            function () {
-                $rootScope.$broadcast('MEDICO_SAVE_ERROR');
             }
         );
     };
@@ -29,9 +26,6 @@ clinicaMed.service('medicoEdicaoService', function ($rootScope, $resource) {
         return resource().update({id: id}, medico).$promise.then(
             function () {
                 $rootScope.$broadcast('MEDICO_UPDATE_SUCCESS');
-            },
-            function () {
-                $rootScope.$broadcast('MEDICO_UPDATE_ERROR');
             }
         );
     };

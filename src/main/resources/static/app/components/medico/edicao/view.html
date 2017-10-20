@@ -2,19 +2,8 @@
 <h1 ng-if="acao === 'EDICAO'">Editar Médico</h1>
 <hr>
 
-<div ng-if="mostrarAlertaSucesso" class="alert alert-success" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    Operação realizada com sucesso!
-</div>
-
-<div ng-if="mostrarAlertaErro" class="alert alert-danger" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <strong>Erro!</strong> Ocorreu um erro ao efetuar a operação. Tente novamente.
-</div>
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
 
 <form name="medicoForm" novalidate>
     <div class="col-md-12">
@@ -24,7 +13,7 @@
     <div class="col-md-6 form-group">
         <label for="nomeMedico">Nome</label>
         <input id="nomeMedico" name="nomeMedico" class="form-control" type="text" ng-model="medico.nome"
-               ng-disabled="acaoFinalizada" required>
+               maxlength="254" ng-disabled="acaoFinalizada" required>
         <p ng-show="medicoForm.nomeMedico.$touched && medicoForm.nomeMedico.$error.required"
            class="mensagem-erro">Nome é um campo obrigatório</p>
     </div>
@@ -33,7 +22,7 @@
         <label for="crmMedico">CRM</label>
         <input id="crmMedico" name="crmMedico" class="form-control" type="text" ng-model="medico.crm"
                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-               ng-minlength="4" ng-disabled="acaoFinalizada" required>
+               maxlength="254" ng-minlength="4" ng-disabled="acaoFinalizada" required>
         <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.required"
            class="mensagem-erro">CRM é um campo obrigatório</p>
         <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.minlength"
@@ -61,7 +50,7 @@
     <div class="col-md-6 form-group">
         <label for="loginUsuario">Login</label>
         <input id="loginUsuario" name="loginUsuario" class="form-control" type="text" ng-model="medico.usuario.login"
-               ng-disabled="acaoFinalizada" required>
+               maxlength="254" ng-disabled="acaoFinalizada" required>
         <p ng-show="medicoForm.loginUsuario.$touched && medicoForm.loginUsuario.$error.required"
            class="mensagem-erro">Login é um campo obrigatório</p>
     </div>
@@ -69,10 +58,11 @@
     <div class="col-md-6 form-group has-feedback">
         <label for="senhaUsuario">Senha</label>
         <div class="inner-addon left-addon">
-            <i ng-class="mostrarSenha ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open'" ng-click="mudarInputType()"></i>
+            <i ng-class="mostrarSenha ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open'"
+               ng-click="mudarInputType()"></i>
             <input id="senhaUsuario" name="senhaUsuario" class="form-control"
                    type="{{mostrarSenha ? 'text' : 'password'}}" ng-model="medico.usuario.senha"
-                   ng-minlength="6" ng-disabled="acaoFinalizada" required>
+                   maxlength="254" ng-minlength="6" ng-disabled="acaoFinalizada" required>
         </div>
         <p ng-show="medicoForm.senhaUsuario.$touched && medicoForm.senhaUsuario.$error.required"
            class="mensagem-erro">Senha é um campo obrigatório</p>

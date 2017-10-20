@@ -13,9 +13,6 @@ clinicaMed.service('medicoListagemService', function ($rootScope, $resource) {
         resource().query(medico).$promise.then(
             function (data) {
                 $rootScope.$broadcast('MEDICOS_FETCHED_SUCCESS', data);
-            },
-            function () {
-                $rootScope.$broadcast('MEDICOS_FETCHED_ERROR');
             }
         );
     };
@@ -24,9 +21,6 @@ clinicaMed.service('medicoListagemService', function ($rootScope, $resource) {
         return resource().delete({id: id}).$promise.then(
             function () {
                 $rootScope.$broadcast('MEDICO_DELETE_SUCCESS');
-            },
-            function () {
-                $rootScope.$broadcast('MEDICO_DELETE_ERROR');
             }
         );
     };

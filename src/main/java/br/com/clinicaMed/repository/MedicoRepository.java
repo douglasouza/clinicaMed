@@ -6,4 +6,5 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long>, QueryDslPredicateExecutor<Medico> {
 
+    Medico findByCrm(String crm);
 }

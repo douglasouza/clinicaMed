@@ -19,6 +19,9 @@
     <ul class="nav navbar-nav">
         <li><a ui-sref="medico.listagem">Cadastro de Médicos</a></li>
     </ul>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="recepcionista.listagem">Cadastro de Recepcionistas</a></li>
+    </ul>
 </nav>
 
 <div class="container" ng-cloak>
@@ -31,8 +34,12 @@
 <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./app/app.js"></script>
+
+<!-- Home-->
 <script type="text/javascript" src="./app/components/home/controller.js"></script>
 <script type="text/javascript" src="./app/components/home/router.js"></script>
+
+<!-- Cadastro de Médicos -->
 <script type="text/javascript" src="./app/components/medico/edicao/controller.js"></script>
 <script type="text/javascript" src="./app/components/medico/edicao/router.js"></script>
 <script type="text/javascript" src="./app/components/medico/edicao/service.js"></script>
@@ -40,7 +47,20 @@
 <script type="text/javascript" src="./app/components/medico/listagem/router.js"></script>
 <script type="text/javascript" src="./app/components/medico/listagem/service.js"></script>
 <script type="text/javascript" src="./app/components/medico/root/router.js"></script>
+
+<!-- Cadastro de Recepcionistas-->
+<script type="text/javascript" src="./app/components/recepcionista/edicao/controller.js"></script>
+<script type="text/javascript" src="./app/components/recepcionista/edicao/router.js"></script>
+<script type="text/javascript" src="./app/components/recepcionista/edicao/service.js"></script>
+<script type="text/javascript" src="./app/components/recepcionista/listagem/controller.js"></script>
+<script type="text/javascript" src="./app/components/recepcionista/listagem/router.js"></script>
+<script type="text/javascript" src="./app/components/recepcionista/listagem/service.js"></script>
+<script type="text/javascript" src="./app/components/recepcionista/root/router.js"></script>
+
+<!-- Extensões -->
 <script type="text/javascript" src="./app/extensions/constants/constants.js"></script>
+<script type="text/javascript" src="./app/extensions/directives/mensagemErro.js"></script>
+<script type="text/javascript" src="./app/extensions/directives/mensagemSucesso.js"></script>
 <script type="text/javascript" src="./app/extensions/filters/enumFilter.js"></script>
 
 </body>

@@ -28,27 +28,13 @@ clinicaMed.controller('medicoListagemController',
             $scope.medicos = data;
         });
 
-        $scope.$on('MEDICOS_FETCHED_ERROR', function () {
-            operacaoErro();
-        });
-
         $scope.$on('MEDICO_DELETE_SUCCESS', function () {
             medicoListagemService.fetchAll();
             operacaoSucesso();
         });
 
-        $scope.$on('MEDICO_DELETE_ERROR', function () {
-            operacaoErro();
-        });
-
         function operacaoSucesso() {
             $scope.mostrarAlertaSucesso = true;
-            $scope.mostrarAlertaErro = false;
-        }
-
-        function operacaoErro() {
-            $scope.mostrarAlertaSucesso = false;
-            $scope.mostrarAlertaErro = true;
         }
 
         function initizialize() {
