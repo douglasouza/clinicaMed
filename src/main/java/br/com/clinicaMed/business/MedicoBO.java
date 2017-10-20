@@ -74,7 +74,7 @@ public class MedicoBO {
 
     private Boolean existeMedicoCadastradoComMesmoCrm(Medico medico) {
         Medico medicoComMesmoCrm = repo.findByCrm(medico.getCrm());
-        return medicoComMesmoCrm != null && (medicoComMesmoCrm.getId() != medico.getUsuario().getId());
+        return medicoComMesmoCrm != null && (medicoComMesmoCrm.getId() != medico.getId());
     }
 
     private Boolean existeUsuarioCadastradoComMesmoLogin(Medico medico) {

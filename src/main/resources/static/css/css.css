@@ -15,15 +15,6 @@ label::after {
     color: red;
 }
 
-nav {
-    background-color: black !important;
-    border-color: black !important;
-}
-
-nav a {
-    color: white !important;
-}
-
 .mensagem-erro {
     color: red;
     padding-top: 5px;
