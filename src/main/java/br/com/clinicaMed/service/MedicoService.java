@@ -1,7 +1,9 @@
-package br.com.clinic.service;
+package br.com.clinicaMed.service;
 
-import br.com.clinic.entity.Usuario;
-import br.com.clinic.repository.UsuarioRepository;
+import br.com.clinicaMed.business.MedicoBO;
+import br.com.clinicaMed.entity.Medico;
+import br.com.clinicaMed.enumeration.EspecialidadeMedica;
+import br.com.clinicaMed.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,35 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioService {
+@RequestMapping("/medico")
+public class MedicoService {
 
     @Autowired
-    private UsuarioRepository repo;
+    private MedicoRepository repo;
+
+    @Autowired
+    private MedicoBO bo;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List findAll() {
-        return repo.findAll();
+    public Object findAll(String nomeCrmLogin, EspecialidadeMedica especialidade) {
+        return bo.pesquisarMedico(nomeCrmLogin, especialidade);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Usuario findOne(@PathVariable Long id) {
+    public Medico findOne(@PathVariable Long id) {
         return repo.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Usuario insert(@RequestBody Usuario usuario) throws Exception {
-        usuario.setId(null);
-        return repo.saveAndFlush(usuario);
+    public Medico insert(@RequestBody Medico medico) throws Exception {
+        return bo.inserirMedico(medico);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Usuario update(@RequestBody Usuario updatedUsuario, @PathVariable Long id) {
-        updatedUsuario.setId(id);
-        return repo.saveAndFlush(updatedUsuario);
+    public Medico update(@RequestBody Medico updatedMedico, @PathVariable Long id) {
+        return bo.atualizarMedico(updatedMedico, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

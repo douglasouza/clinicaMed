@@ -2,8 +2,8 @@ var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.config(function ($stateProvider) {
 
-    $stateProvider.state('usuario', {
-        url: '/usuario',
+    $stateProvider.state('medico', {
+        url: '/medico',
         abstract: true,
         template: '<ui-view/>'
     });

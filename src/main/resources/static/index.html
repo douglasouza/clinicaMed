@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./css.css"/>
+    <link rel="stylesheet" href="./css/css.css"/>
 </head>
 
 <body ng-app="clinicaMed">
@@ -17,7 +17,7 @@
         <a class="navbar-brand" ui-sref="home">Clínica Médica</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a ui-sref="usuario.listagem">Usuário</a></li>
+        <li><a ui-sref="medico.listagem">Cadastro de Médicos</a></li>
     </ul>
 </nav>
 
@@ -33,13 +33,15 @@
 <script type="text/javascript" src="./app/app.js"></script>
 <script type="text/javascript" src="./app/components/home/controller.js"></script>
 <script type="text/javascript" src="./app/components/home/router.js"></script>
-<script type="text/javascript" src="./app/components/usuario/edicao/controller.js"></script>
-<script type="text/javascript" src="./app/components/usuario/edicao/router.js"></script>
-<script type="text/javascript" src="./app/components/usuario/edicao/service.js"></script>
-<script type="text/javascript" src="./app/components/usuario/listagem/controller.js"></script>
-<script type="text/javascript" src="./app/components/usuario/listagem/router.js"></script>
-<script type="text/javascript" src="./app/components/usuario/listagem/service.js"></script>
-<script type="text/javascript" src="./app/components/usuario/root/router.js"></script>
+<script type="text/javascript" src="./app/components/medico/edicao/controller.js"></script>
+<script type="text/javascript" src="./app/components/medico/edicao/router.js"></script>
+<script type="text/javascript" src="./app/components/medico/edicao/service.js"></script>
+<script type="text/javascript" src="./app/components/medico/listagem/controller.js"></script>
+<script type="text/javascript" src="./app/components/medico/listagem/router.js"></script>
+<script type="text/javascript" src="./app/components/medico/listagem/service.js"></script>
+<script type="text/javascript" src="./app/components/medico/root/router.js"></script>
+<script type="text/javascript" src="./app/extensions/constants/constants.js"></script>
+<script type="text/javascript" src="./app/extensions/filters/enumFilter.js"></script>
 
 </body>
 </html>

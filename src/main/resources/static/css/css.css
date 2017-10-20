@@ -1,0 +1,56 @@
+body {
+    font-size: 150%;
+}
+
+a:link, a:visited, a:focus, a:hover, a:active {
+    text-decoration: none;
+}
+
+div.table-responsive {
+    margin-top: 20px;
+}
+
+label::after {
+    content: ' *';
+    color: red;
+}
+
+nav {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+nav a {
+    color: white !important;
+}
+
+.mensagem-erro {
+    color: red;
+    padding-top: 5px;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+.right-addon .glyphicon {
+    right: 0px;
+}
+
+.left-addon input {
+    padding-left: 30px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}
