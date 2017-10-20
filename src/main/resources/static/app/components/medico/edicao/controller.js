@@ -18,27 +18,13 @@ clinicaMed.controller('medicoEdicaoController',
             operacaoSucesso();
         });
 
-        $scope.$on('MEDICO_SAVE_ERROR', function () {
-            operacaoErro();
-        });
-
         $scope.$on('MEDICO_UPDATE_SUCCESS', function () {
             operacaoSucesso();
         });
 
-        $scope.$on('MEDICO_UPDATE_ERROR', function () {
-            operacaoErro();
-        });
-
         function operacaoSucesso() {
             $scope.mostrarAlertaSucesso = true;
-            $scope.mostrarAlertaErro = false;
             $scope.acaoFinalizada = true;
-        }
-
-        function operacaoErro() {
-            $scope.mostrarAlertaSucesso = false;
-            $scope.mostrarAlertaErro = true;
         }
 
         function inicializar() {

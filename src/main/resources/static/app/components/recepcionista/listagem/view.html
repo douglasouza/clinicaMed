@@ -1,24 +1,13 @@
-<h1>Pesquisar Médicos</h1>
+<h1>Pesquisar Recepcionistas</h1>
 <hr>
 
 <mensagem-erro></mensagem-erro>
 <mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
 
 <div class="row">
-    <div class="col-md-6 form-group">
-        <input id="nomeCrmLoginFiltro" name="nomeCrmLoginFiltro" class="form-control" type="text"
-               placeholder="Pesquisar por Nome, CRM ou Login" ng-model="filtro.nomeCrmLogin">
-    </div>
-
-    <div class="col-md-3 form-group">
-        <select id="especialidadeFiltro" name="especialidadeFiltro" class="form-control"
-                ng-model="filtro.especialidade">
-            <option value="">Filtre por Especialidade</option>
-            <option ng-repeat="especialidade in especialidades track by especialidade.id"
-                    value="{{especialidade.id}}">
-                {{especialidade.value}}
-            </option>
-        </select>
+    <div class="col-md-9 form-group">
+        <input id="nomeLoginFiltro" name="nomeLoginFiltro" class="form-control" type="text"
+               placeholder="Pesquisar por Nome ou Login" ng-model="filtro.nomeLogin">
     </div>
 
     <div ng-show="!pesquisaRealizada" class="col-md-2 form-group">
@@ -40,7 +29,7 @@
     </div>
 
     <div class="col-md-1">
-        <button type="button" class="btn btn-block btn-success" ui-sref="medico.novo">
+        <button type="button" class="btn btn-block btn-success" ui-sref="recepcionista.novo">
             <span class="glyphicon glyphicon-plus-sign"></span>
         </button>
     </div>
@@ -51,23 +40,19 @@
         <thead>
         <tr>
             <th class="col-md-5">Nome</th>
-            <th class="col-md-2">Especialidade</th>
-            <th class="col-md-1">CRM</th>
-            <th class="col-md-2">Login</th>
+            <th class="col-md-5">Login</th>
             <th class="col-md-2"></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="medico in medicos track by medico.id">
-            <td class="col-md-5">{{medico.nome}}</td>
-            <td class="col-md-2">{{medico.especialidade | enumEspecialidadeMedica}}</td>
-            <td class="col-md-1">{{medico.crm}}</td>
-            <td class="col-md-2">{{medico.usuario.login}}</td>
+        <tr ng-repeat="recepcionista in recepcionistas track by recepcionista.id">
+            <td class="col-md-5">{{recepcionista.nome}}</td>
+            <td class="col-md-5">{{recepcionista.usuario.login}}</td>
             <td class="col-md-2">
-                <a href="#" ui-sref="medico.edicao({id: medico.id})">
+                <a href="#" ui-sref="recepcionista.edicao({id: recepcionista.id})">
                     <span class="glyphicon glyphicon-pencil"></span> Editar
                 </a>
-                <a href="#" data-toggle="modal" data-target="#modalExclusao" ng-click="excluirMedico(medico.id)">
+                <a href="#" data-toggle="modal" data-target="#modalExclusao" ng-click="excluirRecepcionista(recepcionista.id)">
                     <span class="glyphicon glyphicon-trash"></span> Excluir
                 </a>
             </td>
@@ -88,7 +73,7 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                     Cancelar
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmarExcluirMedico()">
+                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmarExcluirRecepcionista()">
                     Confirmar
                 </button>
             </div>
