@@ -15,78 +15,77 @@
     <strong>Erro!</strong> Ocorreu um erro ao efetuar a operação. Tente novamente.
 </div>
 
-<div class="col-md-6 form-group">
-    <input id="nomeCrmLoginFiltro" name="nomeCrmLoginFiltro" class="form-control" type="text"
-           placeholder="Pesquisar por Nome, CRM ou Login" ng-model="filtro.nomeCrmLogin">
+<div class="row">
+    <div class="col-md-6 form-group">
+        <input id="nomeCrmLoginFiltro" name="nomeCrmLoginFiltro" class="form-control" type="text"
+               placeholder="Pesquisar por Nome, CRM ou Login" ng-model="filtro.nomeCrmLogin">
+    </div>
+
+    <div class="col-md-3 form-group">
+        <select id="especialidadeFiltro" name="especialidadeFiltro" class="form-control"
+                ng-model="filtro.especialidade">
+            <option value="">Filtre por Especialidade</option>
+            <option ng-repeat="especialidade in especialidades track by especialidade.id"
+                    value="{{especialidade.id}}">
+                {{especialidade.value}}
+            </option>
+        </select>
+    </div>
+
+    <div ng-show="!pesquisaRealizada" class="col-md-2 form-group">
+        <button type="button" class="btn btn-block btn-primary" ng-click="pesquisar()">
+            <span class="glyphicon glyphicon-search"></span> Pesquisar
+        </button>
+    </div>
+
+    <div ng-show="pesquisaRealizada" class="col-md-1 form-group">
+        <button type="button" class="btn btn-block btn-primary" ng-click="pesquisar()">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </div>
+
+    <div ng-show="pesquisaRealizada" class="col-md-1 form-group">
+        <button type="button" class="btn btn-block btn-danger" ng-click="limparPesquisa()">
+            <span class="glyphicon glyphicon-erase"></span>
+        </button>
+    </div>
+
+    <div class="col-md-1">
+        <button type="button" class="btn btn-block btn-success" ui-sref="medico.novo">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+        </button>
+    </div>
 </div>
 
-<div class="col-md-3 form-group">
-    <select id="especialidadeFiltro" name="especialidadeFiltro" class="form-control"
-            ng-model="filtro.especialidade">
-        <option value="">Filtre por Especialidade</option>
-        <option value="ALERGIA_E_IMUNOLOGIA">Alergia e Imunologia</option>
-        <option value="CARDIOLOGIA">Cardiologia</option>
-        <option value="CLINICO_GERAL">Clínico Geral</option>
-        <option value="DERMATOLOGIA">Dermatologia</option>
-        <option value="GERIATRIA">Geriatria</option>
-        <option value="GINECOLOGIA">Ginecologia</option>
-        <option value="NEUROLOGIA">Neurologia</option>
-        <option value="OBSTETRICIA">Obstetricia</option>
-        <option value="OFTALMOLOGIA">Oftalmologia</option>
-        <option value="ORTOPEDIA">Ortopedia</option>
-        <option value="OTORRINOLARINGOLOGIA">Otorrinolaringologia</option>
-        <option value="PEDIATRIA">Pediatria</option>
-        <option value="PSIQUIATRIA">Psiquiatria</option>
-        <option value="REUMATOLOGIA">Reumatologia</option>
-        <option value="UROLOGIA">Urologia</option>
-    </select>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th class="col-md-5">Nome</th>
+            <th class="col-md-2">Especialidade</th>
+            <th class="col-md-1">CRM</th>
+            <th class="col-md-2">Login</th>
+            <th class="col-md-2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="medico in medicos track by medico.id">
+            <td class="col-md-5">{{medico.nome}}</td>
+            <td class="col-md-2">{{medico.especialidade | enumEspecialidadeMedica}}</td>
+            <td class="col-md-1">{{medico.crm}}</td>
+            <td class="col-md-2">{{medico.usuario.login}}</td>
+            <td class="col-md-2">
+                <a href="#" ui-sref="medico.edicao({id: medico.id})">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                </a>
+                <a href="#" data-toggle="modal" data-target="#modalExclusao" ng-click="excluirMedico(medico.id)">
+                    <span class="glyphicon glyphicon-trash"></span> Excluir
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-
-<div ng-show="!pesquisaRealizada" class="col-md-2 form-group">
-    <button type="button" class="btn btn-block btn-primary" ng-click="pesquisar()">
-        <span class="glyphicon glyphicon-search"></span> Pesquisar
-    </button>
-</div>
-
-<div ng-show="pesquisaRealizada" class="col-md-2 form-group">
-    <button type="button" class="btn btn-block btn-danger" ng-click="limparPesquisa()">
-        <span class="glyphicon glyphicon-search"></span> Limpar Pesquisa
-    </button>
-</div>
-
-<div class="col-md-1">
-    <button type="button" class="btn btn-block btn-success" ui-sref="medico.novo">
-        <span class="glyphicon glyphicon-plus-sign"></span>
-    </button>
-</div>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th class="col-md-5">Nome</th>
-        <th class="col-md-2">Especialidade</th>
-        <th class="col-md-1">CRM</th>
-        <th class="col-md-2">Login</th>
-        <th class="col-md-2"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="medico in medicos track by medico.id">
-        <td class="col-md-5">{{medico.nome}}</td>
-        <td class="col-md-2">{{medico.especialidade}}</td>
-        <td class="col-md-1">{{medico.crm}}</td>
-        <td class="col-md-2">{{medico.login}}</td>
-        <td class="col-md-2">
-            <a ui-sref="medico.edicao({id: medico.id})">
-                <span class="glyphicon glyphicon-pencil"></span> Editar
-            </a>
-            <a data-toggle="modal" data-target="#modalExclusao" ng-click="excluirMedico(medico.id)">
-                <span class="glyphicon glyphicon-trash"></span> Excluir
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
 
 <div id="modalExclusao" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

@@ -8,4 +8,6 @@
         $urlRouterProvider.otherwise('home');
     });
 
+    clinicaMed.constant('jQuery', window.jQuery);
+
 }(angular));

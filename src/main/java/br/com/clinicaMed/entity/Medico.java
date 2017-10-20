@@ -2,20 +2,45 @@ package br.com.clinicaMed.entity;
 
 import br.com.clinicaMed.enumeration.EspecialidadeMedica;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Medico extends Usuario {
+public class Medico {
 
-    @Column
+    @Id
+    @Column(name = "md_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "md_nome")
     private String nome;
 
-    @Column
+    @Column(name = "md_crm")
     private String crm;
 
-    @Column
+    @Column(name = "md_especialidade")
     @Enumerated(EnumType.STRING)
     private EspecialidadeMedica especialidade;
+
+    @JoinColumn(name = "us_id")
+    @OneToOne
+    private Usuario usuario;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -39,5 +64,13 @@ public class Medico extends Usuario {
 
     public void setEspecialidade(EspecialidadeMedica especialidade) {
         this.especialidade = especialidade;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

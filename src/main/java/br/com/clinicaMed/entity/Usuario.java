@@ -8,16 +8,18 @@ import javax.persistence.*;
 public class Usuario {
 
     @Id
+    @Column(name = "us_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "us_login")
     private String login;
 
-    @Column
+    @Column(name = "us_senha")
     private String senha;
 
-    @Column
+    @Column(name = "us_tipo_usuario")
+    @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
     public Long getId() {

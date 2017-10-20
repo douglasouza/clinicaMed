@@ -1,7 +1,7 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('medicoListagemController',
-    ['$scope', 'medicoListagemService', function ($scope, medicoListagemService) {
+    ['$scope', 'constants', 'medicoListagemService', function ($scope, constants, medicoListagemService) {
 
         $scope.pesquisar = function () {
             if ($scope.filtro.nomeCrmLogin || $scope.filtro.especialidade) {
@@ -52,6 +52,7 @@ clinicaMed.controller('medicoListagemController',
         }
 
         function initizialize() {
+            $scope.especialidades = constants().ENUM.ESPECIALIDADE_MEDICA;
             $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
             medicoListagemService.fetchAll($scope.filtro);
         }

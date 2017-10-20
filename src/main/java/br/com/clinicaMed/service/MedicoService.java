@@ -32,15 +32,13 @@ public class MedicoService {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Medico insert(@RequestBody Medico usuario) throws Exception {
-        usuario.setId(null);
-        return repo.saveAndFlush(usuario);
+    public Medico insert(@RequestBody Medico medico) throws Exception {
+        return bo.inserirMedico(medico);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Medico update(@RequestBody Medico updatedMedico, @PathVariable Long id) {
-        updatedMedico.setId(id);
-        return repo.saveAndFlush(updatedMedico);
+        return bo.atualizarMedico(updatedMedico, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
