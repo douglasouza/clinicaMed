@@ -6,8 +6,11 @@
 
     clinicaMed.factory('responseErrorInterceptor', ['$rootScope', function ($rootScope) {
         return {
-            response
-                : function (response) {
+            request: function (config) {
+                $rootScope.$broadcast('REQUEST_SENT');
+                return config;
+            },
+            response: function (response) {
                 $rootScope.$broadcast('RESPONSE_SUCCESS');
                 return response;
             },

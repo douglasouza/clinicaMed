@@ -20,11 +20,6 @@ clinicaMed.constant('constants', function () {
                 {id: 'REUMATOLOGIA', value: 'Reumatologia'},
                 {id: 'UROLOGIA', value: 'Urologia'}
             ]
-        },
-        ACOES: {
-            NOVO: 'novo',
-            VISUALIZAR: 'visualizar',
-            EDITAR: 'editar'
         }
     };
 });
