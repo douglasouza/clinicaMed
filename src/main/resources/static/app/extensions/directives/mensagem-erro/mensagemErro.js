@@ -3,12 +3,7 @@ var clinicaMed = angular.module('clinicaMed');
 clinicaMed.directive('mensagemErro', function () {
     return {
         restrict: 'E',
-        template: '<div ng-if="mostrarAlerta" class="alert alert-danger" role="alert">' +
-                      '<button type="button" class="close" data-dismiss="alert" aria-label="Fechar">' +
-                          '<span aria-hidden="true">&times;</span>' +
-                      '</button>' +
-                      '<strong>Erro!</strong> {{mensagem}}' +
-                  '</div>',
+        templateUrl: './app/extensions/directives/mensagem-erro/template.html',
         link: function (scope) {
             scope.$on('RESPONSE_SUCCESS', function () {
                 scope.mostrarAlerta = false;

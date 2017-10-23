@@ -1,34 +1,12 @@
 var clinicaMed = angular.module('clinicaMed');
 
-clinicaMed.directive('paginacaoTabela', function () {
+clinicaMed.directive('paginacaoListagem', function () {
     return {
         scope: {
             numRegistros: '=',
             paginaAtual: '='
         },
-        template:
-                '<div class="col-md-6 info-paginacao">' +
-                    'Mostrando de {{inicio}} até {{fim}} de {{numRegistros}} registros.' +
-                '</div>' +
-                '<nav class="paginacao">' +
-                    '<ul class="pagination pagination-md">' +
-                        '<li ng-class="getAnteriorClass()">' +
-                            '<a href="" aria-label="Previous" ng-click="paginaAnterior()">' +
-                                '<span aria-hidden="true">Anterior</span>' +
-                            '</a>' +
-                        '</li>' +
-                        '<li ng-if="existePaginasAnteriores"><a>...</a></li>' +
-                        '<li ng-repeat="pagina in arrayPaginas track by $index" ng-class="getPaginaClass(pagina)">' +
-                            '<a href="" ng-click="irParaPagina(pagina)">{{pagina}}</a>' +
-                        '</li>' +
-                        '<li ng-if="existePaginasPosteriores"><a>...</a></li>' +
-                        '<li ng-class="getProximoClass()">' +
-                            '<a href="" aria-label="Next" ng-click="proximaPagina()">' +
-                                '<span aria-hidden="true">Próximo</span>' +
-                            '</a>' +
-                        '</li>' +
-                    '</ul>' +
-                '</nav>',
+        templateUrl: './app/extensions/directives/paginacao-listagem/template.html',
         link: function (scope) {
             scope.paginaAnterior = function () {
                 if (scope.paginaAtual - 1 >= 1)

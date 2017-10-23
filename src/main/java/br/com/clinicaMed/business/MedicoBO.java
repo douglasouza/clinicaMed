@@ -1,5 +1,6 @@
 package br.com.clinicaMed.business;
 
+import br.com.clinicaMed.dto.MedicoDTO;
 import br.com.clinicaMed.entity.Medico;
 import br.com.clinicaMed.entity.QMedico;
 import br.com.clinicaMed.entity.Usuario;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class MedicoBO {
 
@@ -23,10 +27,45 @@ public class MedicoBO {
     private UsuarioRepository usuarioRepo;
 
     public Object pesquisarMedico(String nomeCrmLogin, EspecialidadeMedica especialidade) {
+        Iterable<Medico> medicos;
         if (StringUtils.isEmpty(nomeCrmLogin) && StringUtils.isEmpty(especialidade))
-            return repo.findAll();
+            medicos = repo.findAll();
         else
-            return repo.findAll(getBooleanExpression(nomeCrmLogin, especialidade));
+            medicos = repo.findAll(getBooleanExpression(nomeCrmLogin, especialidade));
+
+        return getMedicosDTO(medicos);
+    }
+
+    private BooleanExpression getBooleanExpression(String nomeCrmLogin, EspecialidadeMedica especialidade) {
+        BooleanExpression booleanExpression = null;
+        if (!StringUtils.isEmpty(nomeCrmLogin))
+            booleanExpression = QMedico.medico.nome.containsIgnoreCase(nomeCrmLogin)
+                    .or(QMedico.medico.crm.containsIgnoreCase(nomeCrmLogin))
+                    .or(QMedico.medico.usuario.login.containsIgnoreCase(nomeCrmLogin));
+
+        if (!StringUtils.isEmpty(especialidade)) {
+            if (booleanExpression == null)
+                booleanExpression = QMedico.medico.especialidade.eq(especialidade);
+            else
+                booleanExpression = booleanExpression.and(QMedico.medico.especialidade.eq(especialidade));
+        }
+
+        return booleanExpression;
+    }
+
+    private List<MedicoDTO> getMedicosDTO(Iterable<Medico> medicos) {
+        List<MedicoDTO> medicosDTO = new ArrayList<MedicoDTO>();
+        for (Medico medico : medicos) {
+            MedicoDTO medicoDTO = new MedicoDTO();
+            medicoDTO.setId(medico.getId());
+            medicoDTO.setNome(medico.getNome());
+            medicoDTO.setEspecialidade(medico.getEspecialidade().toString());
+            medicoDTO.setCrm(medico.getCrm());
+            medicoDTO.setLogin(medico.getUsuario().getLogin());
+            medicosDTO.add(medicoDTO);
+        }
+
+        return medicosDTO;
     }
 
     public Medico inserirMedico(Medico medico) {
@@ -53,23 +92,6 @@ public class MedicoBO {
         updatedMedico.setId(id);
         updatedMedico.setUsuario(usuario);
         return repo.saveAndFlush(updatedMedico);
-    }
-
-    private BooleanExpression getBooleanExpression(String nomeCrmLogin, EspecialidadeMedica especialidade) {
-        BooleanExpression booleanExpression = null;
-        if (!StringUtils.isEmpty(nomeCrmLogin))
-            booleanExpression = QMedico.medico.nome.containsIgnoreCase(nomeCrmLogin)
-                    .or(QMedico.medico.crm.containsIgnoreCase(nomeCrmLogin))
-                    .or(QMedico.medico.usuario.login.containsIgnoreCase(nomeCrmLogin));
-
-        if (!StringUtils.isEmpty(especialidade)) {
-            if (booleanExpression == null)
-                booleanExpression = QMedico.medico.especialidade.eq(especialidade);
-            else
-                booleanExpression = booleanExpression.and(QMedico.medico.especialidade.eq(especialidade));
-        }
-
-        return booleanExpression;
     }
 
     private Boolean existeMedicoCadastradoComMesmoCrm(Medico medico) {
