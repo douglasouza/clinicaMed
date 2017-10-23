@@ -35,31 +35,9 @@
     </div>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th class="col-md-5">Nome</th>
-            <th class="col-md-5">Login</th>
-            <th class="col-md-2"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="recepcionista in recepcionistas track by recepcionista.id">
-            <td class="col-md-5">{{recepcionista.nome}}</td>
-            <td class="col-md-5">{{recepcionista.usuario.login}}</td>
-            <td class="col-md-2">
-                <a href="#" ui-sref="recepcionista.edicao({id: recepcionista.id})">
-                    <span class="glyphicon glyphicon-pencil"></span> Editar
-                </a>
-                <a href="#" data-toggle="modal" data-target="#modalExclusao" ng-click="excluirRecepcionista(recepcionista.id)">
-                    <span class="glyphicon glyphicon-trash"></span> Excluir
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<tabela-listagem registros="recepcionistas" colunas="colunas" pagina-atual="paginaAtual"
+                 acao-editar="editarRecepcionista(id)" acao-excluir="excluirRecepcionista(id)"></tabela-listagem>
+<paginacao-listagem num-registros="recepcionistas.length" pagina-atual="paginaAtual"></paginacao-listagem>
 
 <div id="modalExclusao" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -73,7 +51,8 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                     Cancelar
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmarExcluirRecepcionista()">
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                        ng-click="confirmarExcluirRecepcionista()">
                     Confirmar
                 </button>
             </div>

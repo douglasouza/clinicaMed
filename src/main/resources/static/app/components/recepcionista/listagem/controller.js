@@ -1,7 +1,7 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('recepcionistaListagemController',
-    ['$scope', 'recepcionistaListagemService', function ($scope, recepcionistaListagemService) {
+    ['$scope', '$state', 'recepcionistaListagemService', function ($scope, $state, recepcionistaListagemService) {
 
         $scope.pesquisar = function () {
             if ($scope.filtro.nomeLogin || $scope.filtro.especialidade) {
@@ -16,8 +16,12 @@ clinicaMed.controller('recepcionistaListagemController',
             $scope.pesquisaRealizada = false;
         };
 
-        $scope.excluirRecepcionista = function (idRecepcionista) {
-            $scope.idRecepcionista = idRecepcionista;
+        $scope.editarRecepcionista = function (id) {
+            $state.go('recepcionista.edicao', {id: id});
+        };
+
+        $scope.excluirRecepcionista = function (id) {
+            $scope.idRecepcionista = id;
         };
 
         $scope.confirmarExcluirRecepcionista = function () {
@@ -37,7 +41,24 @@ clinicaMed.controller('recepcionistaListagemController',
             $scope.mostrarAlertaSucesso = true;
         }
 
+        function inicializarDadosTabelaListagem() {
+            $scope.paginaAtual = 1;
+            $scope.colunas = [
+                {
+                    caminhoNoObjeto: 'nome',
+                    classeCol: 'col-md-5',
+                    nome: 'Nome'
+                },
+                {
+                    caminhoNoObjeto: 'login',
+                    classeCol: 'col-md-5',
+                    nome: 'Login'
+                }
+            ];
+        }
+
         function initizialize() {
+            inicializarDadosTabelaListagem();
             $scope.filtro = {nomeLogin: ''};
             recepcionistaListagemService.fetchAll($scope.filtro);
         }

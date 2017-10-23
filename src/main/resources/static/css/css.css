@@ -1,5 +1,4 @@
 body {
-    font-size: 150%;
 }
 
 a:link, a:visited, a:focus, a:hover, a:active {
@@ -13,6 +12,35 @@ div.table-responsive {
 label::after {
     content: ' *';
     color: red;
+}
+
+ul.pagination {
+    margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .info-paginacao {
+        padding-left: 0;
+        padding-top: 8px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+    .paginacao {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .info-paginacao {
+        padding-left: 0;
+        padding-top: 8px;
+        text-align: left;
+    }
+    .paginacao {
+        margin-bottom: 20px;
+        text-align: right;
+    }
 }
 
 .mensagem-erro {

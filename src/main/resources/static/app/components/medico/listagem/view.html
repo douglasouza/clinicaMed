@@ -46,35 +46,9 @@
     </div>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th class="col-md-5">Nome</th>
-            <th class="col-md-2">Especialidade</th>
-            <th class="col-md-1">CRM</th>
-            <th class="col-md-2">Login</th>
-            <th class="col-md-2"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="medico in medicos track by medico.id">
-            <td class="col-md-5">{{medico.nome}}</td>
-            <td class="col-md-2">{{medico.especialidade | enumEspecialidadeMedica}}</td>
-            <td class="col-md-1">{{medico.crm}}</td>
-            <td class="col-md-2">{{medico.usuario.login}}</td>
-            <td class="col-md-2">
-                <a href="#" ui-sref="medico.edicao({id: medico.id})">
-                    <span class="glyphicon glyphicon-pencil"></span> Editar
-                </a>
-                <a href="#" data-toggle="modal" data-target="#modalExclusao" ng-click="excluirMedico(medico.id)">
-                    <span class="glyphicon glyphicon-trash"></span> Excluir
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<tabela-listagem registros="medicos" colunas="colunas" pagina-atual="paginaAtual"
+                 acao-editar="editarMedico(id)" acao-excluir="excluirMedico(id)"></tabela-listagem>
+<paginacao-listagem num-registros="medicos.length" pagina-atual="paginaAtual"></paginacao-listagem>
 
 <div id="modalExclusao" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
