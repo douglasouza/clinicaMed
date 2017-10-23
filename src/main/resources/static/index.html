@@ -8,10 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="./css/css.css"/>
+    <link rel="stylesheet" href="./css/loading-spinner.css"/>
 </head>
 
 <body ng-app="clinicaMed">
-
+<loading></loading>
 <div class="container" ng-cloak>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -82,6 +83,7 @@
 
 <!-- Extensões -->
 <script type="text/javascript" src="./app/extensions/constants/constants.js"></script>
+<script type="text/javascript" src="./app/extensions/directives/loading/loading.js"></script>
 <script type="text/javascript" src="./app/extensions/directives/mensagem-erro/mensagemErro.js"></script>
 <script type="text/javascript" src="./app/extensions/directives/mensagem-sucesso/mensagemSucesso.js"></script>
 <script type="text/javascript" src="./app/extensions/directives/paginacao-listagem/paginacaoListagem.js"></script>
