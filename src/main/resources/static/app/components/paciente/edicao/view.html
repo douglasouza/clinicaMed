@@ -1,0 +1,57 @@
+<h1 ng-if="acao === 'NOVO'">Novo Paciente</h1>
+<h1 ng-if="acao === 'EDICAO'">Editar Paciente</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
+
+<form name="pacienteForm" novalidate>
+    <div class="col-md-12">
+        <h3>Dados do Paciente</h3>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="nomePaciente">Nome</label>
+        <input id="nomePaciente" name="nomePaciente" class="form-control" type="text" ng-model="paciente.nome"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
+        <p ng-show="pacienteForm.nomePaciente.$touched && pacienteForm.nomePaciente.$error.required"
+           class="mensagem-erro">Nome é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12">
+        <h3>Dados de Acesso ao Sistema</h3>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="loginUsuario">Login</label>
+        <input id="loginUsuario" name="loginUsuario" class="form-control" type="text" ng-model="paciente.usuario.login"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
+        <p ng-show="pacienteForm.loginUsuario.$touched && pacienteForm.loginUsuario.$error.required"
+           class="mensagem-erro">Login é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-6 form-group has-feedback">
+        <label for="senhaUsuario">Senha</label>
+        <div class="inner-addon left-addon">
+            <i ng-class="mostrarSenha ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open'" ng-click="mudarInputType()"></i>
+            <input id="senhaUsuario" name="senhaUsuario" class="form-control"
+                   type="{{mostrarSenha ? 'text' : 'password'}}" ng-model="paciente.usuario.senha"
+                   maxlength="254" ng-minlength="6" ng-disabled="acaoFinalizada" required>
+        </div>
+        <p ng-show="pacienteForm.senhaUsuario.$touched && pacienteForm.senhaUsuario.$error.required"
+           class="mensagem-erro">Senha é um campo obrigatório</p>
+        <p ng-show="pacienteForm.senhaUsuario.$touched && pacienteForm.senhaUsuario.$error.minlength"
+           class="mensagem-erro">A senha deve conter pelo menos 6 caracteres.</p>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
+        <button class="btn btn-danger" ui-sref="paciente.listagem">Cancelar</button>
+        <button class="btn btn-success" ng-disabled="pacienteForm.$invalid"
+                ng-click="salvar()">Salvar
+        </button>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada">
+        <button class="btn btn-primary" ui-sref="paciente.listagem">Voltar</button>
+    </div>
+</form>
