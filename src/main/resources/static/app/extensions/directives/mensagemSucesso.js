@@ -11,7 +11,6 @@ clinicaMed.directive('mensagemSucesso', function () {
                           '<span aria-hidden="true">&times;</span>' +
                       '</button>' +
                       'Operação realizada com sucesso!' +
-                  '</div>',
-        link: function (scope, element, attrs) { }
+                  '</div>'
     }
 });

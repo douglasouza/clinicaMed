@@ -9,8 +9,8 @@ clinicaMed.directive('mensagemErro', function () {
                       '</button>' +
                       '<strong>Erro!</strong> {{mensagem}}' +
                   '</div>',
-        link: function (scope, element, attrs) {
-            scope.$on('RESPONSE_SUCCESS', function (event, data) {
+        link: function (scope) {
+            scope.$on('RESPONSE_SUCCESS', function () {
                 scope.mostrarAlerta = false;
             });
 

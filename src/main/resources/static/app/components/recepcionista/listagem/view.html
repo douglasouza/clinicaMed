@@ -36,7 +36,7 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th class="col-md-5">Nome</th>
@@ -45,7 +45,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="recepcionista in recepcionistas track by recepcionista.id">
+        <tr ng-repeat="recepcionista in registrosPagAtual track by recepcionista.id">
             <td class="col-md-5">{{recepcionista.nome}}</td>
             <td class="col-md-5">{{recepcionista.usuario.login}}</td>
             <td class="col-md-2">
@@ -60,6 +60,7 @@
         </tbody>
     </table>
 </div>
+<paginacao-tabela num-registros="recepcionistas.length" pagina-atual="paginaAtual"></paginacao-tabela>
 
 <div id="modalExclusao" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

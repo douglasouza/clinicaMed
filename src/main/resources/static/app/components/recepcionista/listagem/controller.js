@@ -26,6 +26,7 @@ clinicaMed.controller('recepcionistaListagemController',
 
         $scope.$on('RECEPCIONISTAS_FETCHED_SUCCESS', function (e, data) {
             $scope.recepcionistas = data;
+            getRegistrosPaginaAtual();
         });
 
         $scope.$on('RECEPCIONISTA_DELETE_SUCCESS', function () {
@@ -33,11 +34,23 @@ clinicaMed.controller('recepcionistaListagemController',
             operacaoSucesso();
         });
 
+        $scope.$watch('paginaAtual', function (novoValor) {
+            $scope.paginaAtual = novoValor;
+            getRegistrosPaginaAtual();
+        });
+
         function operacaoSucesso() {
             $scope.mostrarAlertaSucesso = true;
         }
 
+        function getRegistrosPaginaAtual() {
+            var inicio = 1 + (($scope.paginaAtual - 1) * 10);
+            var fim = $scope.recepcionistas.length > 10 ? 10 + (($scope.paginaAtual - 1) * 10) : $scope.recepcionistas.length;
+            $scope.registrosPagAtual = $scope.recepcionistas.slice(inicio - 1, fim);
+        }
+
         function initizialize() {
+            $scope.paginaAtual = 1;
             $scope.filtro = {nomeLogin: ''};
             recepcionistaListagemService.fetchAll($scope.filtro);
         }
