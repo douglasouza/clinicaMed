@@ -10,12 +10,20 @@
         <h3>Dados do Recepcionista</h3>
     </div>
 
-    <div class="col-md-12 form-group">
+    <div class="col-md-6 form-group">
         <label for="nomeRecepcionista">Nome</label>
         <input id="nomeRecepcionista" name="nomeRecepcionista" class="form-control" type="text" ng-model="recepcionista.nome"
                maxlength="254" ng-disabled="acaoFinalizada" required>
         <p ng-show="recepcionistaForm.nomeRecepcionista.$touched && recepcionistaForm.nomeRecepcionista.$error.required"
            class="mensagem-erro">Nome é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="cpfRecepcionista">CPF</label> <span>(somente números)</span>
+        <input id="cpfRecepcionista" name="cpfRecepcionista" class="form-control" type="text" ng-model="recepcionista.cpf"
+               maxlength="11" ng-disabled="acaoFinalizada" required>
+        <p ng-show="recepcionistaForm.cpfRecepcionista.$touched && recepcionistaForm.cpfRecepcionista.$error.required"
+           class="mensagem-erro">CPF é um campo obrigatório</p>
     </div>
 
     <div class="col-md-12">

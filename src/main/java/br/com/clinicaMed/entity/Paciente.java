@@ -1,10 +1,8 @@
 package br.com.clinicaMed.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import br.com.clinicaMed.enumeration.Sexo;
+
+import javax.persistence.*;
 
 @Entity
 public class Paciente {
@@ -16,6 +14,13 @@ public class Paciente {
 
     @Column(name = "pa_nome")
     private String nome;
+
+    @Column(name = "pa_cpf")
+    private String cpf;
+
+    @Column(name = "pa_sexo")
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 
     public Long getId() {
         return id;
@@ -31,5 +36,21 @@ public class Paciente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 }

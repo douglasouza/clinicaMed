@@ -4,7 +4,7 @@
 
     clinicaMed.constant('jQuery', window.jQuery);
 
-    clinicaMed.factory('httpInterceptor', ['$rootScope', function ($rootScope) {
+    clinicaMed.factory('httpInterceptor', ['$rootScope', '$q', function ($rootScope, $q) {
         return {
             request: function (config) {
                 $rootScope.$broadcast('REQUEST_SENT');
@@ -16,6 +16,7 @@
             },
             responseError: function (response) {
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
+                return $q.reject(response);
             }
         };
     }]);

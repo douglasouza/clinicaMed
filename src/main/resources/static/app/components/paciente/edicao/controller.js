@@ -1,17 +1,13 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('pacienteEdicaoController',
-    ['$scope', '$state', '$stateParams', 'pacienteEdicaoService', function ($scope, $state, $stateParams, pacienteEdicaoService) {
+    ['$scope', '$state', '$stateParams', 'constants', 'pacienteEdicaoService', function ($scope, $state, $stateParams, constants, pacienteEdicaoService) {
         $scope.salvar = function () {
             if ($scope.acao === 'NOVO') {
                 pacienteEdicaoService.savePaciente($scope.paciente);
             } else {
                 pacienteEdicaoService.updatePaciente($stateParams.id, $scope.paciente);
             }
-        };
-
-        $scope.mudarInputType = function () {
-            $scope.mostrarSenha = !$scope.mostrarSenha;
         };
 
         $scope.$on('PACIENTE_SAVE_SUCCESS', function () {
@@ -28,8 +24,7 @@ clinicaMed.controller('pacienteEdicaoController',
         }
 
         function inicializar() {
-            $scope.mostrarSenha = false;
-            $scope.paciente = {tipoUsuario: 'PACIENTE'};
+            $scope.sexos = constants().ENUM.SEXO;
             $scope.acao = $state.current.name === 'paciente.novo' ? 'NOVO' : 'EDICAO';
             if ($scope.acao === 'EDICAO') {
                 pacienteEdicaoService.getPaciente($stateParams.id).$promise.then(

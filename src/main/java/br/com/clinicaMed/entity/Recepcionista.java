@@ -1,12 +1,6 @@
 package br.com.clinicaMed.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Recepcionista {
@@ -18,6 +12,9 @@ public class Recepcionista {
 
     @Column(name = "re_nome")
     private String nome;
+
+    @Column(name = "re_cpf")
+    private String cpf;
 
     @JoinColumn(name = "us_id")
     @OneToOne
@@ -37,6 +34,14 @@ public class Recepcionista {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public Usuario getUsuario() {

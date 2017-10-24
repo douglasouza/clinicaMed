@@ -19,6 +19,10 @@ clinicaMed.constant('constants', function () {
                 {id: 'PSIQUIATRIA', value: 'Psiquiatria'},
                 {id: 'REUMATOLOGIA', value: 'Reumatologia'},
                 {id: 'UROLOGIA', value: 'Urologia'}
+            ],
+            SEXO: [
+                {id: 'FEMININO', value: 'Feminino'},
+                {id: 'MASCULINO', value: 'Masculino'}
             ]
         }
     };

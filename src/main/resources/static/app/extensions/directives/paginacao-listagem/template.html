@@ -1,7 +1,12 @@
 <div class="col-md-6 info-paginacao">
-    Mostrando de {{inicio}} até {{fim}} de {{numRegistros}} registros.
+    <span ng-if="isNumRegistroMaiorZero()">
+        Mostrando de {{inicio}} até {{fim}} de {{numRegistros}} registros.
+    </span>
+    <span ng-if="!isNumRegistroMaiorZero()">
+        Nenhum registro encontrado.
+    </span>
 </div>
-<nav class="paginacao">
+<nav class="paginacao" ng-if="isNumRegistroMaiorZero()">
     <ul class="pagination pagination-md">
         <li ng-class="getAnteriorClass()">
             <a href="" aria-label="Previous" ng-click="paginaAnterior()">

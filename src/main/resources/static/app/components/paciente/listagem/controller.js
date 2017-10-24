@@ -4,14 +4,14 @@ clinicaMed.controller('pacienteListagemController',
     ['$scope', '$state', 'pacienteListagemService', function ($scope, $state, pacienteListagemService) {
 
         $scope.pesquisar = function () {
-            if ($scope.filtro.nomeLogin || $scope.filtro.especialidade) {
+            if ($scope.filtro.nome) {
                 pacienteListagemService.fetchAll($scope.filtro);
                 $scope.pesquisaRealizada = true;
             }
         };
 
         $scope.limparPesquisa = function () {
-            $scope.filtro = {nomeLogin: '', especialidade: ''};
+            $scope.filtro = {nome: ''};
             pacienteListagemService.fetchAll($scope.filtro);
             $scope.pesquisaRealizada = false;
         };
@@ -50,16 +50,21 @@ clinicaMed.controller('pacienteListagemController',
                     nome: 'Nome'
                 },
                 {
-                    caminhoNoObjeto: 'login',
-                    classeCol: 'col-md-5',
-                    nome: 'Login'
+                    caminhoNoObjeto: 'cpf',
+                    classeCol: 'col-md-2',
+                    nome: 'CPF'
+                },
+                {
+                    caminhoNoObjeto: 'sexo',
+                    classeCol: 'col-md-3',
+                    nome: 'Sexo'
                 }
             ];
         }
 
         function initizialize() {
             inicializarDadosTabelaListagem();
-            $scope.filtro = {nomeLogin: ''};
+            $scope.filtro = {nome: ''};
             pacienteListagemService.fetchAll($scope.filtro);
         }
 

@@ -4,14 +4,14 @@ clinicaMed.controller('recepcionistaListagemController',
     ['$scope', '$state', 'recepcionistaListagemService', function ($scope, $state, recepcionistaListagemService) {
 
         $scope.pesquisar = function () {
-            if ($scope.filtro.nomeLogin || $scope.filtro.especialidade) {
+            if ($scope.filtro.nomeLogin) {
                 recepcionistaListagemService.fetchAll($scope.filtro);
                 $scope.pesquisaRealizada = true;
             }
         };
 
         $scope.limparPesquisa = function () {
-            $scope.filtro = {nomeLogin: '', especialidade: ''};
+            $scope.filtro = {nomeLogin: ''};
             recepcionistaListagemService.fetchAll($scope.filtro);
             $scope.pesquisaRealizada = false;
         };
@@ -50,8 +50,13 @@ clinicaMed.controller('recepcionistaListagemController',
                     nome: 'Nome'
                 },
                 {
+                    caminhoNoObjeto: 'cpf',
+                    classeCol: 'col-md-2',
+                    nome: 'CPF'
+                },
+                {
                     caminhoNoObjeto: 'login',
-                    classeCol: 'col-md-5',
+                    classeCol: 'col-md-3',
                     nome: 'Login'
                 }
             ];

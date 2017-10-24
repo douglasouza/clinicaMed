@@ -18,30 +18,26 @@
            class="mensagem-erro">Nome é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-12">
-        <h3>Dados de Acesso ao Sistema</h3>
+    <div class="col-md-6 form-group">
+        <label for="cpfPaciente">CPF</label> <span>(somente números)</span>
+        <input id="cpfPaciente" name="cpfPaciente" class="form-control" type="text" ng-model="paciente.cpf"
+               maxlength="11" ng-disabled="acaoFinalizada" required>
+        <p ng-show="pacienteForm.cpfPaciente.$touched && pacienteForm.cpfPaciente.$error.required"
+           class="mensagem-erro">CPF é um campo obrigatório</p>
     </div>
 
     <div class="col-md-6 form-group">
-        <label for="loginUsuario">Login</label>
-        <input id="loginUsuario" name="loginUsuario" class="form-control" type="text" ng-model="paciente.usuario.login"
-               maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="pacienteForm.loginUsuario.$touched && pacienteForm.loginUsuario.$error.required"
-           class="mensagem-erro">Login é um campo obrigatório</p>
-    </div>
-
-    <div class="col-md-6 form-group has-feedback">
-        <label for="senhaUsuario">Senha</label>
-        <div class="inner-addon left-addon">
-            <i ng-class="mostrarSenha ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open'" ng-click="mudarInputType()"></i>
-            <input id="senhaUsuario" name="senhaUsuario" class="form-control"
-                   type="{{mostrarSenha ? 'text' : 'password'}}" ng-model="paciente.usuario.senha"
-                   maxlength="254" ng-minlength="6" ng-disabled="acaoFinalizada" required>
-        </div>
-        <p ng-show="pacienteForm.senhaUsuario.$touched && pacienteForm.senhaUsuario.$error.required"
-           class="mensagem-erro">Senha é um campo obrigatório</p>
-        <p ng-show="pacienteForm.senhaUsuario.$touched && pacienteForm.senhaUsuario.$error.minlength"
-           class="mensagem-erro">A senha deve conter pelo menos 6 caracteres.</p>
+        <label for="sexoPaciente">Sexo</label>
+        <select id="sexoPaciente" name="sexoPaciente" class="form-control" ng-model="paciente.sexo"
+                ng-disabled="acaoFinalizada" required>
+            <option value="">Selecione</option>
+            <option ng-repeat="sexo in sexos track by sexo.id"
+                    value="{{sexo.id}}">
+                {{sexo.value}}
+            </option>
+        </select>
+        <p ng-show="medicoForm.sexoPaciente.$touched && medicoForm.sexoPaciente.$error.required"
+           class="mensagem-erro">Sexo é um campo obrigatório</p>
     </div>
 
     <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
