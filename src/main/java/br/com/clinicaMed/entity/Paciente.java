@@ -1,24 +1,26 @@
 package br.com.clinicaMed.entity;
 
+import br.com.clinicaMed.enumeration.Sexo;
+
 import javax.persistence.*;
 
 @Entity
-public class Recepcionista {
+public class Paciente {
 
     @Id
-    @Column(name = "re_id")
+    @Column(name = "pa_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "re_nome")
+    @Column(name = "pa_nome")
     private String nome;
 
-    @Column(name = "re_cpf")
+    @Column(name = "pa_cpf")
     private String cpf;
 
-    @JoinColumn(name = "us_id")
-    @OneToOne
-    private Usuario usuario;
+    @Column(name = "pa_sexo")
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 
     public Long getId() {
         return id;
@@ -44,11 +46,11 @@ public class Recepcionista {
         this.cpf = cpf;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Sexo getSexo() {
+        return sexo;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 }

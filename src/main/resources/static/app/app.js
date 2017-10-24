@@ -4,7 +4,7 @@
 
     clinicaMed.constant('jQuery', window.jQuery);
 
-    clinicaMed.factory('responseErrorInterceptor', ['$rootScope', function ($rootScope) {
+    clinicaMed.factory('httpInterceptor', ['$rootScope', '$q', function ($rootScope, $q) {
         return {
             request: function (config) {
                 $rootScope.$broadcast('REQUEST_SENT');
@@ -16,12 +16,13 @@
             },
             responseError: function (response) {
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
+                return $q.reject(response);
             }
         };
     }]);
 
     clinicaMed.config(['$httpProvider', '$urlRouterProvider', function ($httpProvider, $urlRouterProvider) {
-        $httpProvider.interceptors.push('responseErrorInterceptor');
+        $httpProvider.interceptors.push('httpInterceptor');
 
         $urlRouterProvider.when('/medico', '/medico/listagem');
         $urlRouterProvider.when('/medico/', '/medico/listagem');

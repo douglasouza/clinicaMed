@@ -34,6 +34,10 @@ clinicaMed.directive('paginacaoListagem', function () {
                 return scope.paginaAtual === scope.qtdPaginas ? 'disabled' : '';
             };
 
+            scope.isNumRegistroMaiorZero = function () {
+                return scope.numRegistros > 0;
+            };
+
             scope.$watch('numRegistros', function (novoValor) {
                 scope.numRegistros = novoValor;
                 if (scope.numRegistros)

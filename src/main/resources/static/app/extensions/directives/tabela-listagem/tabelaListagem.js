@@ -11,6 +11,11 @@ clinicaMed.directive('tabelaListagem', function () {
         },
         templateUrl: './app/extensions/directives/tabela-listagem/template.html',
         link: function (scope) {
+            scope.isNumRegistroMaiorZero = function () {
+                if (scope.registros)
+                    return scope.registros.length > 0;
+            };
+
             scope.$watch('paginaAtual', function (novoValor) {
                 scope.paginaAtual = novoValor;
                 if (scope.paginaAtual && scope.registros)

@@ -1,0 +1,53 @@
+<h1 ng-if="acao === 'NOVO'">Novo Paciente</h1>
+<h1 ng-if="acao === 'EDICAO'">Editar Paciente</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
+
+<form name="pacienteForm" novalidate>
+    <div class="col-md-12">
+        <h3>Dados do Paciente</h3>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="nomePaciente">Nome</label>
+        <input id="nomePaciente" name="nomePaciente" class="form-control" type="text" ng-model="paciente.nome"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
+        <p ng-show="pacienteForm.nomePaciente.$touched && pacienteForm.nomePaciente.$error.required"
+           class="mensagem-erro">Nome é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="cpfPaciente">CPF</label> <span>(somente números)</span>
+        <input id="cpfPaciente" name="cpfPaciente" class="form-control" type="text" ng-model="paciente.cpf"
+               maxlength="11" ng-disabled="acaoFinalizada" required>
+        <p ng-show="pacienteForm.cpfPaciente.$touched && pacienteForm.cpfPaciente.$error.required"
+           class="mensagem-erro">CPF é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="sexoPaciente">Sexo</label>
+        <select id="sexoPaciente" name="sexoPaciente" class="form-control" ng-model="paciente.sexo"
+                ng-disabled="acaoFinalizada" required>
+            <option value="">Selecione</option>
+            <option ng-repeat="sexo in sexos track by sexo.id"
+                    value="{{sexo.id}}">
+                {{sexo.value}}
+            </option>
+        </select>
+        <p ng-show="medicoForm.sexoPaciente.$touched && medicoForm.sexoPaciente.$error.required"
+           class="mensagem-erro">Sexo é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
+        <button class="btn btn-danger" ui-sref="paciente.listagem">Cancelar</button>
+        <button class="btn btn-success" ng-disabled="pacienteForm.$invalid"
+                ng-click="salvar()">Salvar
+        </button>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada">
+        <button class="btn btn-primary" ui-sref="paciente.listagem">Voltar</button>
+    </div>
+</form>

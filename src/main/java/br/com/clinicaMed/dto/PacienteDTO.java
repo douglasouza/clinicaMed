@@ -1,6 +1,6 @@
 package br.com.clinicaMed.dto;
 
-public class RecepcionistaDTO {
+public class PacienteDTO {
 
     private Long id;
 
@@ -8,13 +8,13 @@ public class RecepcionistaDTO {
 
     private String cpf;
 
-    private String login;
+    private String sexo;
 
-    public RecepcionistaDTO(Long id, String nome, String cpf, String login) {
+    public PacienteDTO(Long id, String nome, String cpf, String sexo) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.login = login;
+        this.sexo = sexo;
     }
 
     public Long getId() {
@@ -41,11 +41,11 @@ public class RecepcionistaDTO {
         this.cpf = cpf;
     }
 
-    public String getLogin() {
-        return login;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }
