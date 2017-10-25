@@ -7,4 +7,9 @@ clinicaMed.config(function ($stateProvider) {
         templateUrl: './app/components/home/view.html'
     });
 
+    $stateProvider.state('login', {
+        url: '/login',
+        templateUrl: './login.html'
+    });
+
 });
