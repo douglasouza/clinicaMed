@@ -1,11 +1,12 @@
 package br.com.clinicaMed.security;
 
-import br.com.clinicaMed.entity.Usuario;
-import br.com.clinicaMed.repository.UsuarioRepository;
+import br.com.clinicaMed.api.entity.Usuario;
+import br.com.clinicaMed.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Component
-public class UserDetailsServiceImpl implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;

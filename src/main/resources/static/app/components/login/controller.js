@@ -1,7 +1,10 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('loginController',
-    ['$scope', '$stateParams', function ($scope, $stateParams) {
-        $scope.error = $stateParams.error;
+    ['$scope', 'loginService', function ($scope, loginService) {
+
+        $scope.autenticar = function () {
+            loginService.autenticarUsuario($scope.usuario, CryptoJS.SHA256($scope.senha).toString());
+        };
     }]
 );

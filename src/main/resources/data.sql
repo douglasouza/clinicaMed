@@ -1,5 +1,5 @@
 -- Administrador
-INSERT INTO usuario (us_login, us_senha, us_tipo_usuario) VALUES ('admin', 'senha123', 'ADMINISTRADOR');
+INSERT INTO usuario (us_login, us_senha, us_tipo_usuario) VALUES ('admin', '55a5e9e78207b4df8699d60886fa070079463547b095d1a05bc719bb4e6cd251', 'ADMINISTRADOR');
 
 -- Médicos
 INSERT INTO usuario (us_login, us_senha, us_tipo_usuario) VALUES ('jsantos', 'senha123', 'MEDICO');
