@@ -28,7 +28,27 @@
         $urlRouterProvider.when('/medico/', '/medico/listagem');
         $urlRouterProvider.when('/recepcionista', '/recepcionista/listagem');
         $urlRouterProvider.when('/recepcionista/', '/recepcionista/listagem');
-        $urlRouterProvider.otherwise('home');
+        $urlRouterProvider.otherwise('/home');
+    }]);
+
+    clinicaMed.run(['$rootScope', '$state', function ($rootScope, $state) {
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+            if (toState.url === "/login" && $rootScope.authenticated) {
+                event.preventDefault();
+            } else if (toState.acesso && toState.acesso.loginRequerido && !$rootScope.authenticated) {
+                event.preventDefault();
+                $rootScope.$broadcast("event:auth-loginRequired", {});
+            }// } else if (toState.acesso){//   } && !AuthSharedService.isAuthorized(toState.access.authorizedRoles)) {
+            //     event.preventDefault();
+            //     $rootScope.$broadcast("event:auth-forbidden", {});
+            // }
+        });
+
+        $rootScope.$on('event:auth-loginRequired', function (event, data) {
+            $rootScope.authenticated = false;
+            $state.go('login');
+        });
+
     }]);
 
 }(angular));

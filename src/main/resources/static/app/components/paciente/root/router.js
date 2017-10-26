@@ -5,7 +5,11 @@ clinicaMed.config(function ($stateProvider) {
     $stateProvider.state('paciente', {
         url: '/paciente',
         abstract: true,
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        acesso: {
+            loginRequerido: true,
+            usuariosAutorizados: 'RECEPCIONISTA'
+        }
     });
 
 });

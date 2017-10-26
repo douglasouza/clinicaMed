@@ -5,13 +5,21 @@ clinicaMed.config(function ($stateProvider) {
         $stateProvider.state('paciente.novo', {
             url: '/novo',
             templateUrl: './app/components/paciente/edicao/view.html',
-            controller: 'pacienteEdicaoController'
+            controller: 'pacienteEdicaoController',
+            acesso: {
+                loginRequerido: true,
+                usuariosAutorizados: 'RECEPCIONISTA'
+            }
         });
 
         $stateProvider.state('paciente.edicao', {
             url: '/editar/:id',
             templateUrl: './app/components/paciente/edicao/view.html',
-            controller: 'pacienteEdicaoController'
+            controller: 'pacienteEdicaoController',
+            acesso: {
+                loginRequerido: true,
+                usuariosAutorizados: 'RECEPCIONISTA'
+            }
         });
 
     }
