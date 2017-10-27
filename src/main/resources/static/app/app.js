@@ -31,22 +31,28 @@
         $urlRouterProvider.otherwise('/home');
     }]);
 
-    clinicaMed.run(['$rootScope', '$state', function ($rootScope, $state) {
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-            if (toState.url === "/login" && $rootScope.authenticated) {
+    clinicaMed.run(['$rootScope', '$state', '$window', 'loginService', function ($rootScope, $state, $window, loginService) {
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
+            if (!toState.acesso.loginRequerido) {
+                return;
+            } else if (toState.url === "/login" && loginService.usuarioEstaLogado()) {
                 event.preventDefault();
-            } else if (toState.acesso && toState.acesso.loginRequerido && !$rootScope.authenticated) {
+            } else if (toState.acesso && toState.acesso.loginRequerido && !loginService.usuarioEstaLogado()) {
                 event.preventDefault();
-                $rootScope.$broadcast("event:auth-loginRequired", {});
-            }// } else if (toState.acesso){//   } && !AuthSharedService.isAuthorized(toState.access.authorizedRoles)) {
-            //     event.preventDefault();
-            //     $rootScope.$broadcast("event:auth-forbidden", {});
-            // }
+                $rootScope.$broadcast('AUTENTICACAO_REQUERIDA');
+            } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
+                event.preventDefault();
+                $rootScope.$broadcast("event:auth-forbidden", {});
+            }
         });
 
-        $rootScope.$on('event:auth-loginRequired', function (event, data) {
-            $rootScope.authenticated = false;
+        $rootScope.$on('AUTENTICACAO_REQUERIDA', function () {
+            $rootScope.autenticado = false;
             $state.go('login');
+        });
+
+        $rootScope.$on('AUTENTICACAO_REALIZADA', function () {
+            $state.go('home');
         });
 
     }]);

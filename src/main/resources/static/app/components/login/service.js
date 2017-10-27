@@ -1,24 +1,40 @@
 var clinicaMed = angular.module('clinicaMed');
 
-clinicaMed.service('loginService', function ($rootScope, $http, $state) {
+clinicaMed.service('loginService',
+    ['$rootScope', '$http', '$state', '$window', 'jQuery', function ($rootScope, $http, $state, $window, $) {
 
-    this.autenticarUsuario = function (usuario, senha) {
-        var config = {
-            params: {
+        this.autenticarUsuario = function (usuario, senha) {
+            var config = {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            };
+
+            var params = {
                 usuario: usuario,
                 senha: senha
-            }
+            };
+
+            $http.post('/autenticar', $.param(params), config).success(function (data) {
+                $window.localStorage.setItem('usuarioAutenticado', 'true');
+                $window.localStorage.setItem('usuario', JSON.stringify(data));
+                $rootScope.$broadcast('AUTENTICACAO_REALIZADA');
+            });
         };
 
-        $http.post('/autenticar', '', config)
-            .success(function (data, status, headers, config) {
-                $rootScope.authenticated = true;
-                $state.go('home');
-            })
-            .error(function (data, status, headers, config) {
-                $rootScope.authenticationError = true;
-                Session.invalidate();
-            });
-    };
+        this.usuarioEstaLogado = function () {
+            if ($window.localStorage.getItem('usuarioAutenticado') == null)
+                return false;
+            if ($window.localStorage.getItem('usuarioAutenticado') === 'true')
+                return true;
+        };
 
-});
+        this.usuarioTemPermissao = function (autorizacao) {
+            if ($window.localStorage.getItem('usuario') == null)
+                return false;
+            if (!autorizacao)
+                return true;
+            if (autorizacao === JSON.parse($window.localStorage.getItem('usuario')).tipoUsuario)
+                return true;
+            return false;
+        };
+    }]
+);

@@ -14,7 +14,7 @@
         <label for="nomePaciente">Nome</label>
         <input id="nomePaciente" name="nomePaciente" class="form-control" type="text" ng-model="paciente.nome"
                maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="pacienteForm.nomePaciente.$touched && pacienteForm.nomePaciente.$error.required"
+        <p ng-show="pacienteForm.nomePaciente.$touched && pacienteForm.nomePaciente.$erro.required"
            class="mensagem-erro">Nome é um campo obrigatório</p>
     </div>
 
@@ -22,7 +22,7 @@
         <label for="cpfPaciente">CPF</label> <span>(somente números)</span>
         <input id="cpfPaciente" name="cpfPaciente" class="form-control" type="text" ng-model="paciente.cpf"
                maxlength="11" ng-disabled="acaoFinalizada" required>
-        <p ng-show="pacienteForm.cpfPaciente.$touched && pacienteForm.cpfPaciente.$error.required"
+        <p ng-show="pacienteForm.cpfPaciente.$touched && pacienteForm.cpfPaciente.$erro.required"
            class="mensagem-erro">CPF é um campo obrigatório</p>
     </div>
 
@@ -36,7 +36,7 @@
                 {{sexo.value}}
             </option>
         </select>
-        <p ng-show="medicoForm.sexoPaciente.$touched && medicoForm.sexoPaciente.$error.required"
+        <p ng-show="medicoForm.sexoPaciente.$touched && medicoForm.sexoPaciente.$erro.required"
            class="mensagem-erro">Sexo é um campo obrigatório</p>
     </div>
 

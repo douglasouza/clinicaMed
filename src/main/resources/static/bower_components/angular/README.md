@@ -20,7 +20,7 @@ Then add a `<script>` to your `index.html`:
 <script src="/node_modules/angular/angular.js"></script>
 ```
 
-Or `require('angular')` from your code.
+Or `require('angular')` from your codigo.
 
 ### bower
 
