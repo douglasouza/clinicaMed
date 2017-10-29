@@ -28,6 +28,9 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
+    @Column(name = "us_ativado")
+    private Boolean ativado;
+
     public Long getId() {
         return id;
     }
@@ -58,5 +61,13 @@ public class Usuario {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public Boolean getAtivado() {
+        return ativado;
+    }
+
+    public void setAtivado(Boolean ativado) {
+        this.ativado = ativado;
     }
 }

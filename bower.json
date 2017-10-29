@@ -5,7 +5,7 @@
     "angular-resource": "~1.4",
     "angular-ui-router": "~0.3.1",
     "cryptojslib": "latest",
-    "bootstrap": "3.3.6",
+    "bootstrap": "latest",
     "jquery": "2.1.4"
   }
 }

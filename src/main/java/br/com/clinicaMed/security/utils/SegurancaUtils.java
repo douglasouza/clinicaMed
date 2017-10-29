@@ -19,22 +19,18 @@ public final class SegurancaUtils {
     private SegurancaUtils() {
     }
 
-    public static String getLoginUsuarioLogado() {
+    public static Object getUsuarioLogado() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        UserDetails springSecurityUser = null;
-        String login = null;
-
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
-                springSecurityUser = (UserDetails) authentication.getPrincipal();
-                login = springSecurityUser.getUsername();
+                return (UserDetails) authentication.getPrincipal();
             } else if (authentication.getPrincipal() instanceof String) {
-                login = (String) authentication.getPrincipal();
+                return (String) authentication.getPrincipal();
             }
         }
 
-        return login;
+        return null;
     }
 
     public static void enviarErro(HttpServletResponse response, Exception exception, int codigo, String mensagem) throws IOException {

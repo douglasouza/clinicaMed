@@ -15,6 +15,9 @@
                 return response;
             },
             responseError: function (response) {
+                if (response.headers()['usuario-logado'] === 'false')
+                    $rootScope.$broadcast('AUTENTICACAO_REQUERIDA', response);
+
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
                 return $q.reject(response);
             }
@@ -31,30 +34,29 @@
         $urlRouterProvider.otherwise('/home');
     }]);
 
-    clinicaMed.run(['$rootScope', '$state', '$window', 'loginService', function ($rootScope, $state, $window, loginService) {
+    clinicaMed.run(['$rootScope', '$state', '$http', 'loginService', function ($rootScope, $state, $http, loginService) {
+        if (!$rootScope.usuarioLogado) {
+            var request = new XMLHttpRequest();
+            request.open('GET', '/seguranca/usuarioLogado', false);
+            console.clear();
+            request.send(null);
+
+            if (request.status === 200) {
+                $rootScope.usuarioLogado = JSON.parse(request.responseText);
+            }
+        }
+
         $rootScope.$on('$stateChangeStart', function (event, toState) {
-            if (!toState.acesso.loginRequerido) {
-                return;
-            } else if (toState.url === "/login" && loginService.usuarioEstaLogado()) {
-                event.preventDefault();
-            } else if (toState.acesso && toState.acesso.loginRequerido && !loginService.usuarioEstaLogado()) {
-                event.preventDefault();
-                $rootScope.$broadcast('AUTENTICACAO_REQUERIDA');
-            } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
+            if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
                 event.preventDefault();
                 $rootScope.$broadcast("event:auth-forbidden", {});
+                console.log('ACESSO NEGADO');
             }
         });
 
         $rootScope.$on('AUTENTICACAO_REQUERIDA', function () {
-            $rootScope.autenticado = false;
             $state.go('login');
         });
-
-        $rootScope.$on('AUTENTICACAO_REALIZADA', function () {
-            $state.go('home');
-        });
-
     }]);
 
 }(angular));

@@ -1,7 +1,7 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.service('loginService',
-    ['$rootScope', '$http', '$state', '$window', 'jQuery', function ($rootScope, $http, $state, $window, $) {
+    ['$rootScope', '$http', '$state', 'jQuery', function ($rootScope, $http, $state, $) {
 
         this.autenticarUsuario = function (usuario, senha) {
             var config = {
@@ -13,28 +13,43 @@ clinicaMed.service('loginService',
                 senha: senha
             };
 
-            $http.post('/autenticar', $.param(params), config).success(function (data) {
-                $window.localStorage.setItem('usuarioAutenticado', 'true');
-                $window.localStorage.setItem('usuario', JSON.stringify(data));
-                $rootScope.$broadcast('AUTENTICACAO_REALIZADA');
-            });
-        };
-
-        this.usuarioEstaLogado = function () {
-            if ($window.localStorage.getItem('usuarioAutenticado') == null)
-                return false;
-            if ($window.localStorage.getItem('usuarioAutenticado') === 'true')
-                return true;
+            $http.post('/autenticar', $.param(params), config)
+                .success(function (data) {
+                    $rootScope.usuarioLogado = data;
+                    $rootScope.$broadcast('LOGIN_SUCCESS');
+                })
+                .error(function () {
+                    $rootScope.$broadcast('LOGIN_ERROR');
+                });
         };
 
         this.usuarioTemPermissao = function (autorizacao) {
-            if ($window.localStorage.getItem('usuario') == null)
-                return false;
             if (!autorizacao)
                 return true;
-            if (autorizacao === JSON.parse($window.localStorage.getItem('usuario')).tipoUsuario)
+            if (autorizacao === $rootScope.usuarioLogado.tipoUsuario)
                 return true;
             return false;
+        };
+
+        this.getUsuarioLogado = function () {
+            $http.get('/seguranca/usuarioLogado').success(function (data) {
+                $rootScope.usuarioLogado = data;
+                $rootScope.$broadcast('USUARIO_LOGADO_CARREGADO');
+            });
+        };
+
+        this.ativarUsuario = function (usuario, senha) {
+            var config = {
+                params: {
+                    login: usuario,
+                    novaSenha: senha
+                }
+            };
+
+            $http.put('/seguranca/ativarUsuario', '', config).success(function (data) {
+                $rootScope.usuarioLogado = data;
+                $rootScope.$broadcast('USUARIO_ATIVADO');
+            });
         };
     }]
 );

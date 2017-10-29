@@ -2,6 +2,7 @@ package br.com.clinicaMed.security.handlers;
 
 import br.com.clinicaMed.api.entity.Usuario;
 import br.com.clinicaMed.api.repository.UsuarioRepository;
+import br.com.clinicaMed.security.dto.UsuarioDTO;
 import br.com.clinicaMed.security.utils.SegurancaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,11 @@ public class SucessoAutenticacaoHandler extends SimpleUrlAuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         Usuario usuarioLogado = repo.findByLogin(authentication.getName());
-        usuarioLogado.setSenha(null);
-        SegurancaUtils.enviarResposta(response, HttpServletResponse.SC_OK, usuarioLogado);
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setLogin(usuarioLogado.getLogin());
+        usuarioDTO.setTipoUsuario(usuarioLogado.getTipoUsuario());
+        usuarioDTO.setAtivado(usuarioLogado.getAtivado());
+        SegurancaUtils.enviarResposta(response, HttpServletResponse.SC_OK, usuarioDTO);
     }
 }
