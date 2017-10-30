@@ -23,10 +23,10 @@ clinicaMed.service('loginService',
                 });
         };
 
-        this.usuarioTemPermissao = function (autorizacao) {
-            if (!autorizacao)
+        this.usuarioTemPermissao = function (usuariosAutorizados) {
+            if (!usuariosAutorizados)
                 return true;
-            if (autorizacao === $rootScope.usuarioLogado.tipoUsuario)
+            if (usuariosAutorizados.indexOf($rootScope.usuarioLogado.tipoUsuario) != -1)
                 return true;
             return false;
         };

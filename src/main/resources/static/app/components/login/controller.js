@@ -17,11 +17,12 @@ clinicaMed.controller('loginController',
             });
 
             $scope.$on('USUARIO_ATIVADO', function () {
-                $('#usuarioAtivado').modal({backdrop: 'static', keyboard: false});
                 $('#modalRedefinicaoSenha').hide();
+                $('#usuarioAtivado').modal({backdrop: 'static', keyboard: false});
                 $('#usuarioAtivado').show();
                 $timeout(function () {
                     $('#usuarioAtivado').hide();
+                    $('.modal-backdrop').remove();
                     $state.go('home');
                 }, 5000);
             });

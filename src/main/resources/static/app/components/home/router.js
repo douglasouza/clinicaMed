@@ -7,8 +7,7 @@ clinicaMed.config(function ($stateProvider) {
         templateUrl: './app/components/home/view.html',
         controller: 'homeController',
         acesso: {
-            loginRequerido: true,
-            usuariosAutorizados: ''
+            loginRequerido: true
         }
     });
 });

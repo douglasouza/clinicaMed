@@ -8,7 +8,7 @@ clinicaMed.config(function ($stateProvider) {
             controller: 'recepcionistaEdicaoController',
             acesso: {
                 loginRequerido: true,
-                usuariosAutorizados: 'ADMINISTRADOR'
+                usuariosAutorizados: ['ADMINISTRADOR']
             }
         });
 
@@ -18,7 +18,7 @@ clinicaMed.config(function ($stateProvider) {
             controller: 'recepcionistaEdicaoController',
             acesso: {
                 loginRequerido: true,
-                usuariosAutorizados: 'ADMINISTRADOR'
+                usuariosAutorizados: ['ADMINISTRADOR']
             }
         });
 

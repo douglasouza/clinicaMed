@@ -47,10 +47,12 @@
         }
 
         $rootScope.$on('$stateChangeStart', function (event, toState) {
-            if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
+            if (toState.url === '/login' && $rootScope.usuarioLogado) {
                 event.preventDefault();
-                $rootScope.$broadcast("event:auth-forbidden", {});
-                console.log('ACESSO NEGADO');
+                $state.go('home');
+            } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
+                event.preventDefault();
+                $state.go('acessoNegado');
             }
         });
 

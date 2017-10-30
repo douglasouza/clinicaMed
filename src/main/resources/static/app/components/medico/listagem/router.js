@@ -8,7 +8,7 @@ clinicaMed.config(function ($stateProvider) {
         controller: 'medicoListagemController',
         acesso: {
             loginRequerido: true,
-            usuariosAutorizados: 'ADMINISTRADOR'
+            usuariosAutorizados: ['ADMINISTRADOR']
         }
     });
 
