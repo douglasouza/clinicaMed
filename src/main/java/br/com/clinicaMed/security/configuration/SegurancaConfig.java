@@ -1,7 +1,12 @@
 package br.com.clinicaMed.security.configuration;
 
 import br.com.clinicaMed.security.filter.ResponseFilter;
-import br.com.clinicaMed.security.handlers.*;
+import br.com.clinicaMed.security.handlers.AcessoNaoAutorizadoHandler;
+import br.com.clinicaMed.security.handlers.AcessoNegadoHandler;
+import br.com.clinicaMed.security.handlers.FalhaAutenticaoHandler;
+import br.com.clinicaMed.security.handlers.LoginUsuarioHandler;
+import br.com.clinicaMed.security.handlers.LogoutHandler;
+import br.com.clinicaMed.security.handlers.SucessoAutenticacaoHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,11 +42,12 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
         http.addFilterAfter(new ResponseFilter(), BasicAuthenticationFilter.class);
-
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/console/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/medico/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/paciente/**").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA")
                 .antMatchers("/recepcionista/**").hasAnyAuthority("ADMINISTRADOR")

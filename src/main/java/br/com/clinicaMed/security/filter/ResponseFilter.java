@@ -1,7 +1,6 @@
 package br.com.clinicaMed.security.filter;
 
 import br.com.clinicaMed.security.utils.SegurancaUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;

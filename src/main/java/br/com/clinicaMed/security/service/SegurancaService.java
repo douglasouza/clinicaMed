@@ -6,7 +6,9 @@ import br.com.clinicaMed.security.dto.UsuarioDTO;
 import br.com.clinicaMed.security.utils.SegurancaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/seguranca")
