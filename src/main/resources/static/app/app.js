@@ -15,6 +15,9 @@
                 return response;
             },
             responseError: function (response) {
+                if (response.headers()['usuario-logado'] === 'false')
+                    $rootScope.$broadcast('AUTENTICACAO_REQUERIDA', response);
+
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
                 return $q.reject(response);
             }
@@ -28,7 +31,34 @@
         $urlRouterProvider.when('/medico/', '/medico/listagem');
         $urlRouterProvider.when('/recepcionista', '/recepcionista/listagem');
         $urlRouterProvider.when('/recepcionista/', '/recepcionista/listagem');
-        $urlRouterProvider.otherwise('home');
+        $urlRouterProvider.otherwise('/home');
+    }]);
+
+    clinicaMed.run(['$rootScope', '$state', '$http', 'loginService', function ($rootScope, $state, $http, loginService) {
+        if (!$rootScope.usuarioLogado) {
+            var request = new XMLHttpRequest();
+            request.open('GET', '/seguranca/usuarioLogado', false);
+            console.clear();
+            request.send(null);
+
+            if (request.status === 200) {
+                $rootScope.usuarioLogado = JSON.parse(request.responseText);
+            }
+        }
+
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
+            if (toState.url === '/login' && $rootScope.usuarioLogado) {
+                event.preventDefault();
+                $state.go('home');
+            } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
+                event.preventDefault();
+                $state.go('acessoNegado');
+            }
+        });
+
+        $rootScope.$on('AUTENTICACAO_REQUERIDA', function () {
+            $state.go('login');
+        });
     }]);
 
 }(angular));

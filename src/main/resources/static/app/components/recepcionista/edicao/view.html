@@ -14,7 +14,7 @@
         <label for="nomeRecepcionista">Nome</label>
         <input id="nomeRecepcionista" name="nomeRecepcionista" class="form-control" type="text" ng-model="recepcionista.nome"
                maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="recepcionistaForm.nomeRecepcionista.$touched && recepcionistaForm.nomeRecepcionista.$error.required"
+        <p ng-show="recepcionistaForm.nomeRecepcionista.$touched && recepcionistaForm.nomeRecepcionista.$erro.required"
            class="mensagem-erro">Nome é um campo obrigatório</p>
     </div>
 
@@ -22,7 +22,7 @@
         <label for="cpfRecepcionista">CPF</label> <span>(somente números)</span>
         <input id="cpfRecepcionista" name="cpfRecepcionista" class="form-control" type="text" ng-model="recepcionista.cpf"
                maxlength="11" ng-disabled="acaoFinalizada" required>
-        <p ng-show="recepcionistaForm.cpfRecepcionista.$touched && recepcionistaForm.cpfRecepcionista.$error.required"
+        <p ng-show="recepcionistaForm.cpfRecepcionista.$touched && recepcionistaForm.cpfRecepcionista.$erro.required"
            class="mensagem-erro">CPF é um campo obrigatório</p>
     </div>
 
@@ -34,7 +34,7 @@
         <label for="loginUsuario">Login</label>
         <input id="loginUsuario" name="loginUsuario" class="form-control" type="text" ng-model="recepcionista.usuario.login"
                maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="recepcionistaForm.loginUsuario.$touched && recepcionistaForm.loginUsuario.$error.required"
+        <p ng-show="recepcionistaForm.loginUsuario.$touched && recepcionistaForm.loginUsuario.$erro.required"
            class="mensagem-erro">Login é um campo obrigatório</p>
     </div>
 
@@ -46,9 +46,9 @@
                    type="{{mostrarSenha ? 'text' : 'password'}}" ng-model="recepcionista.usuario.senha"
                    maxlength="254" ng-minlength="6" ng-disabled="acaoFinalizada" required>
         </div>
-        <p ng-show="recepcionistaForm.senhaUsuario.$touched && recepcionistaForm.senhaUsuario.$error.required"
+        <p ng-show="recepcionistaForm.senhaUsuario.$touched && recepcionistaForm.senhaUsuario.$erro.required"
            class="mensagem-erro">Senha é um campo obrigatório</p>
-        <p ng-show="recepcionistaForm.senhaUsuario.$touched && recepcionistaForm.senhaUsuario.$error.minlength"
+        <p ng-show="recepcionistaForm.senhaUsuario.$touched && recepcionistaForm.senhaUsuario.$erro.minlength"
            class="mensagem-erro">A senha deve conter pelo menos 6 caracteres.</p>
     </div>
 
