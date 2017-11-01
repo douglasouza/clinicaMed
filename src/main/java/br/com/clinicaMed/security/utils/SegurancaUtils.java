@@ -19,18 +19,18 @@ public final class SegurancaUtils {
     private SegurancaUtils() {
     }
 
-    public static Object getUsuarioLogado() {
+    public static String getUsuarioLogado() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
-                return (UserDetails) authentication.getPrincipal();
+                return ((UserDetails) authentication.getPrincipal()).getUsername();
             } else if (authentication.getPrincipal() instanceof String) {
                 return (String) authentication.getPrincipal();
             }
         }
 
-        return null;
+        return "";
     }
 
     public static void enviarErro(HttpServletResponse response, Exception exception, int codigo, String mensagem) throws IOException {

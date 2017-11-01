@@ -6,9 +6,9 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = {"br.com.clinicaMed.api.entity"})
+@EntityScan(basePackages = {"br.com.clinicaMed"})
 @ComponentScan("br.com.clinicaMed")
-@EnableJpaRepositories(basePackages = {"br.com.clinicaMed.api.repository"})
+@EnableJpaRepositories(basePackages = {"br.com.clinicaMed"})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Application {
 

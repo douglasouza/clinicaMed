@@ -1,8 +1,8 @@
 package br.com.clinicaMed.security.handlers;
 
-import br.com.clinicaMed.api.entity.Usuario;
-import br.com.clinicaMed.api.repository.UsuarioRepository;
-import br.com.clinicaMed.security.dto.UsuarioDTO;
+import br.com.clinicaMed.security.usuario.Usuario;
+import br.com.clinicaMed.security.usuario.UsuarioDTO;
+import br.com.clinicaMed.security.usuario.UsuarioRepository;
 import br.com.clinicaMed.security.utils.SegurancaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

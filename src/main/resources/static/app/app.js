@@ -15,7 +15,7 @@
                 return response;
             },
             responseError: function (response) {
-                if (response.headers()['usuario-logado'] === 'false')
+                if (response.status === 511)
                     $rootScope.$broadcast('AUTENTICACAO_REQUERIDA', response);
 
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
@@ -29,6 +29,8 @@
 
         $urlRouterProvider.when('/medico', '/medico/listagem');
         $urlRouterProvider.when('/medico/', '/medico/listagem');
+        $urlRouterProvider.when('/paciente', '/paciente/listagem');
+        $urlRouterProvider.when('/paciente/', '/paciente/listagem');
         $urlRouterProvider.when('/recepcionista', '/recepcionista/listagem');
         $urlRouterProvider.when('/recepcionista/', '/recepcionista/listagem');
         $urlRouterProvider.otherwise('/home');
@@ -37,22 +39,26 @@
     clinicaMed.run(['$rootScope', '$state', '$http', 'loginService', function ($rootScope, $state, $http, loginService) {
         if (!$rootScope.usuarioLogado) {
             var request = new XMLHttpRequest();
-            request.open('GET', '/seguranca/usuarioLogado', false);
+            request.open('GET', '/usuario/usuarioLogado', false);
             console.clear();
             request.send(null);
 
-            if (request.status === 200) {
+            if (request.status === 200 && request.responseText)
                 $rootScope.usuarioLogado = JSON.parse(request.responseText);
-            }
         }
 
-        $rootScope.$on('$stateChangeStart', function (event, toState) {
-            if (toState.url === '/login' && $rootScope.usuarioLogado) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+            if (toState.name !== 'ativarUsuario' && $rootScope.usuarioLogado && !$rootScope.usuarioLogado.ativado) {
                 event.preventDefault();
-                $state.go('home');
-            } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
-                event.preventDefault();
-                $state.go('acessoNegado');
+                $state.go('ativarUsuario');
+            } else {
+                if ((toState.url === '/login' || toState.url === '/ativarUsuario') && $rootScope.usuarioLogado && $rootScope.usuarioLogado.ativado) {
+                    event.preventDefault();
+                    $state.go('home');
+                } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
+                    event.preventDefault();
+                    $state.go('acessoNegado');
+                }
             }
         });
 

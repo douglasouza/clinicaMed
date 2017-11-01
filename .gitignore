@@ -2,6 +2,6 @@
 .idea/
 target
 target/
-src/main/resources/static/bower_components
-src/main/resources/static/bower_components/
+src/main/resources/static/libs
+src/main/resources/static/libs/
 *.iml

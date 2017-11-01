@@ -1,6 +1,5 @@
 package br.com.clinicaMed.security.configuration;
 
-import br.com.clinicaMed.security.filter.ResponseFilter;
 import br.com.clinicaMed.security.handlers.AcessoNaoAutorizadoHandler;
 import br.com.clinicaMed.security.handlers.AcessoNegadoHandler;
 import br.com.clinicaMed.security.handlers.FalhaAutenticaoHandler;
@@ -37,21 +36,22 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/app/**", "/bower_components/**", "/css/**", "/index.html", "/");
+        web.ignoring().antMatchers("/app/**", "/libs/**", "/css/**",
+                "/favicon.ico", "/404.html", "/index.html", "/");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable();
-        http.addFilterAfter(new ResponseFilter(), BasicAuthenticationFilter.class);
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/usuario/**").permitAll()
+                .antMatchers("/usuario/redefinirSenha").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/console/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/medico/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/paciente/**").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA")
                 .antMatchers("/recepcionista/**").hasAnyAuthority("ADMINISTRADOR")
-                .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new AcessoNaoAutorizadoHandler())
                 .accessDeniedHandler(new AcessoNegadoHandler())
