@@ -24,6 +24,7 @@ public class UsuarioService {
             UsuarioDTO usuarioDTO = new UsuarioDTO();
             usuarioDTO.setLogin(usuario.getLogin());
             usuarioDTO.setTipoUsuario(usuario.getTipoUsuario());
+            usuarioDTO.setAtivado(usuario.getAtivado());
             return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);

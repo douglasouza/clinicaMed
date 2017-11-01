@@ -1,5 +1,5 @@
 {
-  "name": "ng-spring-boot",
+  "name": "clinica-med",
   "dependencies": {
     "angular": "~1.4",
     "angular-resource": "~1.4",

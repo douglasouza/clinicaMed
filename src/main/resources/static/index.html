@@ -12,45 +12,12 @@
 </head>
 
 <body ng-app="clinicaMed">
+
 <loading></loading>
 <div class="container" ng-cloak>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="true" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#" ui-sref="home">ClinicaMed</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true" style="">
-                <ul class="nav navbar-nav">
-                    <!--<li class="active"><a href="#">Home</a></li>-->
-                    <!--<li><a href="#">About</a></li>-->
-                    <!--<li><a href="#">Contact</a></li>-->
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Gerenciar Cadastros <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="" ui-sref="paciente.listagem">Pacientes</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="" ui-sref="medico.listagem">Médicos</a></li>
-                            <li><a href="" ui-sref="recepcionista.listagem">Recepcionistas</a></li>
-                            <!--<li><a href="#">Something else here</a></li>-->
-                            <!--<li class="dropdown-header">Nav header</li>-->
-                            <!--<li><a href="#">Separated link</a></li>-->
-                            <!--<li><a href="#">One more separated link</a></li>-->
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div ui-view></div>
+
 </div>
 
 <script type="text/javascript" src="./libs/angular/angular.min.js"></script>
@@ -108,6 +75,7 @@
 
 <!-- Comum -->
 <script type="text/javascript" src="./app/common/constants/constants.js"></script>
+<script type="text/javascript" src="./app/common/directives/barra-navegacao/barraNavegacao.js"></script>
 <script type="text/javascript" src="./app/common/directives/loading/loading.js"></script>
 <script type="text/javascript" src="./app/common/directives/mensagem-erro/mensagemErro.js"></script>
 <script type="text/javascript" src="./app/common/directives/mensagem-sucesso/mensagemSucesso.js"></script>
