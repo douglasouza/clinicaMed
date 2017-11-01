@@ -13,12 +13,12 @@ public class AplicacaoWebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/notFound").setViewName("forward:/index.html");
+        registry.addViewController("/404").setViewName("/404.html");
     }
 
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return container -> container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/notFound"));
+        return container -> container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404"));
     }
 
 }

@@ -1,0 +1,45 @@
+<div class="col-md-4 col-md-offset-4">
+    <h1>Primeiro Acesso</h1>
+
+    <form novalidate ng-submit="ativarUsuario()" name="redifinicaoSenhaForm" role="form">
+        <div class="form-group">
+            <label for="novaSenha">Nova Senha</label>
+            <input id="novaSenha" name="novaSenha" class="form-control" type="password" ng-model="novaSenha"
+                   required autofocus/>
+            <p ng-show="redifinicaoSenhaForm.novaSenha.$touched && redifinicaoSenhaForm.novaSenha.$error.required"
+               class="mensagem-erro">
+                O campo Nova Senha é obrigatório.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="confirmarNovaSenha">Confirmar Nova Senha</label>
+            <input id="confirmarNovaSenha" name="confirmarNovaSenha" class="form-control" type="password"
+                   ng-model="confirmacaoNovaSenha" required/>
+            <p ng-show="redifinicaoSenhaForm.confirmarNovaSenha.$touched && redifinicaoSenhaForm.confirmarNovaSenha.$error.required"
+               class="mensagem-erro">
+                O campo Confirmar Nova Senha é obrigatório.
+            </p>
+            <p ng-show="redifinicaoSenhaForm.novaSenha.$touched && redifinicaoSenhaForm.confirmarNovaSenha.$touched
+                        && (novaSenha && confirmacaoNovaSenha && (novaSenha !== confirmacaoNovaSenha))"
+               class="mensagem-erro">
+                As senhas não estão iguais.
+            </p>
+        </div>
+        <button type="submit" class="btn btn-success"
+                ng-disabled="redifinicaoSenhaForm.$invalid || (novaSenha && confirmacaoNovaSenha && (novaSenha !== confirmacaoNovaSenha))">
+            Confirmar
+        </button>
+    </form>
+</div>
+
+<div id="usuarioAtivado" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" ng-form name="redifinicaoSenhaForm">
+            <div class="modal-body">
+                <p>Senha redefinida com sucesso.</p>
+                <p>Você será redirecionado para a página inicial.</p>
+                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BancoDadosConfig {
+
     @Bean
     public ServletRegistrationBean h2servletRegistration() {
         ServletRegistrationBean registro = new ServletRegistrationBean(new WebServlet());

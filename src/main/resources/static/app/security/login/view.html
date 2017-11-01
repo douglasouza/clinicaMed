@@ -1,0 +1,29 @@
+<div class="col-md-4 col-md-offset-4">
+    <h1>Login</h1>
+
+    <p ng-if="erro" class="mensagem-erro">
+        Erro no login. Verifique as suas credenciais.
+    </p>
+
+    <form novalidate ng-submit="autenticar()" name="loginForm" role="form">
+        <div class="form-group">
+            <label for="usuario">Login</label>
+            <input id="usuario" name="usuario" class="form-control" type="text" ng-model="usuario" required autofocus/>
+            <p ng-show="loginForm.usuario.$touched && loginForm.usuario.$error.required" class="mensagem-erro">
+                O campo login é obrigatório.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" class="form-control" type="password" ng-model="senha" required/>
+            <p ng-show="loginForm.senha.$touched && loginForm.senha.$error.required" class="mensagem-erro">
+                O campo senha é obrigatório.
+            </p>
+        </div>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-danger">
+                Entrar
+            </button>
+        </div>
+    </form>
+</div>
