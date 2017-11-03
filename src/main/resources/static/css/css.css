@@ -25,9 +25,14 @@ ul.pagination {
         margin-bottom: 5px;
         text-align: center;
     }
+
     .paginacao {
         margin-bottom: 20px;
         text-align: center;
+    }
+
+    .pull-right {
+        float: none !important;
     }
 }
 
@@ -37,6 +42,7 @@ ul.pagination {
         padding-top: 8px;
         text-align: left;
     }
+
     .paginacao {
         margin-bottom: 20px;
         text-align: right;
@@ -46,6 +52,10 @@ ul.pagination {
 .mensagem-erro {
     color: red;
     padding-top: 5px;
+}
+
+.margem-top {
+    margin-top: 80px;
 }
 
 .inner-addon {

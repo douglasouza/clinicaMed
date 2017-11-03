@@ -65,6 +65,10 @@
         $rootScope.$on('AUTENTICACAO_REQUERIDA', function () {
             $state.go('login');
         });
+
+        $rootScope.$on('LOGOUT_SUCCESS', function () {
+            $state.go('login');
+        });
     }]);
 
 }(angular));
