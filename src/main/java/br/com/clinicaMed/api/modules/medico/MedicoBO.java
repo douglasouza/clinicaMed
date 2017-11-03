@@ -4,6 +4,7 @@ import br.com.clinicaMed.api.common.enumeration.EspecialidadeMedica;
 import br.com.clinicaMed.api.common.exception.CrmNaoUnicoException;
 import br.com.clinicaMed.api.common.exception.LoginNaoUnicoException;
 import br.com.clinicaMed.security.usuario.Usuario;
+import br.com.clinicaMed.security.usuario.UsuarioBO;
 import br.com.clinicaMed.security.usuario.UsuarioRepository;
 import com.mysema.query.types.expr.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class MedicoBO {
 
     @Autowired
     private UsuarioRepository usuarioRepo;
+
+    @Autowired
+    private UsuarioBO usuarioBO;
 
     public Object pesquisarMedico(String nomeCrmLogin, EspecialidadeMedica especialidade) {
         Iterable<Medico> medicos;
@@ -71,7 +75,7 @@ public class MedicoBO {
         if (existeMedicoCadastradoComMesmoCrm(medico))
             throw new CrmNaoUnicoException();
 
-        Usuario usuario = usuarioRepo.save(medico.getUsuario());
+        Usuario usuario = usuarioBO.inserirUsuario(medico.getUsuario());
         medico.setId(null);
         medico.setUsuario(usuario);
         return repo.saveAndFlush(medico);
@@ -84,7 +88,7 @@ public class MedicoBO {
         if (existeMedicoCadastradoComMesmoCrm(updatedMedico))
             throw new CrmNaoUnicoException();
 
-        Usuario usuario = usuarioRepo.save(updatedMedico.getUsuario());
+        Usuario usuario = usuarioBO.inserirUsuario(updatedMedico.getUsuario());
         updatedMedico.setId(id);
         updatedMedico.setUsuario(usuario);
         return repo.saveAndFlush(updatedMedico);

@@ -2,7 +2,10 @@ var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('medicoEdicaoController',
     ['$scope', '$state', '$stateParams', 'jQuery', 'constants', 'medicoEdicaoService', function ($scope, $state, $stateParams, $, constants, medicoEdicaoService) {
-        $scope.salvar = function () {
+        $scope.salvar = function (formularioValido) {
+            if (!formularioValido)
+                return;
+
             if ($scope.acao === 'NOVO') {
                 medicoEdicaoService.saveUsuario($scope.medico);
             } else {
@@ -30,7 +33,7 @@ clinicaMed.controller('medicoEdicaoController',
         function inicializar() {
             $scope.mostrarSenha = false;
             $scope.especialidades = constants().ENUM.ESPECIALIDADE_MEDICA;
-            $scope.medico = {tipoUsuario: 'MEDICO'};
+            $scope.medico = {usuario: {tipoUsuario: 'MEDICO'}};
             $scope.acao = $state.current.name === 'medico.novo' ? 'NOVO' : 'EDICAO';
             if ($scope.acao === 'EDICAO') {
                 medicoEdicaoService.getUsuario($stateParams.id).$promise.then(

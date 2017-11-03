@@ -15,8 +15,10 @@
                 return response;
             },
             responseError: function (response) {
-                if (response.status === 511)
-                    $rootScope.$broadcast('AUTENTICACAO_REQUERIDA', response);
+                if (response.status === 511) {
+                    $rootScope.usuarioLogado = undefined;
+                    $rootScope.$broadcast('AUTENTICACAO_REQUERIDA');
+                }
 
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
                 return $q.reject(response);
