@@ -37,5 +37,12 @@ clinicaMed.service('loginService',
                 $rootScope.$broadcast('USUARIO_LOGADO_CARREGADO');
             });
         };
+
+        this.logout = function () {
+            $http.get('/logout').success(function () {
+                $rootScope.usuarioLogado = undefined;
+                $state.go('login');
+            });
+        };
     }]
 );
