@@ -38,6 +38,7 @@ clinicaMed.controller('medicoEdicaoController',
             if ($scope.acao === 'EDICAO') {
                 medicoEdicaoService.getUsuario($stateParams.id).$promise.then(
                     function (data) {
+                        data.crm = Number(data.crm);
                         $scope.medico = data;
                     }
                 );
