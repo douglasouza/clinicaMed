@@ -8,20 +8,27 @@
     <form novalidate ng-submit="autenticar()" name="loginForm" role="form">
         <div class="form-group">
             <label for="usuario">Login</label>
-            <input id="usuario" name="usuario" class="form-control" type="text" ng-model="usuario" required autofocus/>
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                <input id="usuario" name="usuario" class="form-control" type="text" ng-model="usuario" required
+                       autofocus/>
+            </div>
             <p ng-show="loginForm.usuario.$touched && loginForm.usuario.$error.required" class="mensagem-erro">
                 O campo login é obrigatório.
             </p>
         </div>
         <div class="form-group">
             <label for="senha">Senha</label>
-            <input id="senha" name="senha" class="form-control" type="password" ng-model="senha" required/>
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                <input id="senha" name="senha" class="form-control" type="password" ng-model="senha" required/>
+            </div>
             <p ng-show="loginForm.senha.$touched && loginForm.senha.$error.required" class="mensagem-erro">
                 O campo senha é obrigatório.
             </p>
         </div>
         <div class="form-actions">
-            <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-danger">
+            <button type="submit" ng-disabled="loginForm.$invalid" class="btn btn-success">
                 Entrar
             </button>
         </div>

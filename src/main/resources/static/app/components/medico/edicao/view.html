@@ -7,7 +7,7 @@
 <mensagem-erro></mensagem-erro>
 <mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
 
-<form name="medicoForm" novalidate>
+<form novalidate ng-submit="salvar(medicoForm.$valid)" name="medicoForm" role="form">
     <div class="col-md-12">
         <h3>Dados do Médico</h3>
     </div>
@@ -15,8 +15,8 @@
     <div class="col-md-6 form-group">
         <label for="nomeMedico">Nome</label>
         <input id="nomeMedico" name="nomeMedico" class="form-control" type="text" ng-model="medico.nome"
-               maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="medicoForm.nomeMedico.$touched && medicoForm.nomeMedico.$erro.required"
+               maxlength="254" ng-disabled="acaoFinalizada" required autofocus>
+        <p ng-show="medicoForm.nomeMedico.$touched && medicoForm.nomeMedico.$error.required"
            class="mensagem-erro">Nome é um campo obrigatório</p>
     </div>
 
@@ -25,9 +25,9 @@
         <input id="crmMedico" name="crmMedico" class="form-control" type="text" ng-model="medico.crm"
                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                maxlength="254" ng-minlength="4" ng-disabled="acaoFinalizada" required>
-        <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$erro.required"
+        <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.required"
            class="mensagem-erro">CRM é um campo obrigatório</p>
-        <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$erro.minlength"
+        <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.minlength"
            class="mensagem-erro">O CRM deve conter pelo menos quatro dígitos.</p>
     </div>
 
@@ -41,7 +41,7 @@
                 {{especialidade.value}}
             </option>
         </select>
-        <p ng-show="medicoForm.especialidadeMedico.$touched && medicoForm.especialidadeMedico.$erro.required"
+        <p ng-show="medicoForm.especialidadeMedico.$touched && medicoForm.especialidadeMedico.$error.required"
            class="mensagem-erro">Especialidade é um campo obrigatório</p>
     </div>
 
@@ -53,33 +53,22 @@
         <label for="loginUsuario">Login</label>
         <input id="loginUsuario" name="loginUsuario" class="form-control" type="text" ng-model="medico.usuario.login"
                maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="medicoForm.loginUsuario.$touched && medicoForm.loginUsuario.$erro.required"
+        <p ng-show="medicoForm.loginUsuario.$touched && medicoForm.loginUsuario.$error.required"
            class="mensagem-erro">Login é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-6 form-group has-feedback">
-        <label for="senhaUsuario">Senha</label>
-        <div class="inner-addon left-addon">
-            <i ng-class="mostrarSenha ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open'"
-               ng-click="mudarInputType()"></i>
-            <input id="senhaUsuario" name="senhaUsuario" class="form-control"
-                   type="{{mostrarSenha ? 'text' : 'password'}}" ng-model="medico.usuario.senha"
-                   maxlength="254" ng-minlength="6" ng-disabled="acaoFinalizada" required>
-        </div>
-        <p ng-show="medicoForm.senhaUsuario.$touched && medicoForm.senhaUsuario.$erro.required"
-           class="mensagem-erro">Senha é um campo obrigatório</p>
-        <p ng-show="medicoForm.senhaUsuario.$touched && medicoForm.senhaUsuario.$erro.minlength"
-           class="mensagem-erro">A senha deve conter pelo menos 6 caracteres.</p>
-    </div>
-
     <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
-        <button class="btn btn-danger" ui-sref="medico.listagem">Cancelar</button>
-        <button class="btn btn-success" ng-disabled="medicoForm.$invalid"
-                ng-click="salvar()">Salvar
+        <button class="btn btn-success" ng-disabled="medicoForm.$invalid">
+            Salvar
+        </button>
+        <button class="btn btn-danger" ui-sref="medico.listagem">
+            Cancelar
         </button>
     </div>
 
     <div class="col-md-12 form-group" ng-show="acaoFinalizada">
-        <button class="btn btn-primary" ui-sref="medico.listagem">Voltar</button>
+        <button class="btn btn-primary" ui-sref="medico.listagem">
+            Voltar
+        </button>
     </div>
 </form>

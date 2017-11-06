@@ -1,6 +1,6 @@
 var clinicaMed = angular.module('clinicaMed');
 
-clinicaMed.directive('mensagemSucesso', function () {
+clinicaMed.directive('mensagemSucesso', function ($timeout, jQuery) {
     return {
         restrict: 'E',
         scope: {
@@ -8,7 +8,18 @@ clinicaMed.directive('mensagemSucesso', function () {
         },
         templateUrl: './app/common/directives/mensagem-sucesso/template.html',
         link: function (scope) {
-            scope.fecharModal = function () {
+            scope.$watch('mostrarAlertaSucesso', function (novoValor) {
+                if (jQuery('div.alert').length > 0)
+                    return;
+
+                if (novoValor) {
+                    $timeout(function () {
+                        scope.fecharAlerta();
+                    }, 5000);
+                }
+            });
+
+            scope.fecharAlerta = function () {
                 scope.mostrarAlertaSucesso = false;
             };
         }

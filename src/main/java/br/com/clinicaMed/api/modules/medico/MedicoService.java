@@ -40,6 +40,6 @@ public class MedicoService {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        repo.delete(id);
+        bo.removerMedico(id);
     }
 }

@@ -2,7 +2,10 @@ var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('pacienteEdicaoController',
     ['$scope', '$state', '$stateParams', 'constants', 'pacienteEdicaoService', function ($scope, $state, $stateParams, constants, pacienteEdicaoService) {
-        $scope.salvar = function () {
+        $scope.salvar = function (formularioValido) {
+            if (!formularioValido)
+                return;
+
             if ($scope.acao === 'NOVO') {
                 pacienteEdicaoService.savePaciente($scope.paciente);
             } else {

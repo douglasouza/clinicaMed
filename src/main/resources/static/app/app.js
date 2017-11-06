@@ -15,8 +15,10 @@
                 return response;
             },
             responseError: function (response) {
-                if (response.status === 511)
-                    $rootScope.$broadcast('AUTENTICACAO_REQUERIDA', response);
+                if (response.status === 401) {
+                    $rootScope.usuarioLogado = undefined;
+                    $rootScope.$broadcast('AUTENTICACAO_REQUERIDA');
+                }
 
                 $rootScope.$broadcast('RESPONSE_ERROR', response);
                 return $q.reject(response);
@@ -47,7 +49,7 @@
                 $rootScope.usuarioLogado = JSON.parse(request.responseText);
         }
 
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
             if (toState.name !== 'ativarUsuario' && $rootScope.usuarioLogado && !$rootScope.usuarioLogado.ativado) {
                 event.preventDefault();
                 $state.go('ativarUsuario');
@@ -55,6 +57,9 @@
                 if ((toState.url === '/login' || toState.url === '/ativarUsuario') && $rootScope.usuarioLogado && $rootScope.usuarioLogado.ativado) {
                     event.preventDefault();
                     $state.go('home');
+                } else if (toState.acesso && !loginService.usuarioEstaLogado(toState.acesso.loginRequerido)) {
+                    event.preventDefault();
+                    $state.go('login');
                 } else if (toState.acesso && !loginService.usuarioTemPermissao(toState.acesso.usuariosAutorizados)) {
                     event.preventDefault();
                     $state.go('acessoNegado');
