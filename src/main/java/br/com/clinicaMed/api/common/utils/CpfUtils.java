@@ -35,7 +35,7 @@ public class CpfUtils {
         return false;
     }
 
-    public boolean ehCPFValido(String cpf) {
+    public boolean ehCpfValido(String cpf) {
         Integer soma = 0;
         Integer resto;
 

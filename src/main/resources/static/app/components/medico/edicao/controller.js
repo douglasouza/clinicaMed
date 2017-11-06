@@ -44,15 +44,6 @@ clinicaMed.controller('medicoEdicaoController',
             }
         }
 
-        (function avoidDefaultPasteEvent() {
-            $('#crmMedico').bind('paste', function (e) {
-                e.preventDefault();
-                var previousInputData = $('#crmMedico').val();
-                var pasteData = e.originalEvent.clipboardData.getData('Text');
-                $('#crmMedico').val(previousInputData + pasteData.replace(/[^0-9]/g, ''));
-            });
-        })();
-
         inicializar();
     }]
 );

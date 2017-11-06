@@ -58,7 +58,7 @@ public class PacienteBO {
         if (cpfUtils.existeOutroCadastradoComMesmoCpf(paciente))
             throw new CpfNaoUnicoException();
 
-        if (!cpfUtils.ehCPFValido(paciente.getCpf()))
+        if (!cpfUtils.ehCpfValido(paciente.getCpf()))
             throw new CpfInvalidoException();
     }
 }

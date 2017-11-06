@@ -92,7 +92,7 @@ public class RecepcionistaBO {
         if (cpfUtils.existeOutroCadastradoComMesmoCpf(recepcionista))
             throw new CpfNaoUnicoException();
 
-        if (!cpfUtils.ehCPFValido(recepcionista.getCpf()))
+        if (!cpfUtils.ehCpfValido(recepcionista.getCpf()))
             throw new CpfInvalidoException();
     }
 }

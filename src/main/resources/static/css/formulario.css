@@ -11,11 +11,11 @@ label::after {
     content: ' *';
 }
 
-form input.ng-valid.ng-touched {
+form input[class*='ng-valid'].ng-touched {
     border-color: #46be8a;
 }
 
-form input.ng-invalid.ng-touched {
+form input[class*='ng-invalid'].ng-touched {
     border-color: #f96855;
 }
 

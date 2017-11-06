@@ -7,8 +7,8 @@ clinicaMed.directive('cpfInvalido', function () {
         link: function (scope, elem, attr, ngModel) {
             ngModel.$validators.cpfInvalido = function (modelValue, viewValue) {
                 var cpf = modelValue || viewValue;
-                var Soma = 0;
-                var Resto;
+                var soma = 0;
+                var resto;
 
                 if (!cpf || cpf.length === 0)
                     return true;
@@ -20,24 +20,24 @@ clinicaMed.directive('cpfInvalido', function () {
                     return false;
 
                 for (var i = 1; i <= 9; i++)
-                    Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-                Resto = (Soma * 10) % 11;
+                    soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
+                resto = (soma * 10) % 11;
 
-                if ((Resto == 10) || (Resto == 11))
-                    Resto = 0;
+                if ((resto == 10) || (resto == 11))
+                    resto = 0;
 
-                if (Resto != parseInt(cpf.substring(9, 10)))
+                if (resto != parseInt(cpf.substring(9, 10)))
                     return false;
 
-                Soma = 0;
+                soma = 0;
                 for (var i = 1; i <= 10; i++)
-                    Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-                Resto = (Soma * 10) % 11;
+                    soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
+                resto = (soma * 10) % 11;
 
-                if ((Resto == 10) || (Resto == 11))
-                    Resto = 0;
+                if ((resto == 10) || (resto == 11))
+                    resto = 0;
 
-                if (Resto != parseInt(cpf.substring(10, 11)))
+                if (resto != parseInt(cpf.substring(10, 11)))
                     return false;
 
                 return true;

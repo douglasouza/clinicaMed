@@ -22,13 +22,15 @@
 
     <div class="col-md-6 form-group">
         <label for="crmMedico">CRM</label>
-        <input id="crmMedico" name="crmMedico" class="form-control" type="text" ng-model="medico.crm"
-               onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-               maxlength="254" ng-minlength="4" ng-disabled="acaoFinalizada" required>
+        <input id="crmMedico" name="crmMedico" class="form-control" type="number" ng-model="medico.crm"
+               ng-min="1000" ng-max="99999" ng-disabled="acaoFinalizada" crm-invalido required>
         <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.required"
            class="mensagem-erro">CRM é um campo obrigatório</p>
-        <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.minlength"
-           class="mensagem-erro">O CRM deve conter pelo menos quatro dígitos.</p>
+        <p ng-show="medicoForm.crmMedico.$touched && (medicoForm.crmMedico.$error.min || medicoForm.crmMedico.$error.max)"
+           class="mensagem-erro">O CRM deve conter pelo menos quatro e no máximo cinco dígitos</p>
+        <p ng-show="medicoForm.crmMedico.$touched && medicoForm.crmMedico.$error.number"
+           class="mensagem-erro">O CRM inválido (somente dígitos)</p>
+
     </div>
 
     <div class="col-md-12 form-group">
