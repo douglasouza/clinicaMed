@@ -1,8 +1,10 @@
 package br.com.clinicaMed.api.modules.medico;
 
 import br.com.clinicaMed.api.common.enumeration.EspecialidadeMedica;
+import br.com.clinicaMed.api.common.exception.CrmInvalidoException;
 import br.com.clinicaMed.api.common.exception.CrmNaoUnicoException;
 import br.com.clinicaMed.api.common.exception.LoginNaoUnicoException;
+import br.com.clinicaMed.api.common.utils.CrmUtils;
 import br.com.clinicaMed.security.usuario.Usuario;
 import br.com.clinicaMed.security.usuario.UsuarioBO;
 import br.com.clinicaMed.security.usuario.UsuarioRepository;
@@ -25,6 +27,9 @@ public class MedicoBO {
 
     @Autowired
     private UsuarioBO usuarioBO;
+
+    @Autowired
+    private CrmUtils crmUtils;
 
     public Object pesquisarMedico(String nomeCrmLogin, EspecialidadeMedica especialidade) {
         Iterable<Medico> medicos;
@@ -72,7 +77,10 @@ public class MedicoBO {
         if (existeUsuarioCadastradoComMesmoLogin(medico))
             throw new LoginNaoUnicoException();
 
-        if (existeMedicoCadastradoComMesmoCrm(medico))
+        if (crmUtils.ehCrmValido(medico.getCrm()))
+            throw new CrmInvalidoException();
+
+        if (crmUtils.existeOutroCadastradoComMesmoCrm(medico))
             throw new CrmNaoUnicoException();
 
         Usuario usuario = usuarioBO.salvarUsuario(medico.getUsuario());
@@ -85,7 +93,10 @@ public class MedicoBO {
         if (existeUsuarioCadastradoComMesmoLogin(updatedMedico))
             throw new LoginNaoUnicoException();
 
-        if (existeMedicoCadastradoComMesmoCrm(updatedMedico))
+        if (crmUtils.ehCrmValido(updatedMedico.getCrm()))
+            throw new CrmInvalidoException();
+
+        if (crmUtils.existeOutroCadastradoComMesmoCrm(updatedMedico))
             throw new CrmNaoUnicoException();
 
         Usuario usuario = usuarioBO.salvarUsuario(updatedMedico.getUsuario());
@@ -98,11 +109,6 @@ public class MedicoBO {
         Medico medico = repo.findOne(idMedico);
         repo.delete(medico.getId());
         usuarioRepo.delete(medico.getUsuario().getId());
-    }
-
-    private Boolean existeMedicoCadastradoComMesmoCrm(Medico medico) {
-        Medico medicoComMesmoCrm = repo.findByCrm(medico.getCrm());
-        return medicoComMesmoCrm != null && (medicoComMesmoCrm.getId() != medico.getId());
     }
 
     private Boolean existeUsuarioCadastradoComMesmoLogin(Medico medico) {

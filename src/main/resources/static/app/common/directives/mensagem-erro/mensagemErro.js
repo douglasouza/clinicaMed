@@ -10,7 +10,7 @@ clinicaMed.directive('mensagemErro', function ($timeout, jQuery) {
             });
 
             scope.$on('RESPONSE_ERROR', function (event, data) {
-                if (jQuery('div.alert').length > 0)
+                if (jQuery('div.alert-danger').length > 0)
                     return;
 
                 if (data && data.data && data.data.message)

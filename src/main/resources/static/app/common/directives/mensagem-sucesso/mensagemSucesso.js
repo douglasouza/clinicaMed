@@ -9,9 +9,6 @@ clinicaMed.directive('mensagemSucesso', function ($timeout, jQuery) {
         templateUrl: './app/common/directives/mensagem-sucesso/template.html',
         link: function (scope) {
             scope.$watch('mostrarAlertaSucesso', function (novoValor) {
-                if (jQuery('div.alert').length > 0)
-                    return;
-
                 if (novoValor) {
                     $timeout(function () {
                         scope.fecharAlerta();
