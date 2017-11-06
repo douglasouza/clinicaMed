@@ -14,8 +14,9 @@
             <!--<li><a href="">About</a></li>-->
             <!--<li><a href="">Contact</a></li>-->
             <li ng-show="!medico" class="dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">Gerenciar Cadastros <span class="caret"></span></a>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    Gerenciar Cadastros <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
                     <li ng-show="administrador || recepcionista">
                         <a href="" ui-sref="paciente.listagem">Pacientes</a>
@@ -36,11 +37,15 @@
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li class="dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">{{login}} <span class="caret"></span></a>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    <span class="glyphicon glyphicon-user"></span></span> {{login}}
+                    <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a href="" ng-click="logout()"><span class="glyphicon glyphicon-off"></span> Logout</a>
+                        <a href="" ng-click="logout()">
+                            <span class="glyphicon glyphicon-off"></span> Logout
+                        </a>
                     </li>
                 </ul>
             </li>
