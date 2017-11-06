@@ -75,7 +75,7 @@ public class MedicoBO {
         if (existeMedicoCadastradoComMesmoCrm(medico))
             throw new CrmNaoUnicoException();
 
-        Usuario usuario = usuarioBO.inserirUsuario(medico.getUsuario());
+        Usuario usuario = usuarioBO.salvarUsuario(medico.getUsuario());
         medico.setId(null);
         medico.setUsuario(usuario);
         return repo.saveAndFlush(medico);
@@ -88,10 +88,16 @@ public class MedicoBO {
         if (existeMedicoCadastradoComMesmoCrm(updatedMedico))
             throw new CrmNaoUnicoException();
 
-        Usuario usuario = usuarioBO.inserirUsuario(updatedMedico.getUsuario());
+        Usuario usuario = usuarioBO.salvarUsuario(updatedMedico.getUsuario());
         updatedMedico.setId(id);
         updatedMedico.setUsuario(usuario);
         return repo.saveAndFlush(updatedMedico);
+    }
+
+    public void removerMedico(Long idMedico) {
+        Medico medico = repo.findOne(idMedico);
+        repo.delete(medico.getId());
+        usuarioRepo.delete(medico.getUsuario().getId());
     }
 
     private Boolean existeMedicoCadastradoComMesmoCrm(Medico medico) {

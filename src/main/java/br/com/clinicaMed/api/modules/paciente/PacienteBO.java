@@ -17,6 +17,9 @@ public class PacienteBO {
     @Autowired
     private PacienteRepository repo;
 
+    @Autowired
+    private CpfUtils cpfUtils;
+
     public Object pesquisarPaciente(String nome) {
         Iterable<Paciente> pacientes;
         if (StringUtils.isEmpty(nome))
@@ -52,16 +55,10 @@ public class PacienteBO {
     }
 
     private void validarCPF(Paciente paciente) {
-        if (existePacienteCadastradoComCpf(paciente))
+        if (cpfUtils.existeOutroCadastradoComMesmoCpf(paciente))
             throw new CpfNaoUnicoException();
 
-        if (!CpfUtils.ehCPFValido(paciente.getCpf()))
+        if (!cpfUtils.ehCPFValido(paciente.getCpf()))
             throw new CpfInvalidoException();
     }
-
-    private Boolean existePacienteCadastradoComCpf(Paciente paciente) {
-        Paciente pacienteComMesmoLogin = repo.findByCpf(paciente.getCpf());
-        return pacienteComMesmoLogin != null && (pacienteComMesmoLogin.getId() != paciente.getId());
-    }
-
 }

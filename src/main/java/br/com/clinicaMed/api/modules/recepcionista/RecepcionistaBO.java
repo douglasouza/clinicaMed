@@ -5,6 +5,7 @@ import br.com.clinicaMed.api.common.exception.CpfNaoUnicoException;
 import br.com.clinicaMed.api.common.exception.LoginNaoUnicoException;
 import br.com.clinicaMed.api.common.utils.CpfUtils;
 import br.com.clinicaMed.security.usuario.Usuario;
+import br.com.clinicaMed.security.usuario.UsuarioBO;
 import br.com.clinicaMed.security.usuario.UsuarioRepository;
 import com.mysema.query.types.expr.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class RecepcionistaBO {
 
     @Autowired
     private UsuarioRepository usuarioRepo;
+
+    @Autowired
+    private UsuarioBO usuarioBO;
+
+    @Autowired
+    private CpfUtils cpfUtils;
 
     public Object pesquisarRecepcionista(String nomeLogin) {
         Iterable<Recepcionista> recepcionistas;
@@ -52,7 +59,7 @@ public class RecepcionistaBO {
 
         validarCPF(recepcionista);
 
-        Usuario usuario = usuarioRepo.save(recepcionista.getUsuario());
+        Usuario usuario = usuarioBO.salvarUsuario(recepcionista.getUsuario());
         recepcionista.setId(null);
         recepcionista.setUsuario(usuario);
         return repo.saveAndFlush(recepcionista);
@@ -64,10 +71,16 @@ public class RecepcionistaBO {
 
         validarCPF(updatedRecepcionista);
 
-        Usuario usuario = usuarioRepo.save(updatedRecepcionista.getUsuario());
+        Usuario usuario = usuarioBO.salvarUsuario(updatedRecepcionista.getUsuario());
         updatedRecepcionista.setId(id);
         updatedRecepcionista.setUsuario(usuario);
         return repo.saveAndFlush(updatedRecepcionista);
+    }
+
+    public void removerRecepcionista(Long idRecepcionista) {
+        Recepcionista recepcionista = repo.findOne(idRecepcionista);
+        repo.delete(recepcionista.getId());
+        usuarioRepo.delete(recepcionista.getUsuario().getId());
     }
 
     private Boolean existeUsuarioCadastradoComMesmoLogin(Recepcionista recepcionista) {
@@ -76,15 +89,10 @@ public class RecepcionistaBO {
     }
 
     private void validarCPF(Recepcionista recepcionista) {
-        if (existeRecepcionistaCadastradoComCpf(recepcionista))
+        if (cpfUtils.existeOutroCadastradoComMesmoCpf(recepcionista))
             throw new CpfNaoUnicoException();
 
-        if (!CpfUtils.ehCPFValido(recepcionista.getCpf()))
+        if (!cpfUtils.ehCPFValido(recepcionista.getCpf()))
             throw new CpfInvalidoException();
-    }
-
-    private Boolean existeRecepcionistaCadastradoComCpf(Recepcionista recepcionista) {
-        Recepcionista recepcionistaComMesmoLogin = repo.findByCpf(recepcionista.getCpf());
-        return recepcionistaComMesmoLogin != null && (recepcionistaComMesmoLogin.getId() != recepcionista.getId());
     }
 }

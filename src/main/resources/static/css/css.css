@@ -1,17 +1,9 @@
-body {
-}
-
 a:link, a:visited, a:focus, a:hover, a:active {
     text-decoration: none;
 }
 
 div.table-responsive {
     margin-top: 20px;
-}
-
-label::after {
-    content: ' *';
-    color: red;
 }
 
 ul.pagination {
@@ -34,6 +26,10 @@ ul.pagination {
     .pull-right {
         float: none !important;
     }
+
+    .alerta {
+        width: 70% !important;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -49,37 +45,15 @@ ul.pagination {
     }
 }
 
-.mensagem-erro {
-    color: red;
-    padding-top: 5px;
-}
-
 .margem-top {
     margin-top: 80px;
 }
 
-.inner-addon {
-    position: relative;
-}
-
-.inner-addon .glyphicon {
-    position: absolute;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.left-addon .glyphicon {
-    left: 0px;
-}
-
-.right-addon .glyphicon {
-    right: 0px;
-}
-
-.left-addon input {
-    padding-left: 30px;
-}
-
-.right-addon input {
-    padding-right: 30px;
+.alerta {
+    margin: 0;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 40%;
+    z-index: 1001;
 }

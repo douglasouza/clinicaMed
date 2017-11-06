@@ -26,7 +26,15 @@ clinicaMed.service('loginService',
         this.usuarioTemPermissao = function (usuariosAutorizados) {
             if (!usuariosAutorizados)
                 return true;
-            if (usuariosAutorizados.indexOf($rootScope.usuarioLogado.tipoUsuario) != -1)
+            else if ($rootScope.usuarioLogado && usuariosAutorizados.indexOf($rootScope.usuarioLogado.tipoUsuario) != -1)
+                return true;
+            return false;
+        };
+
+        this.usuarioEstaLogado = function (loginRequerido) {
+            if (!loginRequerido)
+                return true;
+            else if (loginRequerido && $rootScope.usuarioLogado)
                 return true;
             return false;
         };

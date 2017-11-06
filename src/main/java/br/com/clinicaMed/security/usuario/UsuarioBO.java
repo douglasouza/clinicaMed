@@ -9,7 +9,7 @@ public class UsuarioBO {
     @Autowired
     private UsuarioRepository repo;
 
-    public Usuario inserirUsuario(Usuario usuario) {
+    public Usuario salvarUsuario(Usuario usuario) {
         usuario.setSenha("55a5e9e78207b4df8699d60886fa070079463547b095d1a05bc719bb4e6cd251");
         return repo.save(usuario);
     }

@@ -2,16 +2,15 @@ var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('recepcionistaEdicaoController',
     ['$scope', '$state', '$stateParams', 'recepcionistaEdicaoService', function ($scope, $state, $stateParams, recepcionistaEdicaoService) {
-        $scope.salvar = function () {
+        $scope.salvar = function (formularioValido) {
+            if (!formularioValido)
+                return;
+
             if ($scope.acao === 'NOVO') {
                 recepcionistaEdicaoService.saveRecepcionista($scope.recepcionista);
             } else {
                 recepcionistaEdicaoService.updateRecepcionista($stateParams.id, $scope.recepcionista);
             }
-        };
-
-        $scope.mudarInputType = function () {
-            $scope.mostrarSenha = !$scope.mostrarSenha;
         };
 
         $scope.$on('RECEPCIONISTA_SAVE_SUCCESS', function () {
@@ -28,8 +27,7 @@ clinicaMed.controller('recepcionistaEdicaoController',
         }
 
         function inicializar() {
-            $scope.mostrarSenha = false;
-            $scope.recepcionista = {tipoUsuario: 'RECEPCIONISTA'};
+            $scope.recepcionista = {usuario: {tipoUsuario: 'RECEPCIONISTA'}};
             $scope.acao = $state.current.name === 'recepcionista.novo' ? 'NOVO' : 'EDICAO';
             if ($scope.acao === 'EDICAO') {
                 recepcionistaEdicaoService.getRecepcionista($stateParams.id).$promise.then(

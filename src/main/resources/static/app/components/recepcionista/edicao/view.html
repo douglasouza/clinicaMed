@@ -7,25 +7,29 @@
 <mensagem-erro></mensagem-erro>
 <mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
 
-<form name="recepcionistaForm" novalidate>
+<form novalidate ng-submit="salvar(recepcionistaForm.$valid)" name="recepcionistaForm" novalidate>
     <div class="col-md-12">
         <h3>Dados do Recepcionista</h3>
     </div>
 
     <div class="col-md-6 form-group">
         <label for="nomeRecepcionista">Nome</label>
-        <input id="nomeRecepcionista" name="nomeRecepcionista" class="form-control" type="text" ng-model="recepcionista.nome"
-               maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="recepcionistaForm.nomeRecepcionista.$touched && recepcionistaForm.nomeRecepcionista.$erro.required"
+        <input id="nomeRecepcionista" name="nomeRecepcionista" class="form-control" type="text"
+               ng-model="recepcionista.nome"
+               maxlength="254" ng-disabled="acaoFinalizada" required autofocus>
+        <p ng-show="recepcionistaForm.nomeRecepcionista.$touched && recepcionistaForm.nomeRecepcionista.$error.required"
            class="mensagem-erro">Nome é um campo obrigatório</p>
     </div>
 
     <div class="col-md-6 form-group">
         <label for="cpfRecepcionista">CPF</label> <span>(somente números)</span>
-        <input id="cpfRecepcionista" name="cpfRecepcionista" class="form-control" type="text" ng-model="recepcionista.cpf"
-               maxlength="11" ng-disabled="acaoFinalizada" required>
-        <p ng-show="recepcionistaForm.cpfRecepcionista.$touched && recepcionistaForm.cpfRecepcionista.$erro.required"
+        <input id="cpfRecepcionista" name="cpfRecepcionista" class="form-control" type="text"
+               ng-model="recepcionista.cpf"
+               maxlength="11" ng-disabled="acaoFinalizada" cpf-invalido required>
+        <p ng-show="recepcionistaForm.cpfRecepcionista.$touched && recepcionistaForm.cpfRecepcionista.$error.required"
            class="mensagem-erro">CPF é um campo obrigatório</p>
+        <p ng-show="recepcionistaForm.cpfRecepcionista.$touched && recepcionistaForm.cpfRecepcionista.$error.cpfInvalido"
+           class="mensagem-erro">CPF inválido</p>
     </div>
 
     <div class="col-md-12">
@@ -34,34 +38,25 @@
 
     <div class="col-md-6 form-group">
         <label for="loginUsuario">Login</label>
-        <input id="loginUsuario" name="loginUsuario" class="form-control" type="text" ng-model="recepcionista.usuario.login"
+        <input id="loginUsuario" name="loginUsuario" class="form-control" type="text"
+               ng-model="recepcionista.usuario.login"
                maxlength="254" ng-disabled="acaoFinalizada" required>
-        <p ng-show="recepcionistaForm.loginUsuario.$touched && recepcionistaForm.loginUsuario.$erro.required"
+        <p ng-show="recepcionistaForm.loginUsuario.$touched && recepcionistaForm.loginUsuario.$error.required"
            class="mensagem-erro">Login é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-6 form-group has-feedback">
-        <label for="senhaUsuario">Senha</label>
-        <div class="inner-addon left-addon">
-            <i ng-class="mostrarSenha ? 'glyphicon glyphicon-eye-close' : 'glyphicon glyphicon-eye-open'" ng-click="mudarInputType()"></i>
-            <input id="senhaUsuario" name="senhaUsuario" class="form-control"
-                   type="{{mostrarSenha ? 'text' : 'password'}}" ng-model="recepcionista.usuario.senha"
-                   maxlength="254" ng-minlength="6" ng-disabled="acaoFinalizada" required>
-        </div>
-        <p ng-show="recepcionistaForm.senhaUsuario.$touched && recepcionistaForm.senhaUsuario.$erro.required"
-           class="mensagem-erro">Senha é um campo obrigatório</p>
-        <p ng-show="recepcionistaForm.senhaUsuario.$touched && recepcionistaForm.senhaUsuario.$erro.minlength"
-           class="mensagem-erro">A senha deve conter pelo menos 6 caracteres.</p>
-    </div>
-
     <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
-        <button class="btn btn-danger" ui-sref="recepcionista.listagem">Cancelar</button>
-        <button class="btn btn-success" ng-disabled="recepcionistaForm.$invalid"
-                ng-click="salvar()">Salvar
+        <button class="btn btn-success" ng-disabled="recepcionistaForm.$invalid">
+            Salvar
+        </button>
+        <button class="btn btn-danger" ui-sref="recepcionista.listagem">
+            Cancelar
         </button>
     </div>
 
     <div class="col-md-12 form-group" ng-show="acaoFinalizada">
-        <button class="btn btn-primary" ui-sref="recepcionista.listagem">Voltar</button>
+        <button class="btn btn-primary" ui-sref="recepcionista.listagem">
+            Voltar
+        </button>
     </div>
 </form>
