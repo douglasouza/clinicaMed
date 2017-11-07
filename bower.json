@@ -6,6 +6,7 @@
     "angular-ui-router": "~0.3.1",
     "cryptojslib": "latest",
     "bootstrap": "latest",
-    "jquery": "2.1.4"
+    "jquery": "2.1.4",
+    "eonasdan-bootstrap-datetimepicker": "latest"
   }
 }

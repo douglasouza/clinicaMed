@@ -1,0 +1,38 @@
+<barra-navegacao></barra-navegacao>
+
+<h1 ng-if="acao === 'NOVO'">Novo Consulta</h1>
+<h1 ng-if="acao === 'EDICAO'">Editar Consulta</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
+
+<form novalidate ng-submit="salvar(consultaForm.$valid)" name="consultaForm" role="form">
+    <div class="col-md-12">
+        <h3>Dados do Consulta</h3>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="dataHoraConsulta">Data/Hora da Consulta</label>
+        <input id="dataHoraConsulta" name="dataHoraConsulta" class="form-control" type="text"
+               ng-model="consulta.dataHoraConsulta"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
+        <p ng-show="consultaForm.dataHoraConsulta.$touched && consultaForm.dataHoraConsulta.$error.required"
+           class="mensagem-erro">Data/Hora da Consulta é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
+        <button class="btn btn-success" ng-disabled="consultaForm.$invalid">
+            Salvar
+        </button>
+        <button class="btn btn-danger" ui-sref="consulta.listagem">
+            Cancelar
+        </button>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada">
+        <button class="btn btn-primary" ui-sref="consulta.listagem">
+            Voltar
+        </button>
+    </div>
+</form>

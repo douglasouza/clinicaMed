@@ -1,4 +1,4 @@
-package br.com.clinicamed.api.modules.medicamento;
+package br.com.clinicamed.api.modules.paciente;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,33 +8,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/medicamento")
-public class MedicamentoService {
+@RequestMapping("/paciente")
+public class PacienteRestController {
 
     @Autowired
-    private MedicamentoRepository repo;
+    private PacienteRepository repo;
 
     @Autowired
-    private MedicamentoBO bo;
+    private PacienteBO bo;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Object findAll(String filtro) {
-        return bo.pesquisarMedicamento(filtro);
+    public Object findAll(String nome) {
+        return bo.pesquisarPaciente(nome);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Medicamento findOne(@PathVariable Long id) {
+    public Paciente findOne(@PathVariable Long id) {
         return repo.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Medicamento insert(@RequestBody Medicamento medicamento) throws Exception {
-        return bo.inserirMedicamento(medicamento);
+    public Paciente insert(@RequestBody Paciente paciente) throws Exception {
+        return bo.inserirPaciente(paciente);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Medicamento update(@RequestBody Medicamento updatedMedicamento, @PathVariable Long id) {
-        return bo.atualizarMedicamento(updatedMedicamento, id);
+    public Paciente update(@RequestBody Paciente updatedPaciente, @PathVariable Long id) {
+        return bo.atualizarPaciente(updatedPaciente, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

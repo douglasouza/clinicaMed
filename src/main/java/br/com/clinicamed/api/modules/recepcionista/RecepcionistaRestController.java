@@ -1,6 +1,5 @@
-package br.com.clinicamed.api.modules.medico;
+package br.com.clinicamed.api.modules.recepcionista;
 
-import br.com.clinicamed.api.common.enumeration.EspecialidadeMedica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,37 +8,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/medico")
-public class MedicoService {
+@RequestMapping("/recepcionista")
+public class RecepcionistaRestController {
 
     @Autowired
-    private MedicoRepository repo;
+    private RecepcionistaRepository repo;
 
     @Autowired
-    private MedicoBO bo;
+    private RecepcionistaBO bo;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Object findAll(String nomeCrmLogin, EspecialidadeMedica especialidade) {
-        return bo.pesquisarMedico(nomeCrmLogin, especialidade);
+    public Object findAll(String nomeLogin) {
+        return bo.pesquisarRecepcionista(nomeLogin);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Medico findOne(@PathVariable Long id) {
+    public Recepcionista findOne(@PathVariable Long id) {
         return repo.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Medico insert(@RequestBody Medico medico) throws Exception {
-        return bo.inserirMedico(medico);
+    public Recepcionista insert(@RequestBody Recepcionista recepcionista) throws Exception {
+        return bo.inserirRecepcionista(recepcionista);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Medico update(@RequestBody Medico updatedMedico, @PathVariable Long id) {
-        return bo.atualizarMedico(updatedMedico, id);
+    public Recepcionista update(@RequestBody Recepcionista updatedRecepcionista, @PathVariable Long id) {
+        return bo.atualizarRecepcionista(updatedRecepcionista, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        bo.removerMedico(id);
+        bo.removerRecepcionista(id);
     }
 }

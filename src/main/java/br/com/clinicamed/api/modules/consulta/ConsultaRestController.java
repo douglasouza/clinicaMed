@@ -1,4 +1,4 @@
-package br.com.clinicamed.api.modules.recepcionista;
+package br.com.clinicamed.api.modules.consulta;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,38 +7,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
-@RequestMapping("/recepcionista")
-public class RecepcionistaService {
+@RequestMapping("/consulta")
+public class ConsultaRestController {
 
     @Autowired
-    private RecepcionistaRepository repo;
+    private ConsultaRepository repo;
 
     @Autowired
-    private RecepcionistaBO bo;
+    private ConsultaBO bo;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Object findAll(String nomeLogin) {
-        return bo.pesquisarRecepcionista(nomeLogin);
+    public Object findAll(String nomeMedicoPaciente, Date dataInicial, Date dataFinal) {
+        return bo.pesquisarConsulta(nomeMedicoPaciente, dataInicial, dataFinal);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Recepcionista findOne(@PathVariable Long id) {
+    public Consulta findOne(@PathVariable Long id) {
         return repo.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Recepcionista insert(@RequestBody Recepcionista recepcionista) throws Exception {
-        return bo.inserirRecepcionista(recepcionista);
+    public Consulta insert(@RequestBody Consulta consulta) throws Exception {
+        return bo.inserirConsulta(consulta);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Recepcionista update(@RequestBody Recepcionista updatedRecepcionista, @PathVariable Long id) {
-        return bo.atualizarRecepcionista(updatedRecepcionista, id);
+    public Consulta update(@RequestBody Consulta updatedConsulta, @PathVariable Long id) {
+        return bo.atualizarConsulta(updatedConsulta, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        bo.removerRecepcionista(id);
+        bo.removerConsulta(id);
     }
 }

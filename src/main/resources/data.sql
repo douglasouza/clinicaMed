@@ -41,3 +41,13 @@ INSERT INTO recepcionista (re_nome, re_cpf, us_id) VALUES ('Bruno Sangoi Carless
 
 INSERT INTO usuario (us_login, us_senha, us_tipo_usuario, us_ativado) VALUES ('garaujo', '55a5e9e78207b4df8699d60886fa070079463547b095d1a05bc719bb4e6cd251', 'RECEPCIONISTA', false);
 INSERT INTO recepcionista (re_nome, re_cpf, us_id) VALUES ('Giovana Oliveira de Araújo', '89615159778', (SELECT us_id FROM usuario WHERE us_login = 'garaujo'));
+
+-- Horário Consulta
+INSERT INTO horario (ho_hora_consulta) VALUES ('08:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('09:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('10:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('11:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('13:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('14:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('15:00');
+INSERT INTO horario (ho_hora_consulta) VALUES ('16:00');
