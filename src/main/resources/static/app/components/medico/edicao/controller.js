@@ -27,7 +27,7 @@ clinicaMed.controller('medicoEdicaoController',
         }
 
         function inicializar() {
-            $scope.especialidades = constants().ENUM.ESPECIALIDADE_MEDICA;
+            $scope.especialidades = constants.ENUM.ESPECIALIDADE_MEDICA;
             $scope.medico = {usuario: {tipoUsuario: 'MEDICO'}};
             $scope.acao = $state.current.name === 'medico.novo' ? 'NOVO' : 'EDICAO';
             if ($scope.acao === 'EDICAO') {

@@ -27,7 +27,7 @@ clinicaMed.controller('pacienteEdicaoController',
         }
 
         function inicializar() {
-            $scope.sexos = constants().ENUM.SEXO;
+            $scope.sexos = constants.ENUM.SEXO;
             $scope.acao = $state.current.name === 'paciente.novo' ? 'NOVO' : 'EDICAO';
             if ($scope.acao === 'EDICAO') {
                 pacienteEdicaoService.getPaciente($stateParams.id).$promise.then(

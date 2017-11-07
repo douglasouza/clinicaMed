@@ -70,7 +70,7 @@ clinicaMed.controller('medicoListagemController',
 
         function initizialize() {
             inicializarDadosTabelaListagem();
-            $scope.especialidades = constants().ENUM.ESPECIALIDADE_MEDICA;
+            $scope.especialidades = constants.ENUM.ESPECIALIDADE_MEDICA;
             $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
             medicoListagemService.fetchAll($scope.filtro);
         }
