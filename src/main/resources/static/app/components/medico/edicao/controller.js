@@ -7,14 +7,10 @@ clinicaMed.controller('medicoEdicaoController',
                 return;
 
             if ($scope.acao === 'NOVO') {
-                medicoEdicaoService.saveUsuario($scope.medico);
+                medicoEdicaoService.saveMedico($scope.medico);
             } else {
-                medicoEdicaoService.updateUsuario($stateParams.id, $scope.medico);
+                medicoEdicaoService.updateMedico($stateParams.id, $scope.medico);
             }
-        };
-
-        $scope.mudarInputType = function () {
-            $scope.mostrarSenha = !$scope.mostrarSenha;
         };
 
         $scope.$on('MEDICO_SAVE_SUCCESS', function () {
@@ -31,12 +27,11 @@ clinicaMed.controller('medicoEdicaoController',
         }
 
         function inicializar() {
-            $scope.mostrarSenha = false;
             $scope.especialidades = constants().ENUM.ESPECIALIDADE_MEDICA;
             $scope.medico = {usuario: {tipoUsuario: 'MEDICO'}};
             $scope.acao = $state.current.name === 'medico.novo' ? 'NOVO' : 'EDICAO';
             if ($scope.acao === 'EDICAO') {
-                medicoEdicaoService.getUsuario($stateParams.id).$promise.then(
+                medicoEdicaoService.getMedico($stateParams.id).$promise.then(
                     function (data) {
                         data.crm = Number(data.crm);
                         $scope.medico = data;

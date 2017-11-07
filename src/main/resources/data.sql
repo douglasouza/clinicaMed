@@ -3,6 +3,10 @@ INSERT INTO usuario (us_login, us_senha, us_tipo_usuario, us_ativado) VALUES ('a
 INSERT INTO usuario (us_login, us_senha, us_tipo_usuario, us_ativado) VALUES ('dsouza', '55a5e9e78207b4df8699d60886fa070079463547b095d1a05bc719bb4e6cd251', 'ADMINISTRADOR', false);
 INSERT INTO usuario (us_login, us_senha, us_tipo_usuario, us_ativado) VALUES ('apostingher', '55a5e9e78207b4df8699d60886fa070079463547b095d1a05bc719bb4e6cd251', 'ADMINISTRADOR', false);
 
+-- Medicamentos
+INSERT INTO medicamento (me_nome_generico, me_nome_fabrica, me_fabricante) VALUES ('Paracetamol', 'Paracetamol', 'FARMACÊUTICA LTDA');
+INSERT INTO medicamento (me_nome_generico, me_nome_fabrica, me_fabricante) VALUES ('Dipirona', 'Dipirona Monoidratada', 'FARMACÊUTICA LTDA');
+
 -- Médicos
 INSERT INTO usuario (us_login, us_senha, us_tipo_usuario, us_ativado) VALUES ('jsantos', '55a5e9e78207b4df8699d60886fa070079463547b095d1a05bc719bb4e6cd251', 'MEDICO', false);
 INSERT INTO medico (md_nome, md_crm, md_especialidade, us_id)

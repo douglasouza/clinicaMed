@@ -1,0 +1,54 @@
+<barra-navegacao></barra-navegacao>
+
+<h1 ng-if="acao === 'NOVO'">Novo Medicamento</h1>
+<h1 ng-if="acao === 'EDICAO'">Editar Medicamento</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
+
+<form novalidate ng-submit="salvar(medicamentoForm.$valid)" name="medicamentoForm" role="form">
+    <div class="col-md-12">
+        <h3>Dados do Medicamento</h3>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="nomeGenerico">Nome Genérico</label>
+        <input id="nomeGenerico" name="nomeGenerico" class="form-control" type="text"
+               ng-model="medicamento.nomeGenerico"
+               maxlength="254" ng-disabled="acaoFinalizada" required autofocus>
+        <p ng-show="medicamentoForm.nomeGenerico.$touched && medicamentoForm.nomeGenerico.$error.required"
+           class="mensagem-erro">Nome Genérico é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="nomeFabrica">Nome de Fábrica</label>
+        <input id="nomeFabrica" name="nomeFabrica" class="form-control" type="text" ng-model="medicamento.nomeFabrica"
+               maxlength="254" ng-disabled="acaoFinalizada" required autofocus>
+        <p ng-show="medicamentoForm.nomeFabrica.$touched && medicamentoForm.nomeFabrica.$error.required"
+           class="mensagem-erro">Nome de Fábrica é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group">
+        <label for="fabricante">Fabricante</label>
+        <input id="fabricante" name="fabricante" class="form-control" type="text" ng-model="medicamento.fabricante"
+               maxlength="254" ng-disabled="acaoFinalizada" required autofocus>
+        <p ng-show="medicamentoForm.fabricante.$touched && medicamentoForm.fabricante.$error.required"
+           class="mensagem-erro">Fabricante é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
+        <button class="btn btn-success" ng-disabled="medicamentoForm.$invalid">
+            Salvar
+        </button>
+        <button class="btn btn-danger" ui-sref="medicamento.listagem">
+            Cancelar
+        </button>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada">
+        <button class="btn btn-primary" ui-sref="medicamento.listagem">
+            Voltar
+        </button>
+    </div>
+</form>
