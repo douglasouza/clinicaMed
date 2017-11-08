@@ -2,10 +2,11 @@
   "name": "clinica-med",
   "dependencies": {
     "angular": "~1.4",
+    "angular-animate": "~1.4",
     "angular-resource": "~1.4",
     "angular-ui-router": "~0.3.1",
     "cryptojslib": "latest",
-    "bootstrap": "latest",
+    "bootstrap": "3.3.7",
     "jquery": "2.1.4",
     "eonasdan-bootstrap-datetimepicker": "latest"
   }

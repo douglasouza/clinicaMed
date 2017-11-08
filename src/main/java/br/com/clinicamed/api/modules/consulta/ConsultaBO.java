@@ -1,5 +1,11 @@
 package br.com.clinicamed.api.modules.consulta;
 
+import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
+import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
+import br.com.clinicamed.api.modules.medico.Medico;
+import br.com.clinicamed.api.modules.medico.MedicoRepository;
+import br.com.clinicamed.api.modules.paciente.Paciente;
+import br.com.clinicamed.api.modules.paciente.PacienteRepository;
 import com.mysema.query.types.expr.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +21,15 @@ public class ConsultaBO {
 
     @Autowired
     private ConsultaRepository repo;
+
+    @Autowired
+    private HorarioRepository horarioRepo;
+
+    @Autowired
+    private MedicoRepository medicoRepo;
+
+    @Autowired
+    private PacienteRepository pacienteRepo;
 
     public Object pesquisarConsulta(String nomeMedicoPaciente, Date dataInicial, Date dataFinal) {
         Iterable<Consulta> consultas;
@@ -48,7 +63,7 @@ public class ConsultaBO {
             consultaDTO.setId(consulta.getId());
             consultaDTO.setNomeMedico(consulta.getMedico().getNome());
             consultaDTO.setNomePaciente(consulta.getPaciente().getNome());
-            consultaDTO.setDataConsulta(new SimpleDateFormat("dd/MM/yyyy").format(consulta.getDataConsulta()));
+            consultaDTO.setDataConsulta(consulta.getDataConsulta());
             consultaDTO.setHorarioConsulta(consulta.getHorarioConsulta().getHoraConsulta());
             consultasDTO.add(consultaDTO);
         }
@@ -56,7 +71,17 @@ public class ConsultaBO {
         return consultasDTO;
     }
 
-    public Consulta inserirConsulta(Consulta consulta) {
+    public Consulta inserirConsulta(ConsultaDTO consultaDTO) {
+        Paciente paciente = pacienteRepo.findOne(consultaDTO.getIdPaciente());
+        Medico medico = medicoRepo.findOne(consultaDTO.getIdMedico());
+        Horario horario = horarioRepo.findOne(consultaDTO.getIdHorarioConsulta());
+
+        Consulta consulta = new Consulta();
+        consulta.setDataConsulta(consultaDTO.getDataConsulta());
+        consulta.setPaciente(paciente);
+        consulta.setMedico(medico);
+        consulta.setHorarioConsulta(horario);
+
         return repo.saveAndFlush(consulta);
     }
 

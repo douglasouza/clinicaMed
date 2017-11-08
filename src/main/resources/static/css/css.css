@@ -58,3 +58,11 @@ ul.pagination {
     z-index: 1001;
     box-shadow: 1px 1px 2px grey;
 }
+
+.animation-show-hide {
+    transition: all linear 0.5s;
+}
+
+.animation-show-hide.ng-hide {
+    opacity: 0;
+}

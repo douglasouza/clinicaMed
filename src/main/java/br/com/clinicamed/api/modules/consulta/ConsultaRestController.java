@@ -30,8 +30,8 @@ public class ConsultaRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Consulta insert(@RequestBody Consulta consulta) throws Exception {
-        return bo.inserirConsulta(consulta);
+    public Consulta insert(@RequestBody ConsultaDTO consultaDTO) throws Exception {
+        return bo.inserirConsulta(consultaDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
