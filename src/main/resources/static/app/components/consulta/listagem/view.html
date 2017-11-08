@@ -8,19 +8,14 @@
 
 <div class="row">
     <div class="col-md-6 form-group">
-        <input id="nomeCrmLoginFiltro" name="nomeCrmLoginFiltro" class="form-control" type="text"
-               placeholder="Pesquisar por Nome, CRM ou Login" ng-model="filtro.nomeCrmLogin">
+        <input id="nomeMedicoPacienteFiltro" name="nomeMedicoPacienteFiltro" class="form-control" type="text"
+               placeholder="Pesquisar por Nome do Paciente ou Nome do Médico" ng-model="filtro.nomeMedicoPaciente">
     </div>
 
     <div class="col-md-3 form-group">
-        <select id="especialidadeFiltro" name="especialidadeFiltro" class="form-control"
-                ng-model="filtro.especialidade">
-            <option value="">Filtre por Especialidade</option>
-            <option ng-repeat="especialidade in especialidades track by especialidade.id"
-                    value="{{especialidade.id}}">
-                {{especialidade.value}}
-            </option>
-        </select>
+        <input id="dataConsulta" name="dataConsulta" class="form-control" type="text"
+               ng-model="consulta.dataConsulta" placeholder="Data Inicial"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
     </div>
 
     <div ng-show="!pesquisaRealizada" class="col-md-2 form-group">
@@ -64,7 +59,8 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                     Cancelar
                 </button>
-                <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmarExcluirConsulta()">
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                        ng-click="confirmarExcluirConsulta()">
                     Confirmar
                 </button>
             </div>

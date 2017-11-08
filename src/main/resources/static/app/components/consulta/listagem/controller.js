@@ -4,14 +4,14 @@ clinicaMed.controller('consultaListagemController',
     ['$scope', '$state', 'constants', 'consultaListagemService', function ($scope, $state, constants, consultaListagemService) {
 
         $scope.pesquisar = function () {
-            if ($scope.filtro.nomeCrmLogin || $scope.filtro.especialidade) {
+            if ($scope.filtro.nomeMedicoPaciente || $scope.filtro.dataInicial || $scope.dataFinal) {
                 consultaListagemService.fetchAll($scope.filtro);
                 $scope.pesquisaRealizada = true;
             }
         };
 
         $scope.limparPesquisa = function () {
-            $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
+            $scope.filtro = {nomeMedicoPaciente: '', dataInicial: '', dataFinal: ''};
             consultaListagemService.fetchAll($scope.filtro);
             $scope.pesquisaRealizada = false;
         };
@@ -45,33 +45,26 @@ clinicaMed.controller('consultaListagemController',
             $scope.paginaAtual = 1;
             $scope.colunas = [
                 {
-                    caminhoNoObjeto: 'nome',
-                    classeCol: 'col-md-5',
-                    nome: 'Nome'
+                    caminhoNoObjeto: 'nomePaciente',
+                    classeCol: 'col-md-4',
+                    nome: 'Paciente'
                 },
                 {
-                    caminhoNoObjeto: 'especialidade',
+                    caminhoNoObjeto: 'nomeMedico',
+                    classeCol: 'col-md-4',
+                    nome: 'Médico'
+                },
+                {
+                    caminhoNoObjeto: 'dataHoraConsulta',
                     classeCol: 'col-md-2',
-                    filter: 'enumEspecialidadeMedica',
-                    nome: 'Especialidade'
-                },
-                {
-                    caminhoNoObjeto: 'crm',
-                    classeCol: 'col-md-1',
-                    nome: 'CRM'
-                },
-                {
-                    caminhoNoObjeto: 'login',
-                    classeCol: 'col-md-2',
-                    nome: 'Login'
+                    nome: 'Data/Horário Consulta'
                 }
             ];
         }
 
         function initizialize() {
             inicializarDadosTabelaListagem();
-            $scope.especialidades = constants.ENUM.ESPECIALIDADE_MEDICA;
-            $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
+            $scope.filtro = {nomeMedicoPaciente: '', dataInicial: '', dataFinal: ''};
             consultaListagemService.fetchAll($scope.filtro);
         }
 

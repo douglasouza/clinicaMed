@@ -76,7 +76,12 @@ clinicaMed.controller('consultaEdicaoController',
                 if ($scope.acao === 'EDICAO') {
                     consultaEdicaoService.getConsulta($stateParams.id).$promise.then(
                         function (data) {
-                            $scope.consulta = data;
+                            $scope.consulta = {
+                                idPaciente: data.paciente.id,
+                                idMedico: data.medico.id,
+                                dataConsulta: data.dataConsulta,
+                                idHorarioConsulta: data.horarioConsulta.horaConsulta
+                            };
                         }
                     );
                 } else {

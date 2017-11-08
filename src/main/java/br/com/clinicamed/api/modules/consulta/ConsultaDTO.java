@@ -14,11 +14,11 @@ public class ConsultaDTO {
 
     private String nomePaciente;
 
-    private Date dataConsulta;
-
     private Long idHorarioConsulta;
 
-    private String horarioConsulta;
+    private Date dataConsulta;
+
+    private String dataHoraConsulta;
 
     public Long getId() {
         return id;
@@ -60,14 +60,6 @@ public class ConsultaDTO {
         this.nomePaciente = nomePaciente;
     }
 
-    public Date getDataConsulta() {
-        return dataConsulta;
-    }
-
-    public void setDataConsulta(Date dataConsulta) {
-        this.dataConsulta = dataConsulta;
-    }
-
     public Long getIdHorarioConsulta() {
         return idHorarioConsulta;
     }
@@ -76,11 +68,19 @@ public class ConsultaDTO {
         this.idHorarioConsulta = idHorarioConsulta;
     }
 
-    public String getHorarioConsulta() {
-        return horarioConsulta;
+    public Date getDataConsulta() {
+        return dataConsulta;
     }
 
-    public void setHorarioConsulta(String horarioConsulta) {
-        this.horarioConsulta = horarioConsulta;
+    public void setDataConsulta(Date dataConsulta) {
+        this.dataConsulta = dataConsulta;
+    }
+
+    public String getDataHoraConsulta() {
+        return dataHoraConsulta;
+    }
+
+    public void setDataHoraConsulta(String dataHoraConsulta) {
+        this.dataHoraConsulta = dataHoraConsulta;
     }
 }

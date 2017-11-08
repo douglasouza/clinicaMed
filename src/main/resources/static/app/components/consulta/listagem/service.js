@@ -10,7 +10,14 @@ clinicaMed.service('consultaListagemService', function ($rootScope, $resource) {
     }
 
     this.fetchAll = function (consulta) {
-        resource().query(consulta).$promise.then(
+        var filtro = {};
+        filtro.nomeMedicoPaciente = consulta.nomeMedicoPaciente;
+        if (consulta.dataInicial)
+            filtro.dataInicial = consulta.dataInicial;
+        if (consulta.dataFinal)
+            filtro.dataFinal = consulta.dataFinal;
+
+        resource().query(filtro).$promise.then(
             function (data) {
                 $rootScope.$broadcast('CONSULTAS_FETCHED_SUCCESS', data);
             }

@@ -48,23 +48,23 @@ public class ConsultaBO {
                     .or(QConsulta.consulta.paciente.nome.containsIgnoreCase(nomeMedicoPaciente));
 
         if (dataInicial != null)
-            booleanExpression = QConsulta.consulta.dataHoraConsulta.after(dataInicial);
+            booleanExpression = QConsulta.consulta.dataConsulta.after(dataInicial);
 
         if (dataFinal != null)
-            booleanExpression = QConsulta.consulta.dataHoraConsulta.before(dataFinal);
+            booleanExpression = QConsulta.consulta.dataConsulta.before(dataFinal);
 
         return booleanExpression;
     }
 
     private List<ConsultaDTO> getConsultasDTO(Iterable<Consulta> consultas) {
-        List<ConsultaDTO> consultasDTO = new ArrayList<ConsultaDTO>();
+        List<ConsultaDTO> consultasDTO = new ArrayList<>();
         for (Consulta consulta : consultas) {
             ConsultaDTO consultaDTO = new ConsultaDTO();
             consultaDTO.setId(consulta.getId());
             consultaDTO.setNomeMedico(consulta.getMedico().getNome());
             consultaDTO.setNomePaciente(consulta.getPaciente().getNome());
-            consultaDTO.setDataConsulta(consulta.getDataConsulta());
-            consultaDTO.setHorarioConsulta(consulta.getHorarioConsulta().getHoraConsulta());
+            consultaDTO.setDataHoraConsulta(new SimpleDateFormat("dd/MM/yyy").format(consulta.getDataConsulta())
+                    + " " + consulta.getHorarioConsulta().getHoraConsulta());
             consultasDTO.add(consultaDTO);
         }
 
