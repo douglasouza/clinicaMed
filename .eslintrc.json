@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "strict": "never",
+    "indent": [
+      "error",
+      4
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "clear"
+        ]
+      }
+    ],
+    "curly": [
+      "error",
+      "multi-line"
+    ]
+  },
+  "globals": {
+    "angular": true,
+    "console": true,
+    "CryptoJS": true
+  }
+}

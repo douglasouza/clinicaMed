@@ -26,5 +26,5 @@ clinicaMed.directive('mensagemErro', function ($timeout, jQuery) {
                 scope.mostrarAlerta = false;
             };
         }
-    }
+    };
 });

@@ -1,0 +1,7 @@
+{
+  "name": "clinica-med",
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "eslint-grunt": "0.4.1"
+  }
+}

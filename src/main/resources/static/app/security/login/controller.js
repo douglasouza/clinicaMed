@@ -1,8 +1,8 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('loginController',
-    ['$rootScope', '$scope', '$state', '$timeout', 'jQuery', 'loginService',
-        function ($rootScope, $scope, $state, $timeout, $, loginService) {
+    ['$rootScope', '$scope', '$state', '$timeout', 'jQuery', 'CryptoJS', 'loginService',
+        function ($rootScope, $scope, $state, $timeout, $, CryptoJS, loginService) {
             $scope.$on('LOGIN_SUCCESS', function () {
                 if (!$rootScope.usuarioLogado.ativado) {
                     $state.go('ativarUsuario');

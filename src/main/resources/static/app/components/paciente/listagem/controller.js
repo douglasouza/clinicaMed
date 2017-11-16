@@ -3,6 +3,37 @@ var clinicaMed = angular.module('clinicaMed');
 clinicaMed.controller('pacienteListagemController',
     ['$scope', '$state', 'pacienteListagemService', function ($scope, $state, pacienteListagemService) {
 
+        function operacaoSucesso() {
+            $scope.mostrarAlertaSucesso = true;
+        }
+
+        function inicializarDadosTabelaListagem() {
+            $scope.paginaAtual = 1;
+            $scope.colunas = [
+                {
+                    caminhoNoObjeto: 'nome',
+                    classeCol: 'col-md-5',
+                    nome: 'Nome'
+                },
+                {
+                    caminhoNoObjeto: 'cpf',
+                    classeCol: 'col-md-2',
+                    nome: 'CPF'
+                },
+                {
+                    caminhoNoObjeto: 'sexo',
+                    classeCol: 'col-md-3',
+                    nome: 'Sexo'
+                }
+            ];
+        }
+
+        function inicializar() {
+            inicializarDadosTabelaListagem();
+            $scope.filtro = {nome: ''};
+            pacienteListagemService.fetchAll($scope.filtro);
+        }
+
         $scope.pesquisar = function () {
             if ($scope.filtro.nome) {
                 pacienteListagemService.fetchAll($scope.filtro);
@@ -37,37 +68,6 @@ clinicaMed.controller('pacienteListagemController',
             operacaoSucesso();
         });
 
-        function operacaoSucesso() {
-            $scope.mostrarAlertaSucesso = true;
-        }
-
-        function inicializarDadosTabelaListagem() {
-            $scope.paginaAtual = 1;
-            $scope.colunas = [
-                {
-                    caminhoNoObjeto: 'nome',
-                    classeCol: 'col-md-5',
-                    nome: 'Nome'
-                },
-                {
-                    caminhoNoObjeto: 'cpf',
-                    classeCol: 'col-md-2',
-                    nome: 'CPF'
-                },
-                {
-                    caminhoNoObjeto: 'sexo',
-                    classeCol: 'col-md-3',
-                    nome: 'Sexo'
-                }
-            ];
-        }
-
-        function initizialize() {
-            inicializarDadosTabelaListagem();
-            $scope.filtro = {nome: ''};
-            pacienteListagemService.fetchAll($scope.filtro);
-        }
-
-        initizialize();
+        inicializar();
     }]
 );

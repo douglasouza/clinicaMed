@@ -31,6 +31,6 @@ clinicaMed.directive('barraNavegacao',
 
                 inicializar();
             }
-        }
+        };
     }]
 );

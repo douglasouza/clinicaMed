@@ -4,6 +4,8 @@
 
     clinicaMed.constant('jQuery', window.jQuery);
 
+    clinicaMed.constant('CryptoJS', CryptoJS);
+
     clinicaMed.factory('httpInterceptor', ['$rootScope', '$q', function ($rootScope, $q) {
         return {
             request: function (config) {

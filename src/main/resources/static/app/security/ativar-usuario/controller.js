@@ -1,8 +1,8 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('ativarUsuarioController',
-    ['$rootScope', '$scope', '$state', '$timeout', 'jQuery', 'ativarUsuarioService',
-        function ($rootScope, $scope, $state, $timeout, $, ativarUsuarioService) {
+    ['$rootScope', '$scope', '$state', '$timeout', 'jQuery', 'CryptoJS', 'ativarUsuarioService',
+        function ($rootScope, $scope, $state, $timeout, $, CryptoJS, ativarUsuarioService) {
 
             $scope.$on('USUARIO_ATIVADO', function () {
                 $('#usuarioAtivado').modal({backdrop: 'static', keyboard: false});

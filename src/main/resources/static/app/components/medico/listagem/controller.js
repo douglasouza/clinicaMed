@@ -3,6 +3,44 @@ var clinicaMed = angular.module('clinicaMed');
 clinicaMed.controller('medicoListagemController',
     ['$scope', '$state', 'constants', 'medicoListagemService', function ($scope, $state, constants, medicoListagemService) {
 
+        function operacaoSucesso() {
+            $scope.mostrarAlertaSucesso = true;
+        }
+
+        function inicializarDadosTabelaListagem() {
+            $scope.paginaAtual = 1;
+            $scope.colunas = [
+                {
+                    caminhoNoObjeto: 'nome',
+                    classeCol: 'col-md-5',
+                    nome: 'Nome'
+                },
+                {
+                    caminhoNoObjeto: 'especialidade',
+                    classeCol: 'col-md-2',
+                    filter: 'enumEspecialidadeMedica',
+                    nome: 'Especialidade'
+                },
+                {
+                    caminhoNoObjeto: 'crm',
+                    classeCol: 'col-md-1',
+                    nome: 'CRM'
+                },
+                {
+                    caminhoNoObjeto: 'login',
+                    classeCol: 'col-md-2',
+                    nome: 'Login'
+                }
+            ];
+        }
+
+        function inicializar() {
+            inicializarDadosTabelaListagem();
+            $scope.especialidades = constants.ENUM.ESPECIALIDADE_MEDICA;
+            $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
+            medicoListagemService.fetchAll($scope.filtro);
+        }
+
         $scope.pesquisar = function () {
             if ($scope.filtro.nomeCrmLogin || $scope.filtro.especialidade) {
                 medicoListagemService.fetchAll($scope.filtro);
@@ -37,44 +75,6 @@ clinicaMed.controller('medicoListagemController',
             operacaoSucesso();
         });
 
-        function operacaoSucesso() {
-            $scope.mostrarAlertaSucesso = true;
-        }
-
-        function inicializarDadosTabelaListagem() {
-            $scope.paginaAtual = 1;
-            $scope.colunas = [
-                {
-                    caminhoNoObjeto: 'nome',
-                    classeCol: 'col-md-5',
-                    nome: 'Nome'
-                },
-                {
-                    caminhoNoObjeto: 'especialidade',
-                    classeCol: 'col-md-2',
-                    filter: 'enumEspecialidadeMedica',
-                    nome: 'Especialidade'
-                },
-                {
-                    caminhoNoObjeto: 'crm',
-                    classeCol: 'col-md-1',
-                    nome: 'CRM'
-                },
-                {
-                    caminhoNoObjeto: 'login',
-                    classeCol: 'col-md-2',
-                    nome: 'Login'
-                }
-            ];
-        }
-
-        function initizialize() {
-            inicializarDadosTabelaListagem();
-            $scope.especialidades = constants.ENUM.ESPECIALIDADE_MEDICA;
-            $scope.filtro = {nomeCrmLogin: '', especialidade: ''};
-            medicoListagemService.fetchAll($scope.filtro);
-        }
-
-        initizialize();
+        inicializar();
     }]
 );

@@ -28,5 +28,5 @@ clinicaMed.directive('loading', function () {
                     scope.showLoading = false;
             });
         }
-    }
+    };
 });

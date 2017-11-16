@@ -2,24 +2,6 @@ var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('medicoEdicaoController',
     ['$scope', '$state', '$stateParams', 'jQuery', 'constants', 'medicoEdicaoService', function ($scope, $state, $stateParams, $, constants, medicoEdicaoService) {
-        $scope.salvar = function (formularioValido) {
-            if (!formularioValido)
-                return;
-
-            if ($scope.acao === 'NOVO') {
-                medicoEdicaoService.saveMedico($scope.medico);
-            } else {
-                medicoEdicaoService.updateMedico($stateParams.id, $scope.medico);
-            }
-        };
-
-        $scope.$on('MEDICO_SAVE_SUCCESS', function () {
-            operacaoSucesso();
-        });
-
-        $scope.$on('MEDICO_UPDATE_SUCCESS', function () {
-            operacaoSucesso();
-        });
 
         function operacaoSucesso() {
             $scope.mostrarAlertaSucesso = true;
@@ -39,6 +21,25 @@ clinicaMed.controller('medicoEdicaoController',
                 );
             }
         }
+
+        $scope.salvar = function (formularioValido) {
+            if (!formularioValido)
+                return;
+
+            if ($scope.acao === 'NOVO') {
+                medicoEdicaoService.saveMedico($scope.medico);
+            } else {
+                medicoEdicaoService.updateMedico($stateParams.id, $scope.medico);
+            }
+        };
+
+        $scope.$on('MEDICO_SAVE_SUCCESS', function () {
+            operacaoSucesso();
+        });
+
+        $scope.$on('MEDICO_UPDATE_SUCCESS', function () {
+            operacaoSucesso();
+        });
 
         inicializar();
     }]

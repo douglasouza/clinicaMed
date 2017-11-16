@@ -11,6 +11,12 @@ clinicaMed.directive('tabelaListagem', function () {
         },
         templateUrl: './app/common/directives/tabela-listagem/template.html',
         link: function (scope) {
+            function getRegistrosPaginaAtual() {
+                var inicio = 1 + ((scope.paginaAtual - 1) * 10);
+                var fim = scope.registros.length > 10 ? 10 + ((scope.paginaAtual - 1) * 10) : scope.registros.length;
+                scope.registrosPagAtual = scope.registros.slice(inicio - 1, fim);
+            }
+
             scope.isNumRegistroMaiorZero = function () {
                 if (scope.registros)
                     return scope.registros.length > 0;
@@ -27,12 +33,6 @@ clinicaMed.directive('tabelaListagem', function () {
                 if (scope.registros)
                     getRegistrosPaginaAtual();
             });
-
-            function getRegistrosPaginaAtual() {
-                var inicio = 1 + ((scope.paginaAtual - 1) * 10);
-                var fim = scope.registros.length > 10 ? 10 + ((scope.paginaAtual - 1) * 10) : scope.registros.length;
-                scope.registrosPagAtual = scope.registros.slice(inicio - 1, fim);
-            }
         }
-    }
+    };
 });
