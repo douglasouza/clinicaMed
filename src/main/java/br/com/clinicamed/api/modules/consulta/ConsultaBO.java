@@ -1,5 +1,6 @@
 package br.com.clinicamed.api.modules.consulta;
 
+import br.com.clinicamed.api.common.exception.ConsultaJaRealizada;
 import br.com.clinicamed.api.common.utils.DateUtils;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
@@ -103,6 +104,10 @@ public class ConsultaBO {
     }
 
     public void removerConsulta(Long idConsulta) {
+        Consulta consulta = repo.findOne(idConsulta);
+        if (DateUtils.getDataHoraConsulta(consulta.getDataConsulta(), consulta.getHorarioConsulta()).before(new Date()))
+            throw new ConsultaJaRealizada();
+
         repo.delete(idConsulta);
     }
 }
