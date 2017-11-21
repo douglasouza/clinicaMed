@@ -1,27 +1,30 @@
 var clinicaMed = angular.module('clinicaMed');
 
-clinicaMed.constant('datePickerUtils', {
-    config: function (options, scope, filter) {
-        var elemento = options.elemento;
-        elemento.datetimepicker();
-        elemento.data('DateTimePicker').locale('pt-br');
-        elemento.data('DateTimePicker').format('DD/MM/YYYY');
-        elemento.data('DateTimePicker').useCurrent(false);
+clinicaMed.service('datePickerUtils',
+    ['$filter', 'jQuery', function ($filter, $) {
 
-        if (options.dataMinima)
-            elemento.data('DateTimePicker').minDate(options.dataMinima);
+        this.config = function (options, scope) {
+            var elemento = $(options.idElemento);
+            elemento.datetimepicker();
+            elemento.data('DateTimePicker').locale('pt-br');
+            elemento.data('DateTimePicker').format('DD/MM/YYYY');
+            elemento.data('DateTimePicker').useCurrent(false);
 
-        if (options.fdsDisabled)
-            elemento.data('DateTimePicker').daysOfWeekDisabled([0, 6]);
+            if (options.dataMinima)
+                elemento.data('DateTimePicker').minDate(options.dataMinima);
 
-        elemento.on('dp.change', function (event) {
-            if (options.model.indexOf('.') === -1) {
-                scope[options.model] = filter('date')(event.date._d, 'dd/MM/yyyy');
-            } else {
-                var caminhoModel = options.model.split('.');
-                scope[caminhoModel[0]][caminhoModel[1]] = filter('date')(event.date._d, 'dd/MM/yyyy');
-            }
-            scope.$digest();
-        });
-    }
-});
+            if (options.fdsDisabled)
+                elemento.data('DateTimePicker').daysOfWeekDisabled([0, 6]);
+
+            elemento.on('dp.change', function (event) {
+                if (options.model.indexOf('.') === -1) {
+                    scope[options.model] = $filter('date')(event.date._d, 'dd/MM/yyyy');
+                } else {
+                    var caminhoModel = options.model.split('.');
+                    scope[caminhoModel[0]][caminhoModel[1]] = $filter('date')(event.date._d, 'dd/MM/yyyy');
+                }
+                scope.$digest();
+            });
+        };
+    }]
+);

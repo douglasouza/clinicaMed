@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="./css/loading-spinner.css"/>
 </head>
 
-<body ng-app="clinicaMed">
+<body class="ng-cloak" ng-app="clinicaMed">
 
 <loading></loading>
-<div class="container" ng-cloak>
+<div class="container">
 
     <div ui-view></div>
 
@@ -53,12 +53,15 @@
 <script type="text/javascript" src="./app/components/home/router.js"></script>
 
 <!-- Cadastro de Consultas -->
-<script type="text/javascript" src="./app/components/consulta/edicao/controller.js"></script>
-<script type="text/javascript" src="./app/components/consulta/edicao/router.js"></script>
-<script type="text/javascript" src="./app/components/consulta/edicao/service.js"></script>
+<script type="text/javascript" src="app/components/consulta/edicao/controller.js"></script>
+<script type="text/javascript" src="app/components/consulta/edicao/router.js"></script>
+<script type="text/javascript" src="app/components/consulta/edicao/service.js"></script>
 <script type="text/javascript" src="./app/components/consulta/listagem/controller.js"></script>
 <script type="text/javascript" src="./app/components/consulta/listagem/router.js"></script>
 <script type="text/javascript" src="./app/components/consulta/listagem/service.js"></script>
+<script type="text/javascript" src="app/components/consulta/novo/controller.js"></script>
+<script type="text/javascript" src="app/components/consulta/novo/router.js"></script>
+<script type="text/javascript" src="app/components/consulta/novo/service.js"></script>
 <script type="text/javascript" src="./app/components/consulta/root/router.js"></script>
 
 <!-- Cadastro de Medicamentos -->

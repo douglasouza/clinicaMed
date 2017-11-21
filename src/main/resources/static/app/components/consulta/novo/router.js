@@ -2,10 +2,10 @@ var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.config(function ($stateProvider) {
 
-        $stateProvider.state('consulta.edicao', {
-            url: '/editar/:id',
-            templateUrl: './app/components/consulta/edicao/view.html',
-            controller: 'consultaEdicaoController',
+        $stateProvider.state('consulta.novo', {
+            url: '/novo',
+            templateUrl: './app/components/consulta/novo/view.html',
+            controller: 'consultaNovoController',
             acesso: {
                 loginRequerido: true,
                 usuariosAutorizados: ['ADMINISTRADOR', 'RECEPCIONISTA']

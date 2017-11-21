@@ -35,8 +35,8 @@ public class ConsultaRestController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Consulta update(@RequestBody Consulta updatedConsulta, @PathVariable Long id) {
-        return bo.atualizarConsulta(updatedConsulta, id);
+    public Consulta update(@RequestBody ConsultaDTO updatedConsultaDTO, @PathVariable Long id) {
+        return bo.atualizarConsulta(updatedConsultaDTO, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

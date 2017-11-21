@@ -1,5 +1,6 @@
 package br.com.clinicamed.api.modules.consulta;
 
+import br.com.clinicamed.api.common.utils.DateUtils;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
 import br.com.clinicamed.api.modules.medico.Medico;
@@ -47,11 +48,19 @@ public class ConsultaBO {
             booleanExpression = QConsulta.consulta.medico.nome.containsIgnoreCase(nomeMedicoPaciente)
                     .or(QConsulta.consulta.paciente.nome.containsIgnoreCase(nomeMedicoPaciente));
 
-        if (dataInicial != null)
-            booleanExpression = QConsulta.consulta.dataConsulta.after(dataInicial);
+        if (dataInicial != null) {
+            if (booleanExpression == null)
+                booleanExpression = QConsulta.consulta.dataConsulta.after(DateUtils.getInicioDoDia(dataInicial));
+            else
+                booleanExpression = booleanExpression.and(QConsulta.consulta.dataConsulta.after(DateUtils.getInicioDoDia(dataInicial)));
+        }
 
-        if (dataFinal != null)
-            booleanExpression = QConsulta.consulta.dataConsulta.before(dataFinal);
+        if (dataFinal != null) {
+            if (booleanExpression == null)
+                booleanExpression = QConsulta.consulta.dataConsulta.before(DateUtils.getFinalDoDia(dataFinal));
+            else
+                booleanExpression = booleanExpression.and(QConsulta.consulta.dataConsulta.before(DateUtils.getFinalDoDia(dataFinal)));
+        }
 
         return booleanExpression;
     }
@@ -72,21 +81,25 @@ public class ConsultaBO {
     }
 
     public Consulta inserirConsulta(ConsultaDTO consultaDTO) {
+        return repo.saveAndFlush(getConsulta(consultaDTO));
+    }
+
+    public Consulta atualizarConsulta(ConsultaDTO updatedConsultaDTO, Long id) {
+        return repo.saveAndFlush(getConsulta(updatedConsultaDTO));
+    }
+
+    private Consulta getConsulta(ConsultaDTO consultaDTO) {
         Paciente paciente = pacienteRepo.findOne(consultaDTO.getIdPaciente());
         Medico medico = medicoRepo.findOne(consultaDTO.getIdMedico());
         Horario horario = horarioRepo.findOne(consultaDTO.getIdHorarioConsulta());
 
         Consulta consulta = new Consulta();
+        consulta.setId(consultaDTO.getId() != null ? consultaDTO.getId() : null);
         consulta.setDataConsulta(consultaDTO.getDataConsulta());
         consulta.setPaciente(paciente);
         consulta.setMedico(medico);
         consulta.setHorarioConsulta(horario);
-
-        return repo.saveAndFlush(consulta);
-    }
-
-    public Consulta atualizarConsulta(Consulta updatedConsulta, Long id) {
-        return repo.saveAndFlush(updatedConsulta);
+        return consulta;
     }
 
     public void removerConsulta(Long idConsulta) {

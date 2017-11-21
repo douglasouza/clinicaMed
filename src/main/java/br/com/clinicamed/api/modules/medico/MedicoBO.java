@@ -65,7 +65,7 @@ public class MedicoBO {
     }
 
     private List<MedicoDTO> getMedicosDTO(Iterable<Medico> medicos) {
-        List<MedicoDTO> medicosDTO = new ArrayList<MedicoDTO>();
+        List<MedicoDTO> medicosDTO = new ArrayList<>();
         for (Medico medico : medicos) {
             MedicoDTO medicoDTO = new MedicoDTO();
             medicoDTO.setId(medico.getId());
@@ -83,7 +83,7 @@ public class MedicoBO {
         if (existeUsuarioCadastradoComMesmoLogin(medico))
             throw new LoginNaoUnicoException();
 
-        if (crmUtils.ehCrmValido(medico.getCrm()))
+        if (!crmUtils.ehCrmValido(medico.getCrm()))
             throw new CrmInvalidoException();
 
         if (crmUtils.existeOutroCadastradoComMesmoCrm(medico))
@@ -99,7 +99,7 @@ public class MedicoBO {
         if (existeUsuarioCadastradoComMesmoLogin(updatedMedico))
             throw new LoginNaoUnicoException();
 
-        if (crmUtils.ehCrmValido(updatedMedico.getCrm()))
+        if (!crmUtils.ehCrmValido(updatedMedico.getCrm()))
             throw new CrmInvalidoException();
 
         if (crmUtils.existeOutroCadastradoComMesmoCrm(updatedMedico))

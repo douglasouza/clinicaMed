@@ -1,50 +1,20 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('consultaEdicaoController',
-    ['$scope', '$state', '$stateParams', '$filter', 'jQuery', 'constants', 'datePickerUtils', 'consultaEdicaoService',
-        function ($scope, $state, $stateParams, $filter, $, constants, datePickerUtils, consultaEdicaoService) {
+    ['$scope', '$stateParams', '$filter', 'constants', 'datePickerUtils', 'consultaEdicaoService',
+        function ($scope, $stateParams, $filter, constants, datePickerUtils, consultaEdicaoService) {
             $scope.salvar = function (formularioValido) {
-                if (!formularioValido)
-                    return;
-
-                if ($scope.acao === 'NOVO') {
-                    consultaEdicaoService.saveConsulta($scope.consulta);
-                } else {
+                if (formularioValido)
                     consultaEdicaoService.updateConsulta($stateParams.id, $scope.consulta);
-                }
             };
-
-            $scope.$on('CONSULTA_SAVE_SUCCESS', function () {
-                operacaoSucesso();
-            });
 
             $scope.$on('CONSULTA_UPDATE_SUCCESS', function () {
                 operacaoSucesso();
             });
 
-            $scope.$on('PACIENTES_FETCHED_SUCCESS', function (e, data) {
-                $scope.pacientes = data;
-            });
-
-            $scope.$on('MEDICOS_FETCHED_SUCCESS', function (e, data) {
-                $scope.medicos = data;
-            });
-
             $scope.$on('HORARIOS_DISPONIVEIS_SUCCESS', function (e, data) {
                 $scope.consulta.idHorarioConsulta = '';
                 $scope.horarios = data;
-            });
-
-            $scope.$watch('especialidade', function (novoValor) {
-                if (novoValor)
-                    consultaEdicaoService.getMedicosPorEspecialidade(novoValor);
-                else
-                    $scope.consulta.idMedico = '';
-            });
-
-            $scope.$watch('consulta.idMedico', function (novoValor) {
-                if (novoValor && $scope.consulta.dataConsulta)
-                    consultaEdicaoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, novoValor);
             });
 
             $scope.$watch('consulta.dataConsulta', function (novoValor) {
@@ -59,34 +29,31 @@ clinicaMed.controller('consultaEdicaoController',
 
             function configurarDatePicker() {
                 var options = {
-                    elemento: $('#dataConsulta'),
+                    idElemento: '#dataConsulta',
                     model: 'consulta.dataConsulta',
                     dataMinima: new Date(),
                     fdsDisabled: true
                 };
 
-                datePickerUtils.config(options, $scope, $filter);
+                datePickerUtils.config(options, $scope);
             }
 
             function inicializar() {
                 configurarDatePicker();
-                $scope.consulta = {};
-                $scope.especialidades = constants.ENUM.ESPECIALIDADE_MEDICA;
-                $scope.acao = $state.current.name === 'consulta.novo' ? 'NOVO' : 'EDICAO';
-                if ($scope.acao === 'EDICAO') {
-                    consultaEdicaoService.getConsulta($stateParams.id).$promise.then(
-                        function (data) {
-                            $scope.consulta = {
-                                idPaciente: data.paciente.id,
-                                idMedico: data.medico.id,
-                                dataConsulta: data.dataConsulta,
-                                idHorarioConsulta: data.horarioConsulta.horaConsulta
-                            };
-                        }
-                    );
-                } else {
-                    consultaEdicaoService.getPacientes();
-                }
+                consultaEdicaoService.getConsulta($stateParams.id).$promise.then(
+                    function (data) {
+                        $scope.consulta = {
+                            id: data.id,
+                            idPaciente: data.paciente.id,
+                            nomePaciente: data.paciente.nome,
+                            idMedico: data.medico.id,
+                            nomeMedico: data.medico.nome,
+                            dataConsulta: $filter('date')(data.dataConsulta, 'dd/MM/yyyy'),
+                            idHorarioConsulta: data.horarioConsulta.id
+                        };
+                        consultaEdicaoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.dataConsulta);
+                    }
+                );
             }
 
             inicializar();

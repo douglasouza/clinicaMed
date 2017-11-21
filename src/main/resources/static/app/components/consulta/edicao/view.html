@@ -1,7 +1,6 @@
 <barra-navegacao></barra-navegacao>
 
-<h1 ng-if="acao === 'NOVO'">Novo Consulta</h1>
-<h1 ng-if="acao === 'EDICAO'">Editar Consulta</h1>
+<h1>Novo Consulta</h1>
 <hr>
 
 <mensagem-erro></mensagem-erro>
@@ -12,71 +11,40 @@
         <h3>Dados da Consulta</h3>
     </div>
 
-    <div class="col-md-12 form-group">
-        <label for="paciente">Paciente</label>
-        <select id="paciente" name="paciente" class="form-control" ng-model="consulta.idPaciente"
-                ng-disabled="acaoFinalizada" required>
-            <option value="">Selecione</option>
-            <option ng-repeat="paciente in pacientes track by paciente.id" value="{{paciente.id}}">
-                {{paciente.nome}}
-            </option>
-        </select>
-        <p ng-show="consultaForm.paciente.$touched && consultaForm.paciente.$error.required"
-           class="mensagem-erro">Médico é um campo obrigatório</p>
+    <div class="col-md-6 form-group">
+        <label for="nomePaciente">Paciente</label>
+        <input id="nomePaciente" name="nomePaciente" class="form-control" type="text" ng-model="consulta.nomePaciente"
+               ng-disabled="true">
     </div>
 
     <div class="col-md-6 form-group">
-        <label for="especialidadeMedico">Especialidade</label>
-        <select id="especialidadeMedico" name="especialidadeMedico" class="form-control" ng-model="especialidade"
-                ng-disabled="acaoFinalizada" required>
-            <option value="">Selecione</option>
-            <option ng-repeat="especialidade in especialidades track by especialidade.id" value="{{especialidade.id}}">
-                {{especialidade.value}}
-            </option>
-        </select>
-        <p ng-show="consultaForm.especialidadeMedico.$touched && consultaForm.especialidadeMedico.$error.required"
-           class="mensagem-erro">Especialidade é um campo obrigatório</p>
+        <label for="nomeMedico">Médico</label>
+        <input id="nomeMedico" name="nomeMedico" class="form-control" type="text" ng-model="consulta.nomeMedico"
+               ng-disabled="true">
     </div>
 
     <div class="col-md-6 form-group">
-        <label for="medico">Médico</label>
-        <select id="medico" name="medico" class="form-control" ng-model="consulta.idMedico"
-                ng-disabled="acaoFinalizada || !especialidade" required>
-            <option value="">{{!especialidade ? 'Selecione uma Especialidade' : (medicos.length > 0 ? 'Selecione' :
-                'Nenhum registro encontrado')}}
-            </option>
-            <option ng-repeat="medico in medicos track by medico.id" value="{{medico.id}}">
-                {{medico.nome}}
-            </option>
-        </select>
-        <p ng-show="consultaForm.medico.$touched && consultaForm.medico.$error.required"
-           class="mensagem-erro">Médico é um campo obrigatório</p>
+        <label for="dataConsulta">Data da Consulta</label>
+        <input id="dataConsulta" name="dataConsulta" class="form-control" type="text"
+               ng-model="consulta.dataConsulta"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
+        <p ng-show="consultaForm.dataConsulta.$touched && consultaForm.dataConsulta.$error.required"
+           class="mensagem-erro">Data da Consulta é um campo obrigatório</p>
     </div>
 
-    <div ng-show="consulta.idPaciente && especialidade && consulta.idMedico" class="animation-show-hide">
-        <div class="col-md-6 form-group">
-            <label for="dataConsulta">Data da Consulta</label>
-            <input id="dataConsulta" name="dataConsulta" class="form-control" type="text"
-                   ng-model="consulta.dataConsulta"
-                   maxlength="254" ng-disabled="acaoFinalizada" required>
-            <p ng-show="consultaForm.dataConsulta.$touched && consultaForm.dataConsulta.$error.required"
-               class="mensagem-erro">Data da Consulta é um campo obrigatório</p>
-        </div>
-
-        <div class="col-md-6 form-group">
-            <label for="horaConsulta">Horário da Consulta</label>
-            <select id="horaConsulta" name="horaConsulta" class="form-control" ng-model="consulta.idHorarioConsulta"
-                    ng-disabled="acaoFinalizada || !consulta.dataConsulta" required>
-                <option value="">{{!consulta.dataConsulta ? 'Selecione uma Data' : (horarios.length > 0 ? 'Selecione' :
-                    'Nenhum horário disponível')}}
-                </option>
-                <option ng-repeat="horario in horarios track by horario.id" value="{{horario.id}}">
-                    {{horario.horaConsulta}}
-                </option>
-            </select>
-            <p ng-show="consultaForm.horaConsulta.$touched && consultaForm.horaConsulta.$error.required"
-               class="mensagem-erro">Horário da Consulta é um campo obrigatório</p>
-        </div>
+    <div class="col-md-6 form-group">
+        <label for="horaConsulta">Horário da Consulta</label>
+        <select id="horaConsulta" name="horaConsulta" class="form-control" ng-model="consulta.idHorarioConsulta"
+                ng-disabled="acaoFinalizada || !consulta.dataConsulta" required>
+            <option value="">{{!consulta.dataConsulta ? 'Selecione uma Data' : (horarios.length > 0 ? 'Selecione' :
+                'Nenhum horário disponível')}}
+            </option>
+            <option ng-repeat="horario in horarios track by horario.id" value="{{horario.id}}">
+                {{horario.horaConsulta}}
+            </option>
+        </select>
+        <p ng-show="consultaForm.horaConsulta.$touched && consultaForm.horaConsulta.$error.required"
+           class="mensagem-erro">Horário da Consulta é um campo obrigatório</p>
     </div>
 
     <div class="col-md-12 form-group" ng-show="!acaoFinalizada">

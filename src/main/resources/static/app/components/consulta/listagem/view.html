@@ -7,15 +7,21 @@
 <mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
 
 <div class="row">
-    <div class="col-md-6 form-group">
+    <div class="col-md-5 form-group">
         <input id="nomeMedicoPacienteFiltro" name="nomeMedicoPacienteFiltro" class="form-control" type="text"
                placeholder="Pesquisar por Nome do Paciente ou Nome do Médico" ng-model="filtro.nomeMedicoPaciente">
     </div>
 
-    <div class="col-md-3 form-group">
-        <input id="dataConsulta" name="dataConsulta" class="form-control" type="text"
-               ng-model="consulta.dataConsulta" placeholder="Data Inicial"
-               maxlength="254" ng-disabled="acaoFinalizada" required>
+    <div class="col-md-2 form-group">
+        <input id="dataInicial" name="dataInicial" class="form-control" type="text"
+               ng-model="filtro.dataInicial" placeholder="Data Inicial"
+               maxlength="254">
+    </div>
+
+    <div class="col-md-2 form-group">
+        <input id="dataFinal" name="dataFinal" class="form-control" type="text"
+               ng-model="filtro.dataFinal" placeholder="Data Final"
+               maxlength="254">
     </div>
 
     <div ng-show="!pesquisaRealizada" class="col-md-2 form-group">

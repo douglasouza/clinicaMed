@@ -13,9 +13,9 @@ clinicaMed.service('consultaListagemService', function ($rootScope, $resource) {
         var filtro = {};
         filtro.nomeMedicoPaciente = consulta.nomeMedicoPaciente;
         if (consulta.dataInicial)
-            filtro.dataInicial = consulta.dataInicial;
+            filtro.dataInicial = converterDataParaPadraoAnoMesDia(consulta.dataInicial);
         if (consulta.dataFinal)
-            filtro.dataFinal = consulta.dataFinal;
+            filtro.dataFinal = converterDataParaPadraoAnoMesDia(consulta.dataFinal);
 
         resource().query(filtro).$promise.then(
             function (data) {
@@ -23,6 +23,11 @@ clinicaMed.service('consultaListagemService', function ($rootScope, $resource) {
             }
         );
     };
+
+    function converterDataParaPadraoAnoMesDia(data) {
+        var dataArray = data.split('/');
+        return new Date(dataArray[2] + '/' + dataArray[1] + '/' + dataArray[0]).toUTCString();
+    }
 
     this.deleteConsulta = function (id) {
         return resource().delete({id: id}).$promise.then(
