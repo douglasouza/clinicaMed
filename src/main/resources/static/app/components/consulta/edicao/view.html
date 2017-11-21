@@ -1,0 +1,64 @@
+<barra-navegacao></barra-navegacao>
+
+<h1>Novo Consulta</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
+
+<form novalidate ng-submit="salvar(consultaForm.$valid)" name="consultaForm" role="form">
+    <div class="col-md-12">
+        <h3>Dados da Consulta</h3>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="nomePaciente">Paciente</label>
+        <input id="nomePaciente" name="nomePaciente" class="form-control" type="text" ng-model="consulta.nomePaciente"
+               ng-disabled="true">
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="nomeMedico">Médico</label>
+        <input id="nomeMedico" name="nomeMedico" class="form-control" type="text" ng-model="consulta.nomeMedico"
+               ng-disabled="true">
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="dataConsulta">Data da Consulta</label>
+        <input id="dataConsulta" name="dataConsulta" class="form-control" type="text"
+               ng-model="consulta.dataConsulta"
+               maxlength="254" ng-disabled="acaoFinalizada" required>
+        <p ng-show="consultaForm.dataConsulta.$touched && consultaForm.dataConsulta.$error.required"
+           class="mensagem-erro">Data da Consulta é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <label for="horaConsulta">Horário da Consulta</label>
+        <select id="horaConsulta" name="horaConsulta" class="form-control" ng-model="consulta.idHorarioConsulta"
+                ng-disabled="acaoFinalizada || !consulta.dataConsulta" required>
+            <option value="">{{!consulta.dataConsulta ? 'Selecione uma Data' : (horarios.length > 0 ? 'Selecione' :
+                'Nenhum horário disponível')}}
+            </option>
+            <option ng-repeat="horario in horarios track by horario.id" value="{{horario.id}}">
+                {{horario.horaConsulta}}
+            </option>
+        </select>
+        <p ng-show="consultaForm.horaConsulta.$touched && consultaForm.horaConsulta.$error.required"
+           class="mensagem-erro">Horário da Consulta é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada">
+        <button class="btn btn-success" ng-disabled="consultaForm.$invalid">
+            Salvar
+        </button>
+        <button class="btn btn-danger" ui-sref="consulta.listagem">
+            Cancelar
+        </button>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada">
+        <button class="btn btn-primary" ui-sref="consulta.listagem">
+            Voltar
+        </button>
+    </div>
+</form>

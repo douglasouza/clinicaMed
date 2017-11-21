@@ -1,4 +1,4 @@
-package br.com.clinicamed.api.modules.paciente;
+package br.com.clinicamed.api.modules.consulta;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,38 +7,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
-@RequestMapping("/paciente")
-public class PacienteService {
+@RequestMapping("/consulta")
+public class ConsultaRestController {
 
     @Autowired
-    private PacienteRepository repo;
+    private ConsultaRepository repo;
 
     @Autowired
-    private PacienteBO bo;
+    private ConsultaBO bo;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Object findAll(String nome) {
-        return bo.pesquisarPaciente(nome);
+    public Object findAll(String nomeMedicoPaciente, Date dataInicial, Date dataFinal) {
+        return bo.pesquisarConsulta(nomeMedicoPaciente, dataInicial, dataFinal);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Paciente findOne(@PathVariable Long id) {
+    public Consulta findOne(@PathVariable Long id) {
         return repo.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Paciente insert(@RequestBody Paciente paciente) throws Exception {
-        return bo.inserirPaciente(paciente);
+    public Consulta insert(@RequestBody ConsultaDTO consultaDTO) throws Exception {
+        return bo.inserirConsulta(consultaDTO);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Paciente update(@RequestBody Paciente updatedPaciente, @PathVariable Long id) {
-        return bo.atualizarPaciente(updatedPaciente, id);
+    public Consulta update(@RequestBody ConsultaDTO updatedConsultaDTO, @PathVariable Long id) {
+        return bo.atualizarConsulta(updatedConsultaDTO, id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        repo.delete(id);
+        bo.removerConsulta(id);
     }
 }

@@ -5,6 +5,8 @@ import br.com.clinicamed.api.common.exception.CrmInvalidoException;
 import br.com.clinicamed.api.common.exception.CrmNaoUnicoException;
 import br.com.clinicamed.api.common.exception.LoginNaoUnicoException;
 import br.com.clinicamed.api.common.utils.CrmUtils;
+import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
+import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
 import br.com.clinicamed.security.usuario.Usuario;
 import br.com.clinicamed.security.usuario.UsuarioBO;
 import br.com.clinicamed.security.usuario.UsuarioRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -24,6 +27,9 @@ public class MedicoBO {
 
     @Autowired
     private UsuarioRepository usuarioRepo;
+
+    @Autowired
+    private HorarioRepository horarioRepo;
 
     @Autowired
     private UsuarioBO usuarioBO;
@@ -59,7 +65,7 @@ public class MedicoBO {
     }
 
     private List<MedicoDTO> getMedicosDTO(Iterable<Medico> medicos) {
-        List<MedicoDTO> medicosDTO = new ArrayList<MedicoDTO>();
+        List<MedicoDTO> medicosDTO = new ArrayList<>();
         for (Medico medico : medicos) {
             MedicoDTO medicoDTO = new MedicoDTO();
             medicoDTO.setId(medico.getId());
@@ -77,7 +83,7 @@ public class MedicoBO {
         if (existeUsuarioCadastradoComMesmoLogin(medico))
             throw new LoginNaoUnicoException();
 
-        if (crmUtils.ehCrmValido(medico.getCrm()))
+        if (!crmUtils.ehCrmValido(medico.getCrm()))
             throw new CrmInvalidoException();
 
         if (crmUtils.existeOutroCadastradoComMesmoCrm(medico))
@@ -93,7 +99,7 @@ public class MedicoBO {
         if (existeUsuarioCadastradoComMesmoLogin(updatedMedico))
             throw new LoginNaoUnicoException();
 
-        if (crmUtils.ehCrmValido(updatedMedico.getCrm()))
+        if (!crmUtils.ehCrmValido(updatedMedico.getCrm()))
             throw new CrmInvalidoException();
 
         if (crmUtils.existeOutroCadastradoComMesmoCrm(updatedMedico))
@@ -114,5 +120,9 @@ public class MedicoBO {
     private Boolean existeUsuarioCadastradoComMesmoLogin(Medico medico) {
         Usuario usuarioComMesmoLogin = usuarioRepo.findByLogin(medico.getUsuario().getLogin());
         return usuarioComMesmoLogin != null && (usuarioComMesmoLogin.getId() != medico.getUsuario().getId());
+    }
+
+    public List<Horario> getHorariosDisponiveis(Long id, Date data) {
+        return horarioRepo.getHorariosDisponiveisPorMedico(id, data);
     }
 }

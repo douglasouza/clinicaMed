@@ -13,22 +13,22 @@
             <!--<li class="active"><a href="">Home</a></li>-->
             <!--<li><a href="">About</a></li>-->
             <!--<li><a href="">Contact</a></li>-->
-            <li ng-show="!medico" class="dropdown">
+            <li id="cadastrosNavBarMenu" ng-show="!medico" class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                     Gerenciar Cadastros <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li ng-show="administrador || recepcionista">
+                    <li id="medicamentosNavBarMenu" ng-show="!medico">
                         <a href="" ui-sref="medicamento.listagem">Medicamentos</a>
                     </li>
-                    <li ng-show="administrador || recepcionista">
+                    <li id="pacientesNavBarMenu" ng-show="!medico">
                         <a href="" ui-sref="paciente.listagem">Pacientes</a>
                     </li>
                     <li ng-show="administrador" role="separator" class="divider"></li>
-                    <li ng-show="administrador">
+                    <li id="medicosNavBarMenu" ng-show="administrador">
                         <a href="" ui-sref="medico.listagem">Médicos</a>
                     </li>
-                    <li ng-show="administrador">
+                    <li id="recepcionistasNavBarMenu" ng-show="administrador">
                         <a href="" ui-sref="recepcionista.listagem">Recepcionistas</a>
                     </li>
                     <!--<li><a href="">Something else here</a></li>-->
@@ -36,6 +36,11 @@
                     <!--<li><a href="">Separated link</a></li>-->
                     <!--<li><a href="">One more separated link</a></li>-->
                 </ul>
+            </li>
+            <li id="consultasNavBarMenu" ng-show="!medico">
+                <a href="" ui-sref="consulta.listagem">
+                    Gerenciar Consultas
+                </a>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">

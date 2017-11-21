@@ -38,11 +38,4 @@ public class UsuarioService {
         usuario.setAtivado(true);
         return repo.save(usuario);
     }
-
-    @RequestMapping(value = "/redefinirSenha", method = RequestMethod.PUT)
-    public Object redefinirSenha(String login, String novaSenha) {
-        Usuario usuario = repo.findByLogin(login);
-        usuario.setSenha(novaSenha);
-        return repo.save(usuario);
-    }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/recepcionista")
-public class RecepcionistaService {
+public class RecepcionistaRestController {
 
     @Autowired
     private RecepcionistaRepository repo;
