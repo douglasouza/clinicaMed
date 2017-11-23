@@ -1,0 +1,62 @@
+<barra-navegacao></barra-navegacao>
+
+<h1 ng-if="acao === 'NOVO'">Novo Prescricão</h1>
+<h1 ng-if="acao === 'EDICAO'">Editar Prescricão</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+<mensagem-sucesso mostrar-alerta-sucesso="mostrarAlertaSucesso"></mensagem-sucesso>
+
+<form novalidate ng-submit="salvar(prescricaoForm.$valid)" name="prescricaoForm" role="form">
+    <div class="col-md-12">
+        <h3>Dados da Prescricão</h3>
+    </div>
+
+    <div class="col-md-4 form-group">
+        <label for="paciente">Paciente</label>
+        <select id="paciente" name="paciente" class="form-control" ng-model="prescricao.paciente"
+                ng-options="paciente as paciente.nome for paciente in pacientes track by paciente.id"
+                ng-disabled="acaoFinalizada" required>
+            <option value="">Selecione</option>
+        </select>
+        <p ng-show="prescricaoForm.paciente.$touched && prescricaoForm.paciente.$error.required"
+           class="mensagem-erro">Paciente é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-4 form-group">
+        <label for="medicamento">Medicamento</label>
+        <select id="medicamento" name="medicamento" class="form-control" ng-model="prescricao.medicamento"
+                ng-options="medicamento as medicamento.nomeGenerico for medicamento in medicamentos track by medicamento.id"
+                ng-disabled="acaoFinalizada" required>
+            <option value="">Selecione</option>
+        </select>
+        <p ng-show="prescricaoForm.medicamento.$touched && prescricaoForm.medicamento.$error.required"
+           class="mensagem-erro">Medicamento é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-4 form-group">
+        <label for="entregue">Entregue ao Paciente</label>
+        <select id="entregue" name="entregue" class="form-control" ng-model="prescricao.entregue"
+                ng-options="option.value as option.label for option in [{label: 'Sim', value: true}, {label: 'Não', value: false}]"
+                ng-disabled="acaoFinalizada" required>
+            <option value="">Selecione</option>
+        </select>
+        <p ng-show="prescricaoForm.entregue.$touched && prescricaoForm.entregue.$error.required"
+           class="mensagem-erro">Entregue é um campo obrigatório</p>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada || (prescricao.id && prescricao.entregue === 'true')">
+        <button class="btn btn-success" ng-disabled="prescricaoForm.$invalid">
+            Salvar
+        </button>
+        <button class="btn btn-danger" ui-sref="prescricao.listagem">
+            Cancelar
+        </button>
+    </div>
+
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada || (prescricao.id && prescricao.entregue === 'true')">
+        <button class="btn btn-primary" ui-sref="prescricao.listagem">
+            Voltar
+        </button>
+    </div>
+</form>

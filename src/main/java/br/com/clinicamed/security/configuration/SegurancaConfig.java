@@ -50,6 +50,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/consulta/**").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA")
                 .antMatchers("/medico/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/paciente/**").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA")
+                .antMatchers("/prescricao/**").hasAnyAuthority("ADMINISTRADOR", "MEDICO")
                 .antMatchers("/recepcionista/**").hasAnyAuthority("ADMINISTRADOR")
                 .and().exceptionHandling()
                 .authenticationEntryPoint(new AcessoNaoAutorizadoHandler())

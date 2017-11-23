@@ -33,6 +33,11 @@ clinicaMed.directive('barraNavegacao',
                         $('#consultasNavBarMenu').addClass('active');
                 }
 
+                function estaGerenciandoPrescricoes() {
+                    if (scope.estadoAtual.indexOf('prescricao') !== -1)
+                        $('#prescricoesNavBarMenu').addClass('active');
+                }
+
                 function inicializar() {
                     scope.estadoAtual = $state.current.name;
                     scope.administrador = false;
@@ -42,6 +47,7 @@ clinicaMed.directive('barraNavegacao',
                     $('#navbar').find('*').removeClass('active');
                     estaGerenciandoCadastros();
                     estaGerenciandoConsultas();
+                    estaGerenciandoPrescricoes();
 
                     if (!$rootScope.usuarioLogado)
                         return;

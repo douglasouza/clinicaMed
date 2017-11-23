@@ -7,6 +7,8 @@ import br.com.clinicamed.api.common.exception.LoginNaoUnicoException;
 import br.com.clinicamed.api.common.utils.CrmUtils;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
+import br.com.clinicamed.api.modules.paciente.Paciente;
+import br.com.clinicamed.api.modules.paciente.PacienteRepository;
 import br.com.clinicamed.security.usuario.Usuario;
 import br.com.clinicamed.security.usuario.UsuarioBO;
 import br.com.clinicamed.security.usuario.UsuarioRepository;
@@ -24,6 +26,9 @@ public class MedicoBO {
 
     @Autowired
     private MedicoRepository repo;
+
+    @Autowired
+    private PacienteRepository pacienteRepo;
 
     @Autowired
     private UsuarioRepository usuarioRepo;
@@ -124,5 +129,9 @@ public class MedicoBO {
 
     public List<Horario> getHorariosDisponiveis(Long id, Date data) {
         return horarioRepo.getHorariosDisponiveisPorMedico(id, data);
+    }
+
+    public List<Paciente> buscarPacientesAtendidosPorMedico(Long idMedico) {
+        return pacienteRepo.buscarPacientesAtendidosPorMedico(idMedico, new Date());
     }
 }
