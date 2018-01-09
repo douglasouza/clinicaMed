@@ -2,6 +2,7 @@ package br.com.clinicamed.api.modules.medico;
 
 import br.com.clinicamed.api.common.enumeration.EspecialidadeMedica;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
+import br.com.clinicamed.api.modules.paciente.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,5 +51,10 @@ public class MedicoRestController {
     @RequestMapping(value = "/{id}/horariosDisponiveis", method = RequestMethod.GET, params = {"data"})
     public List<Horario> getHorariosDisponiveis(@PathVariable Long id, Date data) {
         return bo.getHorariosDisponiveis(id, data);
+    }
+
+    @RequestMapping(value = "/{id}/pacientes", method = RequestMethod.GET)
+    public List<Paciente> buscarPacientesAtendidosPorMedico(@PathVariable Long id) {
+        return bo.buscarPacientesAtendidosPorMedico(id);
     }
 }
