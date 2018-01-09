@@ -6,11 +6,6 @@ label {
     font-weight: normal;
 }
 
-label::after {
-    color: #f96855;
-    content: ' *';
-}
-
 form input[class*='ng-valid'].ng-touched {
     border-color: #46be8a;
 }
@@ -25,6 +20,10 @@ form select.ng-valid.ng-touched {
 
 form select.ng-invalid.ng-touched {
     border-color: #f96855;
+}
+
+.campo-obrigatorio {
+    color: #f96855;
 }
 
 .mensagem-erro {

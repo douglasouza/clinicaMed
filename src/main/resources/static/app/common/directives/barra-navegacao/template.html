@@ -10,9 +10,6 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
         <ul class="nav navbar-nav">
-            <!--<li class="active"><a href="">Home</a></li>-->
-            <!--<li><a href="">About</a></li>-->
-            <!--<li><a href="">Contact</a></li>-->
             <li id="cadastrosNavBarMenu" ng-show="!medico" class="dropdown">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
                     Cadastros Gerais<span class="caret"></span>
@@ -31,10 +28,6 @@
                     <li id="recepcionistasNavBarMenu" ng-show="administrador">
                         <a href="" ui-sref="recepcionista.listagem">Recepcionistas</a>
                     </li>
-                    <!--<li><a href="">Something else here</a></li>-->
-                    <!--<li class="dropdown-header">Nav header</li>-->
-                    <!--<li><a href="">Separated link</a></li>-->
-                    <!--<li><a href="">One more separated link</a></li>-->
                 </ul>
             </li>
             <li id="consultasNavBarMenu" ng-show="!medico">
@@ -45,6 +38,11 @@
             <li id="prescricoesNavBarMenu" ng-show="!recepcionista">
                 <a href="" ui-sref="prescricao.listagem">
                     Prescrições
+                </a>
+            </li>
+            <li id="solicitacoesExameNavBarMenu" ng-show="!recepcionista">
+                <a href="" ui-sref="solicitacaoExame.listagem">
+                    Solicitações de Exames
                 </a>
             </li>
         </ul>

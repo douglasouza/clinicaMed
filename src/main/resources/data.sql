@@ -51,3 +51,9 @@ INSERT INTO horario (ho_hora_consulta) VALUES ('13:00');
 INSERT INTO horario (ho_hora_consulta) VALUES ('14:00');
 INSERT INTO horario (ho_hora_consulta) VALUES ('15:00');
 INSERT INTO horario (ho_hora_consulta) VALUES ('16:00');
+
+-- Exames
+INSERT INTO exame (ex_nome) VALUES ('Eletrocardiograma (ECG)');
+INSERT INTO exame (ex_nome) VALUES ('Hemograma Completo com Contagem de Plaquetas');
+INSERT INTO exame (ex_nome) VALUES ('Prova de Função Pulmonar');
+INSERT INTO exame (ex_nome) VALUES ('Ultrasonografia');
