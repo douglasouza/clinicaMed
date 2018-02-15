@@ -1,6 +1,7 @@
 package br.com.clinicamed.api.modules.consulta;
 
 import br.com.clinicamed.api.common.exception.ConsultaJaRealizada;
+import br.com.clinicamed.api.common.exception.DataHoraConsultaInvalidaException;
 import br.com.clinicamed.api.common.utils.DateUtils;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
@@ -93,6 +94,9 @@ public class ConsultaBO {
         Paciente paciente = pacienteRepo.findOne(consultaDTO.getIdPaciente());
         Medico medico = medicoRepo.findOne(consultaDTO.getIdMedico());
         Horario horario = horarioRepo.findOne(consultaDTO.getIdHorarioConsulta());
+
+        if (DateUtils.getDataHoraConsulta(consultaDTO.getDataConsulta(), horario).before(new Date()))
+            throw new DataHoraConsultaInvalidaException();
 
         Consulta consulta = new Consulta();
         consulta.setId(consultaDTO.getId() != null ? consultaDTO.getId() : null);

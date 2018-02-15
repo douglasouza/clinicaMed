@@ -17,13 +17,17 @@ clinicaMed.directive('loading', function () {
             });
 
             scope.$on('RESPONSE_SUCCESS', function () {
-                requests--;
+                if (requests > 0)
+                    requests--;
+
                 if (requests === 0)
                     scope.showLoading = false;
             });
 
             scope.$on('RESPONSE_ERROR', function () {
-                requests--;
+                if (requests > 0)
+                    requests--;
+
                 if (requests === 0)
                     scope.showLoading = false;
             });
