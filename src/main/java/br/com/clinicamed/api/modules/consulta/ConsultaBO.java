@@ -114,4 +114,8 @@ public class ConsultaBO {
 
         repo.delete(idConsulta);
     }
+
+    public List<Horario> getHorariosDisponiveis(Long idMedico, Long idPaciente, Date data) {
+        return horarioRepo.getHorariosDisponiveisPorMedicoEPaciente(idMedico, idPaciente, data);
+    }
 }

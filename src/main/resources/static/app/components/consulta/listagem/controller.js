@@ -23,6 +23,8 @@ clinicaMed.controller('consultaListagemController',
                     var dataHoraConsulta = new Date(dataArray[0], dataArray[1] - 1, dataArray[2], consulta.horarioConsulta.horaConsulta.substr(0, 2));
                     if (Date.now() > dataHoraConsulta.getTime())
                         $rootScope.$broadcast('RESPONSE_ERROR', {data: {message: 'Não é possível editar a consulta pois a mesma já foi realizada.'}});
+                    else
+                        $state.go('consulta.edicao', {id: id});
                 }
             );
         };

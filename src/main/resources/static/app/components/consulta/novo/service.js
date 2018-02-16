@@ -26,13 +26,13 @@ clinicaMed.service('consultaNovoService',
                 medicoListagemService.fetchAll({especialidade: especialidade});
             };
 
-            this.getHorariosDisponiveisDoMedico = function (idMedico, data) {
-                var resource = $resource('/medico/:id/horariosDisponiveis/',
-                    {data: converterDataParaPadraoAnoMesDia(data)},
+            this.getHorariosDisponiveisDoMedico = function (idMedico, idPaciente, data) {
+                var resource = $resource('/consulta/horariosDisponiveis/',
+                    {idMedico: idMedico, idPaciente: idPaciente, data: converterDataParaPadraoAnoMesDia(data)},
                     {'get': {method: 'GET', isArray: true}}
                 );
 
-                resource.get({id: idMedico}).$promise.then(
+                resource.get().$promise.then(
                     function (data) {
                         $rootScope.$broadcast('HORARIOS_DISPONIVEIS_SUCCESS', data);
                     }

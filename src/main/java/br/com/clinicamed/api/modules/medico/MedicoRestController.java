@@ -48,11 +48,6 @@ public class MedicoRestController {
         bo.removerMedico(id);
     }
 
-    @RequestMapping(value = "/{id}/horariosDisponiveis", method = RequestMethod.GET, params = {"data"})
-    public List<Horario> getHorariosDisponiveis(@PathVariable Long id, Date data) {
-        return bo.getHorariosDisponiveis(id, data);
-    }
-
     @RequestMapping(value = "/{id}/pacientes", method = RequestMethod.GET)
     public List<Paciente> buscarPacientesAtendidosPorMedico(@PathVariable Long id) {
         return bo.buscarPacientesAtendidosPorMedico(id);

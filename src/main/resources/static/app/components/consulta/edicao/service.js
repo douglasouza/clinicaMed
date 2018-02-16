@@ -23,8 +23,8 @@ clinicaMed.service('consultaEdicaoService',
                 );
             };
 
-            this.getHorariosDisponiveisDoMedico = function (idMedico, data) {
-                consultaNovoService.getHorariosDisponiveisDoMedico(idMedico, data);
+            this.getHorariosDisponiveisDoMedico = function (idMedico, idPaciente, data) {
+                consultaNovoService.getHorariosDisponiveisDoMedico(idMedico, idPaciente, data);
             };
         }
     ]
