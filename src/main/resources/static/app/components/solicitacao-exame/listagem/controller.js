@@ -55,9 +55,9 @@ clinicaMed.controller('solicitacaoExameListagemController',
                     nome: 'Nome do Médico Solicitante'
                 },
                 {
-                    caminhoNoObjeto: 'entregue',
+                    caminhoNoObjeto: 'resultadoEntregue',
                     classeCol: 'col-md-2',
-                    nome: 'Entrege ao Paciente'
+                    nome: 'Resultado Entregue'
                 }
             ];
         }

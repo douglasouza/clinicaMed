@@ -41,4 +41,9 @@ public class SolicitacaoExameRestController {
     public void delete(@PathVariable Long id) {
         bo.removerSolicitacaoExame(id);
     }
+
+    @RequestMapping(value = "/{id}/uploadResultadoExame", method = RequestMethod.POST)
+    public SolicitacaoExame uploadResultadoExame(@RequestBody byte[] resultadoExame, @PathVariable Long id) {
+        return bo.atualizarResultadoExame(resultadoExame, id);
+    }
 }

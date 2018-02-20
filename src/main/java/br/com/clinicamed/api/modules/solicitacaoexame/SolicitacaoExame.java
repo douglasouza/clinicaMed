@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import java.util.List;
@@ -22,8 +23,8 @@ public class SolicitacaoExame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "pr_entregue")
-    private Boolean entregue;
+    @Column(name = "se_resultado")
+    private byte[] resultado;
 
     @JoinColumn(name = "pa_id")
     @OneToOne
@@ -33,8 +34,9 @@ public class SolicitacaoExame {
     @OneToOne
     private Medico medico;
 
-    @Transient
-    private transient List<Exame> exames;
+    @JoinColumn(name = "ex_id")
+    @OneToOne
+    private Exame exame;
 
     public Long getId() {
         return id;
@@ -44,12 +46,12 @@ public class SolicitacaoExame {
         this.id = id;
     }
 
-    public Boolean getEntregue() {
-        return entregue;
+    public byte[] getResultado() {
+        return resultado;
     }
 
-    public void setEntregue(Boolean entregue) {
-        this.entregue = entregue;
+    public void setResultado(byte[] resultado) {
+        this.resultado = resultado;
     }
 
     public Paciente getPaciente() {
@@ -68,11 +70,11 @@ public class SolicitacaoExame {
         this.medico = medico;
     }
 
-    public List<Exame> getExames() {
-        return exames;
+    public Exame getExame() {
+        return exame;
     }
 
-    public void setExames(List<Exame> exames) {
-        this.exames = exames;
+    public void setExame(Exame exame) {
+        this.exame = exame;
     }
 }

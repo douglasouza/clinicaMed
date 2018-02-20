@@ -1,6 +1,6 @@
 (function (angular) {
 
-    var clinicaMed = angular.module('clinicaMed', ['ngAnimate', 'ngResource', 'ui.router']);
+    var clinicaMed = angular.module('clinicaMed', ['ngAnimate', 'ngResource', 'ui.router', 'lr.upload']);
 
     clinicaMed.constant('jQuery', window.jQuery);
 

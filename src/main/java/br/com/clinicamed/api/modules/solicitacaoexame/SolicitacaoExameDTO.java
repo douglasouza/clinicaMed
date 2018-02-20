@@ -8,7 +8,7 @@ public class SolicitacaoExameDTO {
 
     private String nomeMedico;
 
-    private String entregue;
+    private String resultadoEntregue;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class SolicitacaoExameDTO {
         this.nomeMedico = nomeMedico;
     }
 
-    public String getEntregue() {
-        return entregue;
+    public String getResultadoEntregue() {
+        return resultadoEntregue;
     }
 
-    public void setEntregue(String entregue) {
-        this.entregue = entregue;
+    public void setResultadoEntregue(String resultadoEntregue) {
+        this.resultadoEntregue = resultadoEntregue;
     }
 }

@@ -35,17 +35,17 @@
     </div>
 
     <div class="col-md-4 form-group">
-        <label for="entregue">Entregue ao Paciente</label>
-        <select id="entregue" name="entregue" class="form-control" ng-model="prescricao.entregue"
+        <label for="resultadoEntregue">Entregue ao Paciente</label>
+        <select id="resultadoEntregue" name="resultadoEntregue" class="form-control" ng-model="prescricao.resultadoEntregue"
                 ng-options="option.value as option.label for option in [{label: 'Sim', value: true}, {label: 'Não', value: false}]"
                 ng-disabled="acaoFinalizada" required>
             <option value="">Selecione</option>
         </select>
-        <p ng-show="prescricaoForm.entregue.$touched && prescricaoForm.entregue.$error.required"
+        <p ng-show="prescricaoForm.resultadoEntregue.$touched && prescricaoForm.resultadoEntregue.$error.required"
            class="mensagem-erro">Entregue é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-12 form-group" ng-show="!acaoFinalizada || (prescricao.id && prescricao.entregue === 'true')">
+    <div class="col-md-12 form-group" ng-show="!acaoFinalizada || (prescricao.id && prescricao.resultadoEntregue === 'true')">
         <button class="btn btn-success" ng-disabled="prescricaoForm.$invalid">
             Salvar
         </button>
@@ -54,7 +54,7 @@
         </button>
     </div>
 
-    <div class="col-md-12 form-group" ng-show="acaoFinalizada || (prescricao.id && prescricao.entregue === 'true')">
+    <div class="col-md-12 form-group" ng-show="acaoFinalizada || (prescricao.id && prescricao.resultadoEntregue === 'true')">
         <button class="btn btn-primary" ui-sref="prescricao.listagem">
             Voltar
         </button>
