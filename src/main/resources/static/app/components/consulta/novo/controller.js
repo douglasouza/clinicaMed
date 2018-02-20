@@ -28,6 +28,15 @@ clinicaMed.controller('consultaNovoController',
                 $scope.horarios = data;
             });
 
+            $scope.$watch('consulta.idPaciente', function (novoValor) {
+                if (novoValor && $scope.consulta.dataConsulta) {
+                    consultaNovoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.idPaciente, novoValor);
+                } else {
+                    $scope.consulta.dataConsulta = '';
+                    $scope.consulta.idHorarioConsulta = '';
+                }
+            });
+
             $scope.$watch('especialidade', function (novoValor) {
                 if (novoValor)
                     consultaNovoService.getMedicosPorEspecialidade(novoValor);
@@ -37,7 +46,7 @@ clinicaMed.controller('consultaNovoController',
 
             $scope.$watch('consulta.idMedico', function (novoValor) {
                 if (novoValor && $scope.consulta.dataConsulta) {
-                    consultaNovoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, novoValor);
+                    consultaNovoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.idPaciente, novoValor);
                 } else {
                     $scope.consulta.dataConsulta = '';
                     $scope.consulta.idHorarioConsulta = '';
@@ -46,7 +55,7 @@ clinicaMed.controller('consultaNovoController',
 
             $scope.$watch('consulta.dataConsulta', function (novoValor) {
                 if (novoValor)
-                    consultaNovoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, novoValor);
+                    consultaNovoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.idPaciente, novoValor);
             });
 
             function operacaoSucesso() {

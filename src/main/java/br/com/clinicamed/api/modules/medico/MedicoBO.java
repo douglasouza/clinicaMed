@@ -127,10 +127,6 @@ public class MedicoBO {
         return usuarioComMesmoLogin != null && (usuarioComMesmoLogin.getId() != medico.getUsuario().getId());
     }
 
-    public List<Horario> getHorariosDisponiveis(Long id, Date data) {
-        return horarioRepo.getHorariosDisponiveisPorMedico(id, data);
-    }
-
     public List<Paciente> buscarPacientesAtendidosPorMedico(Long idMedico) {
         return pacienteRepo.buscarPacientesAtendidosPorMedico(idMedico, new Date());
     }

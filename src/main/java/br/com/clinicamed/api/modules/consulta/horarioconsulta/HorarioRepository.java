@@ -13,6 +13,6 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
     @Query("SELECT ho FROM Horario ho" +
             " WHERE ho.id NOT IN" +
             " (SELECT horarioConsulta.id FROM Consulta co" +
-            "  WHERE co.medico.id = ?1 AND co.dataConsulta = ?2)")
-    List<Horario> getHorariosDisponiveisPorMedico(Long id, Date date);
+            "  WHERE (co.medico.id = ?1 OR co.paciente.id = ?2) AND co.dataConsulta = ?3)")
+    List<Horario> getHorariosDisponiveisPorMedicoEPaciente(Long idMedico, Long idPaciente, Date date);
 }

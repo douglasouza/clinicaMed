@@ -19,7 +19,7 @@ clinicaMed.controller('consultaEdicaoController',
 
             $scope.$watch('consulta.dataConsulta', function (novoValor) {
                 if (novoValor)
-                    consultaEdicaoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, novoValor);
+                    consultaEdicaoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.idPaciente, novoValor);
             });
 
             function operacaoSucesso() {
@@ -51,7 +51,7 @@ clinicaMed.controller('consultaEdicaoController',
                             dataConsulta: $filter('date')(data.dataConsulta, 'dd/MM/yyyy'),
                             idHorarioConsulta: data.horarioConsulta.id
                         };
-                        consultaEdicaoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.dataConsulta);
+                        consultaEdicaoService.getHorariosDisponiveisDoMedico($scope.consulta.idMedico, $scope.consulta.idPaciente, $scope.consulta.dataConsulta);
                     }
                 );
             }

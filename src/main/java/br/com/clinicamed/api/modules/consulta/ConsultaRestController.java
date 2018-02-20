@@ -1,5 +1,6 @@
 package br.com.clinicamed.api.modules.consulta;
 
+import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/consulta")
@@ -42,5 +44,10 @@ public class ConsultaRestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
         bo.removerConsulta(id);
+    }
+
+    @RequestMapping(value = "/horariosDisponiveis", method = RequestMethod.GET, params = {"idMedico", "idPaciente", "data"})
+    public List<Horario> getHorariosDisponiveis(Long idMedico, Long idPaciente, Date data) {
+        return bo.getHorariosDisponiveis(idMedico, idPaciente, data);
     }
 }

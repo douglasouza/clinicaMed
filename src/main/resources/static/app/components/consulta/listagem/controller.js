@@ -1,7 +1,7 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.controller('consultaListagemController',
-    ['$scope', '$state', 'constants', 'datePickerUtils', 'consultaListagemService', function ($scope, $state, constants, datePickerUtils, consultaListagemService) {
+    ['$rootScope', '$scope', '$state', 'constants', 'datePickerUtils', 'consultaListagemService', 'consultaEdicaoService', function ($rootScope, $scope, $state, constants, datePickerUtils, consultaListagemService, consultaEdicaoService) {
 
         $scope.pesquisar = function () {
             if ($scope.filtro.nomeMedicoPaciente || $scope.filtro.dataInicial || $scope.filtro.dataFinal) {
@@ -17,7 +17,16 @@ clinicaMed.controller('consultaListagemController',
         };
 
         $scope.editarConsulta = function (id) {
-            $state.go('consulta.edicao', {id: id});
+            consultaEdicaoService.getConsulta(id).$promise.then(
+                function (consulta) {
+                    var dataArray = consulta.dataConsulta.split('-');
+                    var dataHoraConsulta = new Date(dataArray[0], dataArray[1] - 1, dataArray[2], consulta.horarioConsulta.horaConsulta.substr(0, 2));
+                    if (Date.now() > dataHoraConsulta.getTime())
+                        $rootScope.$broadcast('RESPONSE_ERROR', {data: {message: 'Não é possível editar a consulta pois a mesma já foi realizada.'}});
+                    else
+                        $state.go('consulta.edicao', {id: id});
+                }
+            );
         };
 
         $scope.excluirConsulta = function (id) {
