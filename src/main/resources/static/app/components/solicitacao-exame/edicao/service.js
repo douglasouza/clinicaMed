@@ -10,6 +10,18 @@ clinicaMed.service('solicitacaoExameEdicaoService', function ($rootScope, $resou
         });
     }
 
+    function uploadResource() {
+        return $resource('/solicitacaoExame/:id/uploadResultadoExame', {}, {
+            'upload': {method: 'PUT'}
+        });
+    }
+
+    function removerArquivoResource() {
+        return $resource('/solicitacaoExame/:id/removerResultadoExame', {}, {
+            'delete': {method: 'PUT'}
+        });
+    }
+
     function exameResource() {
         return $resource('/exame/', {}, {
             'get': {method: 'GET', isArray: true}
@@ -34,22 +46,34 @@ clinicaMed.service('solicitacaoExameEdicaoService', function ($rootScope, $resou
         return resource().get({id: id});
     };
 
-    this.getExamesSolicitacao = function (id) {
-        return examesSolicitacaoResource().get({id: id});
-    };
-
     this.saveSolicitacaoExame = function (solicitacaoExame) {
         return resource().save(solicitacaoExame).$promise.then(
-            function () {
-                $rootScope.$broadcast('SOLICITACAO_EXAME_SAVE_SUCCESS');
+            function (data) {
+                $rootScope.$broadcast('SOLICITACAO_EXAME_SAVE_SUCCESS', data);
             }
         );
     };
 
     this.updateSolicitacaoExame = function (id, solicitacaoExame) {
         return resource().update({id: id}, solicitacaoExame).$promise.then(
+            function (data) {
+                $rootScope.$broadcast('SOLICITACAO_EXAME_UPDATE_SUCCESS', data);
+            }
+        );
+    };
+
+    this.uploadArquivo = function (id, nomeArquivo, mimeType, arquivo) {
+        return uploadResource().upload({id: id, nomeArquivo: nomeArquivo, mimeType: mimeType}, arquivo).$promise.then(
             function () {
-                $rootScope.$broadcast('SOLICITACAO_EXAME_UPDATE_SUCCESS');
+                $rootScope.$broadcast('SOLICITACAO_EXAME_UPLOAD_SUCCESS');
+            }
+        );
+    };
+
+    this.removerArquivo = function (id) {
+        return removerArquivoResource().delete({id: id}, undefined).$promise.then(
+            function () {
+                $rootScope.$broadcast('SOLICITACAO_EXAME_REMOVE_UPLOAD_SUCCESS');
             }
         );
     };

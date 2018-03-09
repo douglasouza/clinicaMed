@@ -1,7 +1,6 @@
 package br.com.clinicamed.api.modules.medico;
 
 import br.com.clinicamed.api.common.enumeration.EspecialidadeMedica;
-import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import br.com.clinicamed.api.modules.paciente.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController

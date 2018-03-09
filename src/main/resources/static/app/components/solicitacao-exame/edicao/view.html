@@ -12,7 +12,7 @@
         <h3>Dados da Solicitação de Exames</h3>
     </div>
 
-    <div class="col-md-4 form-group">
+    <div class="col-md-6 form-group">
         <label for="paciente">Paciente</label> <span class="campo-obrigatorio">*</span>
         <select id="paciente" name="paciente" class="form-control" ng-model="solicitacaoExame.paciente"
                 ng-options="paciente as paciente.nome for paciente in pacientes track by paciente.id"
@@ -23,7 +23,7 @@
            class="mensagem-erro">Paciente é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-4 form-group">
+    <div class="col-md-6 form-group">
         <label for="medico">Médico</label> <span class="campo-obrigatorio">*</span>
         <select id="medico" name="medico" class="form-control" ng-model="solicitacaoExame.medico"
                 ng-options="medico as medico.nome for medico in medicos track by medico.id"
@@ -34,30 +34,25 @@
            class="mensagem-erro">Médico é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-4 form-group">
-        <label for="entregue">Entregue ao Paciente</label> <span class="campo-obrigatorio">*</span>
-        <select id="entregue" name="entregue" class="form-control" ng-model="solicitacaoExame.entregue"
-                ng-options="option.value as option.label for option in [{label: 'Sim', value: true}, {label: 'Não', value: false}]"
+    <div class="col-md-12 form-group">
+        <label for="exame">Exame</label> <span class="campo-obrigatorio">*</span>
+        <select id="exame" name="exame" class="form-control"
+                ng-model="solicitacaoExame.exame"
+                ng-options="exame as exame.nome for exame in exames track by exame.id"
                 ng-disabled="acaoFinalizada" required>
             <option value="">Selecione</option>
         </select>
-        <p ng-show="solicitacaoExameForm.entregue.$touched && solicitacaoExameForm.entregue.$error.required"
-           class="mensagem-erro">Entregue é um campo obrigatório</p>
+        <p ng-show="solicitacaoExameForm.exame.$touched && solicitacaoExameForm.exame.$error.required"
+           class="mensagem-erro">Exame é um campo obrigatório</p>
     </div>
 
-    <div class="col-md-12">
-        <h3>Exames Solicitados</h3>
-    </div>
-
-    <div ng-repeat="exame in exames" class="col-md-6 form-group">
-        <label>
-            <input id="exame{{exame.id}}" type="checkbox" name="{{exame.nome}}" value="{{exame}}"
-                   ng-click="selecionarExame(exame)" ng-disabled="acaoFinalizada"> {{exame.nome}}
-        </label>
+    <div ng-if="solicitacaoExame.id" class="col-md-12 form-group">
+        <label>Resultado do Exame: </label>
+        <arquivo-input solicitacao-exame="solicitacaoExame"></arquivo-input>
     </div>
 
     <div class="col-md-12 form-group"
-         ng-show="!acaoFinalizada || (solicitacaoExame.id && solicitacaoExame.entregue === 'true')">
+         ng-show="!acaoFinalizada || (solicitacaoExame.id && solicitacaoExame.resultadoEntregue === 'true')">
         <button class="btn btn-success" ng-disabled="solicitacaoExameForm.$invalid">
             Salvar
         </button>
@@ -67,7 +62,7 @@
     </div>
 
     <div class="col-md-12 form-group"
-         ng-show="acaoFinalizada || (solicitacaoExame.id && solicitacaoExame.entregue === 'true')">
+         ng-show="acaoFinalizada || (solicitacaoExame.id && solicitacaoExame.resultadoEntregue === 'true')">
         <button class="btn btn-primary" ui-sref="solicitacaoExame.listagem">
             Voltar
         </button>

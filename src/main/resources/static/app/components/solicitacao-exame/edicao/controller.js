@@ -25,12 +25,20 @@ clinicaMed.controller('solicitacaoExameEdicaoController',
                     $scope.solicitacaoExame.exames.splice(index, 1);
             };
 
-            $scope.$on('SOLICITACAO_EXAME_SAVE_SUCCESS', function () {
-                operacaoSucesso();
+            $scope.$on('SOLICITACAO_EXAME_SAVE_SUCCESS', function (event, data) {
+                $state.go('solicitacaoExame.edicao', {id: data.id});
             });
 
-            $scope.$on('SOLICITACAO_EXAME_UPDATE_SUCCESS', function () {
-                operacaoSucesso();
+            $scope.$on('SOLICITACAO_EXAME_UPDATE_SUCCESS', function (event, data) {
+                $state.go('solicitacaoExame.edicao', {id: data.id});
+            });
+
+            $scope.$on('SOLICITACAO_EXAME_UPLOAD_SUCCESS', function () {
+                $state.reload();
+            });
+
+            $scope.$on('SOLICITACAO_EXAME_REMOVE_UPLOAD_SUCCESS', function () {
+                $state.reload();
             });
 
             $scope.$on('PACIENTES_FETCHED_SUCCESS', function (e, data) {
@@ -53,23 +61,11 @@ clinicaMed.controller('solicitacaoExameEdicaoController',
                     solicitacaoExameEdicaoService.getSolicitacaoExame($stateParams.id).$promise.then(
                         function (data) {
                             $scope.solicitacaoExame = data;
-                            $scope.acaoFinalizada = $scope.solicitacaoExame.entregue;
+                            $scope.acaoFinalizada = true;
                             $rootScope.$broadcast('SOLICITACAO_EXAME_FETCHED');
                         }
                     );
                 }
-            });
-
-            $scope.$on('SOLICITACAO_EXAME_FETCHED', function () {
-                solicitacaoExameEdicaoService.getExamesSolicitacao($stateParams.id).$promise.then(
-                    function (data) {
-                        $scope.solicitacaoExame.exames = [];
-                        data.forEach(function (exame) {
-                            $scope.selecionarExame(exame);
-                            $('#exame' + exame.id).prop('checked', true);
-                        });
-                    }
-                );
             });
 
             function operacaoSucesso() {
@@ -81,9 +77,7 @@ clinicaMed.controller('solicitacaoExameEdicaoController',
                 $scope.acao = $state.current.name === 'solicitacaoExame.novo' ? 'NOVO' : 'EDICAO';
                 pacienteListagemService.fetchAll();
                 if ($scope.acao !== 'EDICAO') {
-                    $scope.solicitacaoExame = {
-                        exames: []
-                    };
+                    $scope.solicitacaoExame = {};
                 }
             }
 

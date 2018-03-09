@@ -1,0 +1,23 @@
+<div ng-if="solicitacaoExame.resultado == null" class="input-group">
+    <input class="form-control" type="file" id="file" name="file"/>
+    <span class="input-group-btn">
+        <button class="btn btn-success" type="button" ng-click="uploadArquivo()">
+            <i class="glyphicon glyphicon-upload"></i>
+        </button>
+    </span>
+</div>
+
+<div ng-if="solicitacaoExame.resultado != null" class="input-group">
+    <input class="form-control" type="text" disabled="true" value="{{solicitacaoExame.nomeArquivoResultado}}"/>
+    <span class="input-group-btn">
+        <button class="btn btn-danger" type="button" ng-click="removerArquivo()">
+            <i class="glyphicon glyphicon-remove"></i>
+        </button>
+    </span>
+    <span class="input-group-btn">
+        <a class="btn btn-success" role="button"
+           ng-href="/solicitacaoExame/{{solicitacaoExame.id}}/downloadResultadoExame" target="_blank">
+            <i class="glyphicon glyphicon-download"></i>
+        </a>
+    </span>
+</div>
