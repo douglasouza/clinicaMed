@@ -10,10 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import java.util.List;
 
 @Entity
 public class SolicitacaoExame {
@@ -23,7 +20,13 @@ public class SolicitacaoExame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "se_resultado")
+    @Column(name = "se_nome_arq_resultado")
+    private String nomeArquivoResultado;
+
+    @Column(name = "se_arquivo_mimetype")
+    private String arquivoMimeType;
+
+    @Column(name = "se_resultado", length = 20971520)
     private byte[] resultado;
 
     @JoinColumn(name = "pa_id")
@@ -44,6 +47,22 @@ public class SolicitacaoExame {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNomeArquivoResultado() {
+        return nomeArquivoResultado;
+    }
+
+    public void setNomeArquivoResultado(String nomeArquivoResultado) {
+        this.nomeArquivoResultado = nomeArquivoResultado;
+    }
+
+    public String getArquivoMimeType() {
+        return arquivoMimeType;
+    }
+
+    public void setArquivoMimeType(String arquivoMimeType) {
+        this.arquivoMimeType = arquivoMimeType;
     }
 
     public byte[] getResultado() {

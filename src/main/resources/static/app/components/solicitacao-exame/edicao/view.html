@@ -34,17 +34,6 @@
            class="mensagem-erro">Médico é um campo obrigatório</p>
     </div>
 
-    <!--<div class="col-md-4 form-group">-->
-    <!--<label for="resultadoEntregue">Entregue ao Paciente</label> <span class="campo-obrigatorio">*</span>-->
-    <!--<select id="resultadoEntregue" name="resultadoEntregue" class="form-control" ng-model="solicitacaoExame.resultadoEntregue"-->
-    <!--ng-options="option.value as option.label for option in [{label: 'Sim', value: true}, {label: 'Não', value: false}]"-->
-    <!--ng-disabled="acaoFinalizada" required>-->
-    <!--<option value="">Selecione</option>-->
-    <!--</select>-->
-    <!--<p ng-show="solicitacaoExameForm.resultadoEntregue.$touched && solicitacaoExameForm.resultadoEntregue.$error.required"-->
-    <!--class="mensagem-erro">Entregue é um campo obrigatório</p>-->
-    <!--</div>-->
-
     <div class="col-md-12 form-group">
         <label for="exame">Exame</label> <span class="campo-obrigatorio">*</span>
         <select id="exame" name="exame" class="form-control"
@@ -58,12 +47,9 @@
     </div>
 
     <div ng-if="solicitacaoExame.id" class="col-md-12 form-group">
-        <div class="btn btn-success btn-upload" upload-button
-             url="/solicitacaoExame/{{solicitacaoExame.id}}/uploadResultadoExame">
-            {{solicitacaoExame.resultado != null ? "Atualizar arquivo" : "Faça upload do arquivo contendo o resultado do exame"}}
-        </div>
+        <label>Resultado do Exame: </label>
+        <arquivo-input solicitacao-exame="solicitacaoExame"></arquivo-input>
     </div>
-
 
     <div class="col-md-12 form-group"
          ng-show="!acaoFinalizada || (solicitacaoExame.id && solicitacaoExame.resultadoEntregue === 'true')">

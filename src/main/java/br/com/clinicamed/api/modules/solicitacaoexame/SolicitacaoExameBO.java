@@ -19,14 +19,14 @@ public class SolicitacaoExameBO {
     public Object pesquisarSolicitacaoExame(String filtro) {
         Iterable<SolicitacaoExameDTO> prescricoes;
         if (StringUtils.isEmpty(filtro))
-            prescricoes = getExamesDTO(repo.findAll());
+            prescricoes = getSolicitacaoExameDTO(repo.findAll());
         else
-            prescricoes = getExamesDTO(repo.findAll(getBooleanExpression(filtro)));
+            prescricoes = getSolicitacaoExameDTO(repo.findAll(getBooleanExpression(filtro)));
 
         return prescricoes;
     }
 
-    private List<SolicitacaoExameDTO> getExamesDTO(Iterable<SolicitacaoExame> solicitacoesExame) {
+    private List<SolicitacaoExameDTO> getSolicitacaoExameDTO(Iterable<SolicitacaoExame> solicitacoesExame) {
         List<SolicitacaoExameDTO> solicitacoesExameDTOs = new ArrayList<>();
         for (SolicitacaoExame solicitacaoExame : solicitacoesExame) {
             SolicitacaoExameDTO solicitacaoExameDTO = new SolicitacaoExameDTO();
@@ -64,9 +64,21 @@ public class SolicitacaoExameBO {
     }
 
     @Transactional
-    public SolicitacaoExame atualizarResultadoExame(byte[] resultadoExame, Long id) {
+    public SolicitacaoExame atualizarResultadoExame(byte[] resultadoExame, String nomeArquivo, String mimeType, Long id) {
         SolicitacaoExame solicitacaoExameAntesEdicao = repo.findOne(id);
+        solicitacaoExameAntesEdicao.setNomeArquivoResultado(nomeArquivo);
+        solicitacaoExameAntesEdicao.setArquivoMimeType(mimeType);
         solicitacaoExameAntesEdicao.setResultado(resultadoExame);
+        SolicitacaoExame solicitacaoExameAtualizada = repo.saveAndFlush(solicitacaoExameAntesEdicao);
+        return solicitacaoExameAtualizada;
+    }
+
+    @Transactional
+    public SolicitacaoExame removerResultadoExame(Long id) {
+        SolicitacaoExame solicitacaoExameAntesEdicao = repo.findOne(id);
+        solicitacaoExameAntesEdicao.setNomeArquivoResultado(null);
+        solicitacaoExameAntesEdicao.setArquivoMimeType(null);
+        solicitacaoExameAntesEdicao.setResultado(null);
         SolicitacaoExame solicitacaoExameAtualizada = repo.saveAndFlush(solicitacaoExameAntesEdicao);
         return solicitacaoExameAtualizada;
     }

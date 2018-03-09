@@ -5,7 +5,6 @@ import br.com.clinicamed.api.common.exception.CrmInvalidoException;
 import br.com.clinicamed.api.common.exception.CrmNaoUnicoException;
 import br.com.clinicamed.api.common.exception.LoginNaoUnicoException;
 import br.com.clinicamed.api.common.utils.CrmUtils;
-import br.com.clinicamed.api.modules.consulta.horarioconsulta.Horario;
 import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
 import br.com.clinicamed.api.modules.paciente.Paciente;
 import br.com.clinicamed.api.modules.paciente.PacienteRepository;
