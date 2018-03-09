@@ -1,5 +1,7 @@
 package br.com.clinicamed.api.modules.solicitacaoexame;
 
+import br.com.clinicamed.api.common.exception.FormatoArquivoInvalido;
+import br.com.clinicamed.api.common.exception.TamanhoArquivoExcedido;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,13 @@ public class SolicitacaoExameRestController {
                                                  @PathVariable Long id,
                                                  @RequestParam("nomeArquivo") String nomeArquivo,
                                                  @RequestParam("mimeType") String mimeType) {
-        return bo.atualizarResultadoExame(resultadoExame, nomeArquivo, mimeType, id);
+        if (!"application/pdf".equals(mimeType))
+            throw new FormatoArquivoInvalido();
+
+        if (resultadoExame.length > 20971520)
+            throw new TamanhoArquivoExcedido();
+
+        return bo.uploadResultadoExame(resultadoExame, nomeArquivo, mimeType, id);
     }
 
     @RequestMapping(value = "/{id}/removerResultadoExame", method = RequestMethod.PUT)

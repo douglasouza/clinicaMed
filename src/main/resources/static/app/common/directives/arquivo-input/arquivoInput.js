@@ -1,7 +1,7 @@
 var clinicaMed = angular.module('clinicaMed');
 
 clinicaMed.directive('arquivoInput',
-    ['solicitacaoExameEdicaoService', function (solicitacaoExameEdicaoService) {
+    ['$rootScope', 'jQuery', 'solicitacaoExameEdicaoService', function ($rootScope, $, solicitacaoExameEdicaoService) {
         return {
             scope: {
                 solicitacaoExame: '='
@@ -10,6 +10,14 @@ clinicaMed.directive('arquivoInput',
             link: function (scope) {
                 scope.uploadArquivo = function () {
                     var file = $('#file')[0].files[0];
+                    if (file.type !== 'application/pdf') {
+                        $rootScope.$broadcast('RESPONSE_ERROR', {data: {message: 'O único formato de arquivos aceito para upload é o formato PDF.'}});
+                        return;
+                    } else if (file.size > 20971520) {
+                        $rootScope.$broadcast('RESPONSE_ERROR', {data: {message: 'O tamanho do arquivo excedeu o limite permitido pelo sistema.'}});
+                        return;
+                    }
+
                     scope.fileData = new Blob([file]);
                     var promise = new Promise(getBuffer);
                     promise.then(function (data) {

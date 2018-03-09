@@ -64,7 +64,7 @@ public class SolicitacaoExameBO {
     }
 
     @Transactional
-    public SolicitacaoExame atualizarResultadoExame(byte[] resultadoExame, String nomeArquivo, String mimeType, Long id) {
+    public SolicitacaoExame uploadResultadoExame(byte[] resultadoExame, String nomeArquivo, String mimeType, Long id) {
         SolicitacaoExame solicitacaoExameAntesEdicao = repo.findOne(id);
         solicitacaoExameAntesEdicao.setNomeArquivoResultado(nomeArquivo);
         solicitacaoExameAntesEdicao.setArquivoMimeType(mimeType);
