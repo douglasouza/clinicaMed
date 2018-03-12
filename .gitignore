@@ -2,6 +2,4 @@
 .idea/
 target
 target/
-src/main/resources/static/libs
-src/main/resources/static/libs/
 *.iml
