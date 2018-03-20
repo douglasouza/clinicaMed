@@ -39,6 +39,6 @@ public class MedicamentoRestController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        repo.delete(id);
+        bo.removerMedicamento(id);
     }
 }

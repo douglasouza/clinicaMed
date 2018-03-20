@@ -4,16 +4,22 @@ import br.com.clinicamed.api.common.enumeration.EspecialidadeMedica;
 import br.com.clinicamed.api.common.exception.CrmInvalidoException;
 import br.com.clinicamed.api.common.exception.CrmNaoUnicoException;
 import br.com.clinicamed.api.common.exception.LoginNaoUnicoException;
+import br.com.clinicamed.api.common.exception.MedicoPossuiConsultaMarcadaOuRealizada;
+import br.com.clinicamed.api.common.exception.MedicoPossuiSolicitacaoExameCadastrada;
 import br.com.clinicamed.api.common.utils.CrmUtils;
-import br.com.clinicamed.api.modules.consulta.horarioconsulta.HorarioRepository;
+import br.com.clinicamed.api.modules.consulta.Consulta;
+import br.com.clinicamed.api.modules.consulta.ConsultaRepository;
 import br.com.clinicamed.api.modules.paciente.Paciente;
 import br.com.clinicamed.api.modules.paciente.PacienteRepository;
+import br.com.clinicamed.api.modules.solicitacaoexame.SolicitacaoExame;
+import br.com.clinicamed.api.modules.solicitacaoexame.SolicitacaoExameRepository;
 import br.com.clinicamed.security.usuario.Usuario;
 import br.com.clinicamed.security.usuario.UsuarioBO;
 import br.com.clinicamed.security.usuario.UsuarioRepository;
 import com.mysema.query.types.expr.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -33,10 +39,13 @@ public class MedicoBO {
     private UsuarioRepository usuarioRepo;
 
     @Autowired
-    private HorarioRepository horarioRepo;
+    private UsuarioBO usuarioBO;
 
     @Autowired
-    private UsuarioBO usuarioBO;
+    private ConsultaRepository consultaRepo;
+
+    @Autowired
+    private SolicitacaoExameRepository solicitacaoExameRepo;
 
     @Autowired
     private CrmUtils crmUtils;
@@ -116,6 +125,14 @@ public class MedicoBO {
     }
 
     public void removerMedico(Long idMedico) {
+        List<Consulta> consultasMedico = consultaRepo.buscarConsultasPorMedico(idMedico);
+        if (!CollectionUtils.isEmpty(consultasMedico))
+            throw new MedicoPossuiConsultaMarcadaOuRealizada();
+
+        List<SolicitacaoExame> solicitacoesExamePaciente = solicitacaoExameRepo.buscarSolicitacoesExamePorPaciente(idMedico);
+        if (!CollectionUtils.isEmpty(solicitacoesExamePaciente))
+            throw new MedicoPossuiSolicitacaoExameCadastrada();
+
         Medico medico = repo.findOne(idMedico);
         repo.delete(medico.getId());
         usuarioRepo.delete(medico.getUsuario().getId());
