@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -48,6 +49,7 @@ public class SolicitacaoExameBO {
     @Transactional
     public SolicitacaoExame inserirSolicitacaoExame(SolicitacaoExame solicitacaoexame) {
         solicitacaoexame.setId(null);
+        solicitacaoexame.setDataHoraCadastro(new Date());
         SolicitacaoExame solicitacaoExameSalva = repo.saveAndFlush(solicitacaoexame);
         return solicitacaoExameSalva;
     }
@@ -69,6 +71,7 @@ public class SolicitacaoExameBO {
         solicitacaoExameAntesEdicao.setNomeArquivoResultado(nomeArquivo);
         solicitacaoExameAntesEdicao.setArquivoMimeType(mimeType);
         solicitacaoExameAntesEdicao.setResultado(resultadoExame);
+        solicitacaoExameAntesEdicao.setDataHoraEntregue(new Date());
         SolicitacaoExame solicitacaoExameAtualizada = repo.saveAndFlush(solicitacaoExameAntesEdicao);
         return solicitacaoExameAtualizada;
     }

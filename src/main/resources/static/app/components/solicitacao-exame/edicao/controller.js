@@ -26,11 +26,11 @@ clinicaMed.controller('solicitacaoExameEdicaoController',
             };
 
             $scope.$on('SOLICITACAO_EXAME_SAVE_SUCCESS', function (event, data) {
-                $state.go('solicitacaoExame.edicao', {id: data.id});
+                $state.go('solicitacaoExame.edicao', {id: data.id, msgSucesso: true});
             });
 
             $scope.$on('SOLICITACAO_EXAME_UPDATE_SUCCESS', function (event, data) {
-                $state.go('solicitacaoExame.edicao', {id: data.id});
+                $state.go('solicitacaoExame.edicao', {id: data.id, msgSucesso: true});
             });
 
             $scope.$on('SOLICITACAO_EXAME_UPLOAD_SUCCESS', function () {
@@ -74,6 +74,9 @@ clinicaMed.controller('solicitacaoExameEdicaoController',
             }
 
             function inicializar() {
+                if ($stateParams.msgSucesso === true)
+                    operacaoSucesso();
+
                 $scope.acao = $state.current.name === 'solicitacaoExame.novo' ? 'NOVO' : 'EDICAO';
                 pacienteListagemService.fetchAll();
                 if ($scope.acao !== 'EDICAO') {

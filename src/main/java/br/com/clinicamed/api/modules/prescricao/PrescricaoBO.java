@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -46,6 +47,10 @@ public class PrescricaoBO {
 
     public Prescricao inserirPrescricao(Prescricao prescricao) {
         prescricao.setId(null);
+
+        if (prescricao.getEntregue())
+            prescricao.setDataHoraEntregue(new Date());
+
         return repo.saveAndFlush(prescricao);
     }
 
@@ -53,6 +58,9 @@ public class PrescricaoBO {
         Prescricao prescricaoAntesEdicao = repo.findOne(id);
         if (prescricaoAntesEdicao.getEntregue())
             throw new PrescricaoEntregueException();
+
+        if (updatedPrescricao.getEntregue())
+            updatedPrescricao.setDataHoraEntregue(new Date());
 
         updatedPrescricao.setId(id);
         return repo.saveAndFlush(updatedPrescricao);

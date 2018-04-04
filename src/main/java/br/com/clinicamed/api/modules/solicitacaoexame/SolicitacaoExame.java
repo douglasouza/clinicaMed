@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Entity
 public class SolicitacaoExame {
@@ -40,6 +43,14 @@ public class SolicitacaoExame {
     @JoinColumn(name = "ex_id")
     @OneToOne
     private Exame exame;
+
+    @Column(name = "se_dt_hr_cadastro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraCadastro;
+
+    @Column(name = "se_dt_hr_entregue")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraEntregue;
 
     public Long getId() {
         return id;
@@ -95,5 +106,21 @@ public class SolicitacaoExame {
 
     public void setExame(Exame exame) {
         this.exame = exame;
+    }
+
+    public Date getDataHoraCadastro() {
+        return dataHoraCadastro;
+    }
+
+    public void setDataHoraCadastro(Date dataHoraCadastro) {
+        this.dataHoraCadastro = dataHoraCadastro;
+    }
+
+    public Date getDataHoraEntregue() {
+        return dataHoraEntregue;
+    }
+
+    public void setDataHoraEntregue(Date dataHoraEntregue) {
+        this.dataHoraEntregue = dataHoraEntregue;
     }
 }

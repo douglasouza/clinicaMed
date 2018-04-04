@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Entity
 public class Prescricao {
@@ -29,6 +32,10 @@ public class Prescricao {
     @JoinColumn(name = "me_id")
     @OneToOne
     private Medicamento medicamento;
+
+    @Column(name = "pr_dt_hr_entregue")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraEntregue;
 
     public Long getId() {
         return id;
@@ -60,5 +67,13 @@ public class Prescricao {
 
     public void setMedicamento(Medicamento medicamento) {
         this.medicamento = medicamento;
+    }
+
+    public Date getDataHoraEntregue() {
+        return dataHoraEntregue;
+    }
+
+    public void setDataHoraEntregue(Date dataHoraEntregue) {
+        this.dataHoraEntregue = dataHoraEntregue;
     }
 }

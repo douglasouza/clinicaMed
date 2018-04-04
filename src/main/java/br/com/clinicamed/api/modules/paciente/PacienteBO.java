@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -52,6 +53,7 @@ public class PacienteBO {
     public Paciente inserirPaciente(Paciente paciente) {
         validarCPF(paciente);
         paciente.setId(null);
+        paciente.setDataHoraCadastro(new Date());
         return repo.saveAndFlush(paciente);
     }
 

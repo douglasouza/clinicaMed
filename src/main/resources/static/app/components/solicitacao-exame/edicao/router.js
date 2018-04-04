@@ -19,6 +19,9 @@ clinicaMed.config(function ($stateProvider) {
             acesso: {
                 loginRequerido: true,
                 usuariosAutorizados: ['ADMINISTRADOR', 'MEDICO']
+            },
+            params: {
+                msgSucesso: null
             }
         });
 
