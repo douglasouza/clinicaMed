@@ -11,7 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Medico {
@@ -32,7 +32,7 @@ public class Medico {
     private EspecialidadeMedica especialidade;
 
     @JoinColumn(name = "us_id")
-    @OneToOne
+    @ManyToOne
     private Usuario usuario;
 
     public Long getId() {

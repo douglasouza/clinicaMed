@@ -9,6 +9,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Entity
 public class Paciente {
@@ -27,6 +30,10 @@ public class Paciente {
     @Column(name = "pa_sexo")
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
+
+    @Column(name = "pa_dt_hr_cadastro")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraCadastro;
 
     public Long getId() {
         return id;
@@ -58,5 +65,13 @@ public class Paciente {
 
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    public Date getDataHoraCadastro() {
+        return dataHoraCadastro;
+    }
+
+    public void setDataHoraCadastro(Date dataHoraCadastro) {
+        this.dataHoraCadastro = dataHoraCadastro;
     }
 }

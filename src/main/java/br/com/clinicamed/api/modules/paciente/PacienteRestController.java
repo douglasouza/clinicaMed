@@ -7,12 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/paciente")
 public class PacienteRestController {
 
     @Autowired
     private PacienteRepository repo;
+
+    @Autowired
+    private HistoricoPacienteRepository historicoRepo;
 
     @Autowired
     private PacienteBO bo;
@@ -27,6 +32,11 @@ public class PacienteRestController {
         return repo.findOne(id);
     }
 
+    @RequestMapping(value = "/{id}/historico", method = RequestMethod.GET)
+    public List<HistoricoPaciente> getHistorico(@PathVariable Long id) {
+        return historicoRepo.buscarHistoricoPaciente(id);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public Paciente insert(@RequestBody Paciente paciente) throws Exception {
         return bo.inserirPaciente(paciente);
@@ -39,6 +49,6 @@ public class PacienteRestController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        repo.delete(id);
+        bo.removerPaciente(id);
     }
 }
