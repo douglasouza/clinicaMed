@@ -31,12 +31,13 @@ public class DateUtils {
     }
 
     public static Date getDataHoraConsulta(Date dataConsulta, Horario horaConsulta) {
-        Calendar dataHoraConsulta = new GregorianCalendar();
-        dataHoraConsulta.setTime(dataConsulta);
-        dataHoraConsulta.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaConsulta.getHoraConsulta().substring(0, horaConsulta.getHoraConsulta().indexOf(":"))));
-        dataHoraConsulta.set(Calendar.MINUTE, 0);
-        dataHoraConsulta.set(Calendar.SECOND, 0);
-        dataHoraConsulta.set(Calendar.MILLISECOND, 0);
-        return dataHoraConsulta.getTime();
+//        Calendar dataHoraConsulta = new GregorianCalendar();
+//        dataHoraConsulta.add(Calendar.LONG, (int) horaConsulta.getHoraConsulta().getTime());
+//        dataHoraConsulta.setTime(dataConsulta);
+//        dataHoraConsulta.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaConsulta.getHoraConsulta().substring(0, horaConsulta.getHoraConsulta().indexOf(":"))));
+//        dataHoraConsulta.set(Calendar.MINUTE, 0);
+//        dataHoraConsulta.set(Calendar.SECOND, 0);
+//        dataHoraConsulta.set(Calendar.MILLISECOND, 0);
+        return new Date(dataConsulta.getTime() + horaConsulta.getHoraConsulta().getTime());
     }
 }

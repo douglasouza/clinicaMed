@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -26,11 +26,11 @@ public class Prescricao {
     private Boolean entregue;
 
     @JoinColumn(name = "pa_id")
-    @OneToOne
+    @ManyToOne
     private Paciente paciente;
 
     @JoinColumn(name = "me_id")
-    @OneToOne
+    @ManyToOne
     private Medicamento medicamento;
 
     @Column(name = "pr_dt_hr_entregue")

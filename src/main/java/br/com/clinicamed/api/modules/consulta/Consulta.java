@@ -10,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -28,16 +29,20 @@ public class Consulta {
     private Date dataConsulta;
 
     @JoinColumn(name = "ho_id")
-    @OneToOne
+    @ManyToOne
     private Horario horarioConsulta;
 
     @JoinColumn(name = "md_id")
-    @OneToOne
+    @ManyToOne
     private Medico medico;
 
     @JoinColumn(name = "pa_id")
-    @OneToOne
+    @ManyToOne
     private Paciente paciente;
+
+    @Column(name = "co_dt_hr_marcacao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraMarcacao;
 
     public Long getId() {
         return id;
@@ -77,5 +82,13 @@ public class Consulta {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public Date getDataHoraMarcacao() {
+        return dataHoraMarcacao;
+    }
+
+    public void setDataHoraMarcacao(Date dataHoraMarcacao) {
+        this.dataHoraMarcacao = dataHoraMarcacao;
     }
 }

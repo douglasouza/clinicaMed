@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Entity
 public class Horario {
@@ -15,7 +18,8 @@ public class Horario {
     private Long id;
 
     @Column(name = "ho_hora_consulta")
-    private String horaConsulta;
+    @Temporal(TemporalType.TIME)
+    private Date horaConsulta;
 
     public Long getId() {
         return id;
@@ -25,11 +29,11 @@ public class Horario {
         this.id = id;
     }
 
-    public String getHoraConsulta() {
+    public Date getHoraConsulta() {
         return horaConsulta;
     }
 
-    public void setHoraConsulta(String horaConsulta) {
+    public void setHoraConsulta(Date horaConsulta) {
         this.horaConsulta = horaConsulta;
     }
 }

@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -33,15 +33,15 @@ public class SolicitacaoExame {
     private byte[] resultado;
 
     @JoinColumn(name = "pa_id")
-    @OneToOne
+    @ManyToOne
     private Paciente paciente;
 
     @JoinColumn(name = "md_id")
-    @OneToOne
+    @ManyToOne
     private Medico medico;
 
     @JoinColumn(name = "ex_id")
-    @OneToOne
+    @ManyToOne
     private Exame exame;
 
     @Column(name = "se_dt_hr_cadastro")

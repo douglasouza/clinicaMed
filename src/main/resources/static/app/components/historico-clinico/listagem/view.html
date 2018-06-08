@@ -1,0 +1,40 @@
+<barra-navegacao></barra-navegacao>
+
+<h1>Histórico Cliníco de Pacientes</h1>
+<hr>
+
+<mensagem-erro></mensagem-erro>
+
+<div class="row">
+    <div class="col-md-12 form-group">
+        <label for="nomePaciente">Paciente</label>
+        <select id="nomePaciente" name="nomePaciente" class="form-control" ng-model="idPaciente">
+            <option value="">Selecione um Paciente</option>
+            <option ng-repeat="paciente in pacientes track by paciente.id" value="{{paciente.id}}">
+                {{paciente.nome}}
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-12" ng-hide="!historicoPaciente">
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Tipo Histórico</th>
+                    <th>Descrição</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="dadosHistorico in historicoPaciente track by dadosHistorico.id">
+                    <td>{{dadosHistorico.dataHora}}</td>
+                    <td>{{dadosHistorico.tipo}}</td>
+                    <td>{{dadosHistorico.descricao}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

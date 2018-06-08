@@ -83,7 +83,9 @@ public class ConsultaBO {
     }
 
     public Consulta inserirConsulta(ConsultaDTO consultaDTO) {
-        return repo.saveAndFlush(getConsulta(consultaDTO));
+        Consulta consulta = getConsulta(consultaDTO);
+        consulta.setDataHoraMarcacao(new Date());
+        return repo.saveAndFlush(consulta);
     }
 
     public Consulta atualizarConsulta(ConsultaDTO updatedConsultaDTO, Long id) {
