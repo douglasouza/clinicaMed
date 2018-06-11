@@ -48,7 +48,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/usuario/**").permitAll()
                 .antMatchers("/console/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/consulta/**").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA")
-                .antMatchers("/medico").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA")
+                .antMatchers("/medico").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO")
                 .antMatchers("/medico/**").hasAnyAuthority("ADMINISTRADOR")
                 .antMatchers("/paciente").hasAnyAuthority("ADMINISTRADOR", "MEDICO", "RECEPCIONISTA")
                 .antMatchers("/paciente/**").hasAnyAuthority("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO")
