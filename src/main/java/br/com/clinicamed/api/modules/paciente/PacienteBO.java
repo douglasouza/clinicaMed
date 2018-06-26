@@ -72,7 +72,7 @@ public class PacienteBO {
     }
 
     public void removerPaciente(Long idPaciente) {
-        List<Consulta> consultasPaciente = consultaRepo.buscarConsultasPorMedico(idPaciente);
+        List<Consulta> consultasPaciente = consultaRepo.buscarConsultasPorPaciente(idPaciente);
         if (!CollectionUtils.isEmpty(consultasPaciente))
             throw new PacientePossuiConsultaMarcadaOuRealizada();
 
